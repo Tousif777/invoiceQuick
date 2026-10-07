@@ -114,58 +114,64 @@
       </a>
 
       <div class="header-controls">
-        <span id="saveIndicator" class="save-indicator">✓ Auto-saved</span>
+        <span id="saveIndicator" class="save-indicator">✓ Saved</span>
 
-        <!-- Document Type Selector -->
-        <select id="docTypeSelector" class="select-currency" aria-label="Select Document Type" title="Document Type">
-          <option value="INVOICE">📄 Invoice</option>
-          <option value="TAX INVOICE">🧾 Tax Invoice</option>
-          <option value="PROFORMA INVOICE">📋 Proforma Invoice</option>
-          <option value="QUOTE / ESTIMATE">💡 Quote / Estimate</option>
-          <option value="RECEIPT / BILL">🧾 Receipt / Bill</option>
-        </select>
-        
-        <!-- Template / Layout Selector -->
-        <select id="layoutSelector" class="select-currency" aria-label="Select Invoice Layout Template" title="Change Invoice Template Layout">
-          <option value="modern">📄 Modern Minimal</option>
-          <option value="classic">🏛️ Classic Corporate</option>
-          <option value="creative">🎨 Creative Studio</option>
-          <option value="compact">⚡ Compact One-Page</option>
-        </select>
+        <!-- Document Config Group -->
+        <div class="toolbar-group">
+          <select id="docTypeSelector" class="select-currency" aria-label="Select Document Type" title="Document Type">
+            <option value="INVOICE">Invoice</option>
+            <option value="TAX INVOICE">Tax Invoice</option>
+            <option value="PROFORMA INVOICE">Proforma</option>
+            <option value="QUOTE / ESTIMATE">Quote / Estimate</option>
+            <option value="RECEIPT / BILL">Receipt</option>
+          </select>
+          
+          <select id="layoutSelector" class="select-currency" aria-label="Select Layout Template" title="Change Layout Template">
+            <option value="modern">Modern Minimal</option>
+            <option value="classic">Classic Corporate</option>
+            <option value="creative">Creative Studio</option>
+            <option value="compact">Compact One-Page</option>
+          </select>
 
-        <!-- Brand Accent Color Picker -->
-        <div class="color-picker-wrap" title="Change Accent Color">
-          <button type="button" class="color-swatch-btn active" data-color="#4f46e5" style="background: #4f46e5;" title="Indigo Tech"></button>
-          <button type="button" class="color-swatch-btn" data-color="#0f172a" style="background: #0f172a;" title="Slate Navy"></button>
-          <button type="button" class="color-swatch-btn" data-color="#059669" style="background: #059669;" title="Emerald Green"></button>
-          <button type="button" class="color-swatch-btn" data-color="#2563eb" style="background: #2563eb;" title="Royal Blue"></button>
-          <button type="button" class="color-swatch-btn" data-color="#be123c" style="background: #be123c;" title="Ruby Red"></button>
-          <label class="color-custom-label" title="Custom Color">
-            <input type="color" id="customColorInput" value="#4f46e5" style="opacity: 0; width: 0; height: 0; position: absolute;">
-            <span class="custom-color-icon">🎨</span>
-          </label>
+          <select id="currencySelector" class="select-currency select-currency-compact" aria-label="Select Currency" title="Change Currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD (CA$)</option>
+            <option value="AUD">AUD (A$)</option>
+            <option value="INR">INR (₹)</option>
+          </select>
         </div>
 
-        <select id="currencySelector" class="select-currency" aria-label="Select Currency" title="Change Currency">
-          <option value="USD">USD ($)</option>
-          <option value="EUR">EUR (€)</option>
-          <option value="GBP">GBP (£)</option>
-          <option value="CAD">CAD (CA$)</option>
-          <option value="AUD">AUD (A$)</option>
-          <option value="INR">INR (₹)</option>
-        </select>
+        <!-- Color Swatch Group -->
+        <div class="toolbar-group">
+          <div class="color-picker-wrap" title="Accent Color">
+            <button type="button" class="color-swatch-btn active" data-color="#4f46e5" style="background: #4f46e5;" title="Indigo Tech"></button>
+            <button type="button" class="color-swatch-btn" data-color="#0f172a" style="background: #0f172a;" title="Slate Navy"></button>
+            <button type="button" class="color-swatch-btn" data-color="#059669" style="background: #059669;" title="Emerald Green"></button>
+            <button type="button" class="color-swatch-btn" data-color="#2563eb" style="background: #2563eb;" title="Royal Blue"></button>
+            <button type="button" class="color-swatch-btn" data-color="#be123c" style="background: #be123c;" title="Ruby Red"></button>
+            <label class="color-custom-label" title="Custom Color">
+              <input type="color" id="customColorInput" value="#4f46e5" style="opacity: 0; width: 0; height: 0; position: absolute;">
+              <span class="custom-color-icon">🎨</span>
+            </label>
+          </div>
+        </div>
 
-        <button id="btnSampleInvoice" class="btn-secondary" title="Load demo data">
-          ✨ Sample
-        </button>
+        <!-- Actions Group -->
+        <div class="toolbar-group">
+          <button id="btnSampleInvoice" class="btn-secondary" title="Load sample invoice">
+            Sample
+          </button>
 
-        <button id="btnClearInvoice" class="btn-secondary" title="Clear current invoice">
-          🔄 Clear
-        </button>
+          <button id="btnClearInvoice" class="btn-secondary" title="Clear invoice">
+            Clear
+          </button>
 
-        <button id="btnPrintInvoice" class="btn-primary" title="Print or save as PDF">
-          🖨️ Print / Save as PDF
-        </button>
+          <button id="btnPrintInvoice" class="btn-primary" title="Print or save as PDF">
+            🖨️ Print / PDF
+          </button>
+        </div>
       </div>
 
     </div>
