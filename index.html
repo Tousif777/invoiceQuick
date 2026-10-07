@@ -177,12 +177,10 @@
     </div>
   </header>
 
-  <!-- Top Leaderboard Ad Slot (Zero CLS: 728x90) -->
-  <div class="container print-hide">
+  <!-- Top Leaderboard Ad Slot (Zero CLS: 728x90) - Hidden until approved -->
+  <div class="container print-hide" style="display: none;">
     <div class="ad-slot-leaderboard" id="adSlotLeaderboard">
       <span class="ad-label">Advertisement</span>
-      <!-- Google AdSense 728x90 Banner -->
-      <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
       <div class="ad-placeholder-text">728 × 90 Leaderboard Ad Placement</div>
     </div>
   </div>
@@ -397,12 +395,10 @@ Routing: 987654321</textarea>
 
   </main>
 
-  <!-- Mid-Content Ad Banner (Zero CLS: 728x250) -->
-  <div class="container print-hide">
+  <!-- Mid-Content Ad Banner (Hidden until approved) -->
+  <div class="container print-hide" style="display: none;">
     <div class="ad-slot-incontent" id="adSlotInContent">
       <span class="ad-label">Advertisement</span>
-      <!-- Google AdSense 728x250 Mid-Page Tag -->
-      <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
       <div class="ad-placeholder-text">728 × 250 Mid-Page Ad Placement</div>
     </div>
   </div>
@@ -534,6 +530,19 @@ Routing: 987654321</textarea>
       <p>© 2026 InvoiceQuick.io • 100% Client-Side Invoicing • Safe, Private & Free</p>
     </div>
   </footer>
+
+  <!-- Custom Confirmation Modal Dialog -->
+  <div id="confirmModal" class="modal-backdrop print-hide" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-icon-wrap">⚠️</div>
+      <h3 class="modal-title">Clear Current Invoice?</h3>
+      <p class="modal-desc">This will reset all line items, customer addresses, notes, and totals back to a blank invoice. This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button type="button" id="btnCancelClear" class="btn-modal-cancel">Cancel</button>
+        <button type="button" id="btnConfirmClear" class="btn-modal-confirm">Yes, Clear Invoice</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Core Script -->
   <script src="js/invoice.js"></script>

@@ -423,27 +423,49 @@
     saveToStorage();
   }
 
-  function clearInvoice() {
-    if (confirm('Are you sure you want to clear this invoice?')) {
-      state = {
-        currency: 'USD',
-        invoiceNumber: 'INV-1001',
-        issueDate: new Date().toISOString().split('T')[0],
-        dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
-        logo: null,
-        fromName: '',
-        fromDetails: '',
-        toName: '',
-        toDetails: '',
-        items: [{ description: '', quantity: 1, rate: 0 }],
-        taxRate: 0,
-        discountRate: 0,
-        notes: '',
-        terms: ''
-      };
-      populateInputs();
-      saveToStorage();
+  function openClearModal() {
+    const modal = document.getElementById('confirmModal');
+    if (modal) {
+      modal.style.display = 'flex';
     }
+  }
+
+  function closeClearModal() {
+    const modal = document.getElementById('confirmModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  function executeClearInvoice() {
+    state = {
+      currency: 'USD',
+      invoiceNumber: 'INV-1001',
+      issueDate: new Date().toISOString().split('T')[0],
+      dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
+      logo: null,
+      fromName: '',
+      fromDetails: '',
+      toName: '',
+      toDetails: '',
+      items: [{ description: '', quantity: 1, rate: 0 }],
+      taxRate: 0,
+      discountRate: 0,
+      notes: '',
+      terms: '',
+      showNotes: true,
+      showTerms: true,
+      showTax: true,
+      showDiscount: false,
+      showQr: false,
+      qrLink: '',
+      layout: state.layout || 'modern',
+      docType: 'INVOICE',
+      accentColor: state.accentColor || '#4f46e5'
+    };
+    closeClearModal();
+    populateInputs();
+    saveToStorage();
   }
 
   // Bind Form Listeners
@@ -532,7 +554,26 @@
 
     const btnClear = document.getElementById('btnClearInvoice');
     if (btnClear) {
-      btnClear.addEventListener('click', clearInvoice);
+      btnClear.addEventListener('click', openClearModal);
+    }
+
+    const btnCancelClear = document.getElementById('btnCancelClear');
+    if (btnCancelClear) {
+      btnCancelClear.addEventListener('click', closeClearModal);
+    }
+
+    const btnConfirmClear = document.getElementById('btnConfirmClear');
+    if (btnConfirmClear) {
+      btnConfirmClear.addEventListener('click', executeClearInvoice);
+    }
+
+    const confirmModal = document.getElementById('confirmModal');
+    if (confirmModal) {
+      confirmModal.addEventListener('click', (e) => {
+        if (e.target === confirmModal) {
+          closeClearModal();
+        }
+      });
     }
 
     // Removable Section Listeners (Notes, Terms, Tax, Discount)
