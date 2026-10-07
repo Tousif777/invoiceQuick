@@ -1245,21 +1245,23 @@ body {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 14mm 16mm 14mm 16mm;
+    margin: 0;
   }
 
   html, body {
     background: #ffffff !important;
     color: #0f172a !important;
-    padding: 0 !important;
+    padding: 12mm 15mm 12mm 15mm !important;
     margin: 0 !important;
     height: auto !important;
     min-height: 0 !important;
     overflow: visible !important;
-    font-size: 13px !important;
-    line-height: 1.4 !important;
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
   /* Completely eliminate all non-print elements */
@@ -1310,6 +1312,11 @@ body {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     background: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 258mm !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
   }
 
   /* Top Section: Header & Meta */
@@ -1320,8 +1327,9 @@ body {
     align-items: flex-start !important;
     margin-top: 0 !important;
     padding-top: 0 !important;
-    margin-bottom: 24px !important;
-    gap: 20px !important;
+    margin-bottom: 28px !important;
+    gap: 24px !important;
+    width: 100% !important;
   }
 
   /* When no logo is uploaded */
@@ -1442,8 +1450,9 @@ body {
 
   /* Line Items Table */
   .invoice-sheet .items-table-wrapper {
-    margin-bottom: 22px !important;
+    margin-bottom: 28px !important;
     overflow: visible !important;
+    flex-grow: 1 !important;
   }
 
   .invoice-sheet .items-table {
@@ -1454,24 +1463,24 @@ body {
   .invoice-sheet .items-table th {
     background: #f8fafc !important;
     color: #475569 !important;
-    font-size: 0.75rem !important;
+    font-size: 0.78rem !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.6px !important;
-    padding: 9px 12px !important;
+    padding: 12px 14px !important;
     border-bottom: 2px solid #cbd5e1 !important;
-    border-top: 1px solid #e2e8f0 !important;
+    border-top: 1.5px solid #e2e8f0 !important;
   }
 
   .invoice-sheet .items-table td {
-    padding: 10px 12px !important;
-    font-size: 0.9rem !important;
+    padding: 14px 14px !important;
+    font-size: 0.95rem !important;
     border-bottom: 1px solid #e2e8f0 !important;
     color: #1e293b !important;
   }
 
   .invoice-sheet .items-table .col-total {
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     color: #0f172a !important;
   }
 
@@ -1479,7 +1488,7 @@ body {
     border: none !important;
     background: transparent !important;
     padding: 0 !important;
-    font-size: 0.9rem !important;
+    font-size: 0.95rem !important;
     font-weight: inherit !important;
     color: inherit !important;
   }
@@ -1491,24 +1500,27 @@ body {
   /* Bottom Section: Notes & Totals */
   .invoice-sheet .sheet-bottom-grid {
     display: grid !important;
-    grid-template-columns: 1.25fr 0.75fr !important;
-    gap: 36px !important;
+    grid-template-columns: 1.2fr 0.8fr !important;
+    gap: 40px !important;
     margin-bottom: 0 !important;
+    margin-top: auto !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
   .invoice-sheet .notes-block {
     display: flex !important;
     flex-direction: column !important;
-    gap: 16px !important;
+    gap: 18px !important;
   }
 
   .invoice-sheet .notes-label {
-    font-size: 0.72rem !important;
+    font-size: 0.75rem !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.6px !important;
     color: #94a3b8 !important;
-    margin-bottom: 4px !important;
+    margin-bottom: 6px !important;
   }
 
   /* Standard Totals Card */

@@ -540,20 +540,22 @@
     }
 
     // Header Actions
+    let originalPageTitle = document.title;
+    window.addEventListener('beforeprint', () => {
+      originalPageTitle = document.title;
+      const invNum = state.invoiceNumber || 'INV-1001';
+      const client = (state.toName || '').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+      document.title = client ? `${invNum}_${client}` : invNum;
+    });
+
+    window.addEventListener('afterprint', () => {
+      document.title = originalPageTitle;
+    });
+
     const btnPrint = document.getElementById('btnPrintInvoice');
     if (btnPrint) {
       btnPrint.addEventListener('click', () => {
-        const originalTitle = document.title;
-        const invNum = state.invoiceNumber || 'INV-1001';
-        const clientName = (state.toName || 'Invoice').replace(/[^a-zA-Z0-9_-]/g, '_');
-        document.title = `${invNum}_${clientName}`;
-        
         window.print();
-        
-        // Restore SEO title after print dialog closes
-        setTimeout(() => {
-          document.title = originalTitle;
-        }, 1000);
       });
     }
 
