@@ -656,6 +656,26 @@ body {
   display: none;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
+}
+
+.btn-remove-logo:hover {
+  transform: scale(1.15);
+}
+
+/* When Logo is Active / Uploaded */
+.logo-upload-box.has-logo .logo-prompt {
+  display: none;
+}
+
+.logo-upload-box.has-logo .logo-img {
+  display: block;
+  border-radius: 4px;
+}
+
+.logo-upload-box.has-logo .btn-remove-logo {
+  display: flex;
 }
 
 /* Invoice Title & Meta */
