@@ -124,9 +124,9 @@
       <div class="header-controls">
         <span id="saveIndicator" class="save-indicator">✓ Saved</span>
 
-        <!-- Document Config Group -->
-        <div class="toolbar-group">
-          <select id="docTypeSelector" class="select-currency" aria-label="Select Document Type" title="Document Type">
+        <!-- Document Config Bar (Unified single row) -->
+        <div class="header-nav-tools">
+          <select id="docTypeSelector" class="select-currency select-clean" aria-label="Document Type" title="Document Type">
             <option value="INVOICE">Invoice</option>
             <option value="TAX INVOICE">Tax Invoice</option>
             <option value="PROFORMA INVOICE">Proforma</option>
@@ -134,14 +134,14 @@
             <option value="RECEIPT / BILL">Receipt</option>
           </select>
           
-          <select id="layoutSelector" class="select-currency" aria-label="Select Layout Template" title="Change Layout Template">
+          <select id="layoutSelector" class="select-currency select-clean" aria-label="Layout Template" title="Change Layout Template">
             <option value="modern">Modern Minimal</option>
             <option value="classic">Classic Corporate</option>
             <option value="creative">Creative Studio</option>
-            <option value="compact">Compact One-Page</option>
+            <option value="compact">Compact</option>
           </select>
 
-          <select id="currencySelector" class="select-currency select-currency-compact" aria-label="Select Currency" title="Change Currency">
+          <select id="currencySelector" class="select-currency select-clean select-currency-compact" aria-label="Currency" title="Change Currency">
             <option value="USD">USD ($)</option>
             <option value="EUR">EUR (€)</option>
             <option value="GBP">GBP (£)</option>
@@ -149,10 +149,15 @@
             <option value="AUD">AUD (A$)</option>
             <option value="INR">INR (₹)</option>
           </select>
-        </div>
 
-        <!-- Color Swatch Group -->
-        <div class="toolbar-group">
+          <select id="stampSelector" class="select-currency select-clean" title="Invoice Watermark Stamp">
+            <option value="none">No Stamp</option>
+            <option value="PAID">Stamp: PAID</option>
+            <option value="DRAFT">Stamp: DRAFT</option>
+            <option value="OVERDUE">Stamp: OVERDUE</option>
+            <option value="VOID">Stamp: VOID</option>
+          </select>
+
           <div class="color-picker-wrap" title="Accent Color">
             <button type="button" class="color-swatch-btn active" data-color="#4f46e5" style="background: #4f46e5;" title="Indigo Tech"></button>
             <button type="button" class="color-swatch-btn" data-color="#0f172a" style="background: #0f172a;" title="Slate Navy"></button>
@@ -166,37 +171,28 @@
           </div>
         </div>
 
-        <!-- Stamp Selector -->
-        <div class="toolbar-group">
-          <select id="stampSelector" class="select-currency" title="Invoice Watermark Stamp">
-            <option value="none">Stamp: None</option>
-            <option value="PAID">Stamp: PAID</option>
-            <option value="DRAFT">Stamp: DRAFT</option>
-            <option value="OVERDUE">Stamp: OVERDUE</option>
-            <option value="VOID">Stamp: VOID</option>
-          </select>
-        </div>
+        <div class="header-divider"></div>
 
         <!-- Actions Group -->
-        <div class="toolbar-group">
-          <button type="button" id="btnHistoryToggle" class="btn-secondary btn-with-badge" title="Saved Invoices History">
+        <div class="header-nav-actions">
+          <button type="button" id="btnHistoryToggle" class="btn-ghost btn-with-badge" title="Saved Invoices History">
             📂 Invoices <span id="historyBadgeCount" class="badge-count">1</span>
           </button>
 
-          <button id="btnSampleInvoice" class="btn-secondary" title="Load sample invoice">
+          <button id="btnSampleInvoice" class="btn-ghost" title="Load sample invoice">
             Sample
           </button>
 
-          <button id="btnClearInvoice" class="btn-secondary" title="Clear invoice">
+          <button id="btnClearInvoice" class="btn-ghost" title="Clear invoice">
             Clear
+          </button>
+
+          <button id="btnPrintInvoice" class="btn-secondary" title="Print using browser print dialog">
+            🖨️ Print
           </button>
 
           <button id="btnDownloadPdf" class="btn-primary" title="Download pixel-perfect PDF directly">
             📥 Download PDF
-          </button>
-
-          <button id="btnPrintInvoice" class="btn-secondary" title="Print to printer">
-            🖨️ Print
           </button>
         </div>
       </div>
