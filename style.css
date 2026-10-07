@@ -1248,10 +1248,15 @@ body {
     margin: 0;
   }
 
-  html, body {
+  html {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  body {
     background: #ffffff !important;
     color: #0f172a !important;
-    padding: 12mm 15mm 12mm 15mm !important;
+    padding: 12mm 15mm !important;
     margin: 0 !important;
     height: auto !important;
     min-height: 0 !important;
@@ -1312,10 +1317,6 @@ body {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     background: #ffffff !important;
-    display: flex !important;
-    flex-direction: column !important;
-    min-height: 258mm !important;
-    justify-content: flex-start !important;
     box-sizing: border-box !important;
   }
 
@@ -1452,7 +1453,6 @@ body {
   .invoice-sheet .items-table-wrapper {
     margin-bottom: 28px !important;
     overflow: visible !important;
-    flex-grow: 1 !important;
   }
 
   .invoice-sheet .items-table {
@@ -1503,7 +1503,7 @@ body {
     grid-template-columns: 1.2fr 0.8fr !important;
     gap: 40px !important;
     margin-bottom: 0 !important;
-    margin-top: auto !important;
+    margin-top: 12px !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
