@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Online Invoice Generator — Simple & Instant Invoice Maker</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Free online invoice generator. Create, customize, and print professional PDF invoices in seconds. No signup required, 100% private in your browser with zero server data collection.">
+  <meta name="keywords" content="free invoice generator, invoice maker, online invoice creator, simple invoice template, print invoice free, pdf invoice maker, freelance invoice generator, contractor invoice">
+  <meta name="author" content="InvoiceQuick.io">
+  <link rel="canonical" href="https://invoicequick.io/">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://invoicequick.io/">
+  <meta property="og:title" content="Free Online Invoice Generator — Instant PDF Invoices">
+  <meta property="og:description" content="Create professional invoices in seconds right in your browser. 100% free, no account needed, private client-side storage.">
+  <meta property="og:image" content="https://invoicequick.io/assets/og-image.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Online Invoice Generator">
+  <meta name="twitter:description" content="Simple, instant invoice maker. Print or download clean PDF invoices with zero hassle.">
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google AdSense Placeholder (Ready for Publisher ID) -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <!-- Schema.org JSON-LD Structured Data: WebApplication & FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "InvoiceQuick — Free Online Invoice Generator",
+        "url": "https://invoicequick.io/",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "A fast, free online invoice maker for freelancers, contractors, and small businesses to generate and print PDF invoices directly in their web browser."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is this online invoice generator completely free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, InvoiceQuick is 100% free to use. You can generate, customize, and print unlimited invoices without paying any subscription fees or hidden costs."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to create an account or sign up to use it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No registration or login is required. You can start creating your invoice immediately. Your business information, line items, and logo are automatically saved to your browser's private local storage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I save my invoice as a PDF?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Simply click the 'Print / Save as PDF' button at the top of the page. In your browser's print dialog, choose 'Save as PDF' as the printer destination. All website controls and buttons are automatically hidden, leaving a clean, professional document."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my client and financial data kept private?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. This tool runs 100% on the client side in your local browser. No data, client names, line items, or uploaded logos are ever transmitted to or stored on external servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What information must be included on a professional invoice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A standard legal invoice must include: your business name and contact information, client name and address, unique invoice number, issue date and payment due date, an itemized list of products or services with rates, applicable taxes, grand total due, and accepted payment methods."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Top Application Bar -->
+  <header class="app-header">
+    <div class="container header-flex">
+      
+      <a href="/" class="brand-title">
+        <div class="brand-logo-icon">📄</div>
+        <span>Invoice<span style="color: var(--primary-indigo);">Quick</span></span>
+      </a>
+
+      <div class="header-controls">
+        <span id="saveIndicator" class="save-indicator">✓ Auto-saved</span>
+
+        <!-- Document Type Selector -->
+        <select id="docTypeSelector" class="select-currency" aria-label="Select Document Type" title="Document Type">
+          <option value="INVOICE">📄 Invoice</option>
+          <option value="TAX INVOICE">🧾 Tax Invoice</option>
+          <option value="PROFORMA INVOICE">📋 Proforma Invoice</option>
+          <option value="QUOTE / ESTIMATE">💡 Quote / Estimate</option>
+          <option value="RECEIPT / BILL">🧾 Receipt / Bill</option>
+        </select>
+        
+        <!-- Template / Layout Selector -->
+        <select id="layoutSelector" class="select-currency" aria-label="Select Invoice Layout Template" title="Change Invoice Template Layout">
+          <option value="modern">📄 Modern Minimal</option>
+          <option value="classic">🏛️ Classic Corporate</option>
+          <option value="creative">🎨 Creative Studio</option>
+          <option value="compact">⚡ Compact One-Page</option>
+        </select>
+
+        <!-- Brand Accent Color Picker -->
+        <div class="color-picker-wrap" title="Change Accent Color">
+          <button type="button" class="color-swatch-btn active" data-color="#4f46e5" style="background: #4f46e5;" title="Indigo Tech"></button>
+          <button type="button" class="color-swatch-btn" data-color="#0f172a" style="background: #0f172a;" title="Slate Navy"></button>
+          <button type="button" class="color-swatch-btn" data-color="#059669" style="background: #059669;" title="Emerald Green"></button>
+          <button type="button" class="color-swatch-btn" data-color="#2563eb" style="background: #2563eb;" title="Royal Blue"></button>
+          <button type="button" class="color-swatch-btn" data-color="#be123c" style="background: #be123c;" title="Ruby Red"></button>
+          <label class="color-custom-label" title="Custom Color">
+            <input type="color" id="customColorInput" value="#4f46e5" style="opacity: 0; width: 0; height: 0; position: absolute;">
+            <span class="custom-color-icon">🎨</span>
+          </label>
+        </div>
+
+        <select id="currencySelector" class="select-currency" aria-label="Select Currency" title="Change Currency">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="CAD">CAD (CA$)</option>
+          <option value="AUD">AUD (A$)</option>
+          <option value="INR">INR (₹)</option>
+        </select>
+
+        <button id="btnSampleInvoice" class="btn-secondary" title="Load demo data">
+          ✨ Sample
+        </button>
+
+        <button id="btnClearInvoice" class="btn-secondary" title="Clear current invoice">
+          🔄 Clear
+        </button>
+
+        <button id="btnPrintInvoice" class="btn-primary" title="Print or save as PDF">
+          🖨️ Print / Save as PDF
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Top Leaderboard Ad Slot (Zero CLS: 728x90) -->
+  <div class="container print-hide">
+    <div class="ad-slot-leaderboard" id="adSlotLeaderboard">
+      <span class="ad-label">Advertisement</span>
+      <!-- Google AdSense 728x90 Banner -->
+      <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+      <div class="ad-placeholder-text">728 × 90 Leaderboard Ad Placement</div>
+    </div>
+  </div>
+
+  <!-- Hero Intro (Hidden in Print) -->
+  <div class="container hero-banner print-hide" style="text-align: center; margin: 12px auto 20px;">
+    <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">Free Online Invoice Generator</h1>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Click any field below to edit directly. Auto-saves in your browser. Download or print instantly.</p>
+  </div>
+
+  <!-- Main Invoice Paper Canvas -->
+  <main class="container invoice-sheet-wrapper">
+    
+    <div class="invoice-sheet" id="invoiceSheet">
+      
+      <!-- Top Row: Logo & Invoice Header -->
+      <div class="sheet-top-row">
+        
+        <!-- Logo Box -->
+        <div class="logo-upload-box">
+          <label for="logoFileInput" class="logo-prompt" id="logoUploadPrompt">
+            <span>📷 + Add Logo</span>
+            <span style="font-size: 0.68rem; color: var(--text-dim); margin-top: 2px;">PNG, JPG, SVG</span>
+          </label>
+          <input type="file" id="logoFileInput" accept="image/*" style="display: none;">
+          <img id="invoiceLogoImg" class="logo-img" alt="Company Logo">
+          <button id="btnRemoveLogo" class="btn-remove-logo print-hide" title="Remove Logo">✕</button>
+        </div>
+
+        <!-- Invoice Title & Meta -->
+        <div class="invoice-meta-block">
+          <div class="invoice-main-title" id="invoiceMainTitle" contenteditable="true" title="Click to edit document title">INVOICE</div>
+          
+          <div class="meta-field-row">
+            <label for="invoiceNumber" class="meta-label">Invoice #</label>
+            <input type="text" id="invoiceNumber" class="meta-input" value="INV-1001">
+          </div>
+
+          <div class="meta-field-row">
+            <label for="issueDate" class="meta-label">Issue Date</label>
+            <input type="date" id="issueDate" class="meta-input">
+          </div>
+
+          <div class="meta-field-row">
+            <label for="dueDate" class="meta-label">Due Date</label>
+            <input type="date" id="dueDate" class="meta-input">
+          </div>
+
+          <!-- Quick Due Date Presets (Screen only) -->
+          <div class="due-presets-row print-hide">
+            <span class="preset-label">Terms:</span>
+            <button type="button" class="btn-preset" data-days="0" title="Due Immediately">Receipt</button>
+            <button type="button" class="btn-preset" data-days="7" title="Due in 7 days">Net 7</button>
+            <button type="button" class="btn-preset" data-days="14" title="Due in 14 days">Net 14</button>
+            <button type="button" class="btn-preset" data-days="30" title="Due in 30 days">Net 30</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Address Grid: From & Bill To -->
+      <div class="address-grid">
+        
+        <!-- Sender (From) -->
+        <div class="address-block">
+          <span class="section-tag">Billed From (Your Details)</span>
+          <input type="text" id="fromName" class="field-name-input" placeholder="Your Business / Your Name" value="Acme Studio Co.">
+          <textarea id="fromDetails" class="field-textarea" placeholder="Address, City, Country&#10;Email, Phone&#10;Tax / VAT ID">123 Creative Street
+San Francisco, CA 94103
+contact@acmestudio.com</textarea>
+        </div>
+
+        <!-- Client (Bill To) -->
+        <div class="address-block">
+          <span class="section-tag">Billed To (Client Details)</span>
+          <input type="text" id="toName" class="field-name-input" placeholder="Client Business / Client Name" value="Global Enterprises Inc.">
+          <textarea id="toDetails" class="field-textarea" placeholder="Client Address&#10;City, Country&#10;Client Contact Email">Attn: Accounting Dept
+456 Market Plaza, Suite 200
+accounts@globalent.com</textarea>
+        </div>
+
+      </div>
+
+      <!-- Line Items Table -->
+      <div class="items-table-wrapper">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th class="col-desc">Item Description</th>
+              <th class="col-qty">Quantity</th>
+              <th class="col-rate">Unit Price</th>
+              <th class="col-total">Line Total</th>
+              <th class="col-action print-hide"></th>
+            </tr>
+          </thead>
+          <tbody id="itemsTableBody">
+            <!-- Dynamically populated rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add Item Row Button -->
+      <div class="add-item-wrap print-hide">
+        <button type="button" id="btnAddItem" class="btn-add-item">
+          ➕ Add Line Item
+        </button>
+      </div>
+
+      <!-- Bottom Grid: Notes/Terms & Financial Totals -->
+      <div class="sheet-bottom-grid">
+        
+        <!-- Left: Notes & Payment Terms (Removable / Addable) -->
+        <div class="notes-block">
+          
+          <!-- Notes Section -->
+          <div id="notesSection" class="section-removable-box">
+            <div class="section-header-row">
+              <label for="notesText" class="notes-label">Notes & Instructions</label>
+              <button type="button" id="btnRemoveNotes" class="btn-remove-section print-hide" title="Remove Notes">✕ Remove</button>
+            </div>
+            <textarea id="notesText" class="field-textarea" style="width: 100%; min-height: 50px;" placeholder="Thank you for your business! Payment notes...">Thank you for your business! Please remit payment within 14 days.</textarea>
+          </div>
+          <button type="button" id="btnAddNotes" class="btn-add-section-toggle print-hide" style="display: none;">
+            ➕ Add Notes & Instructions
+          </button>
+
+          <!-- Payment Terms Section -->
+          <div id="termsSection" class="section-removable-box">
+            <div class="section-header-row">
+              <label for="termsText" class="notes-label">Payment Methods / Terms</label>
+              <button type="button" id="btnRemoveTerms" class="btn-remove-section print-hide" title="Remove Payment Terms">✕ Remove</button>
+            </div>
+            <textarea id="termsText" class="field-textarea" style="width: 100%; min-height: 65px;" placeholder="Bank Details, Wire/ACH, PayPal, or Payment Link">Payment via Bank Transfer (Wire/ACH):
+Bank Name: Silicon Valley Bank
+Account: 1234-5678-9012
+Routing: 987654321</textarea>
+          </div>
+          <button type="button" id="btnAddTerms" class="btn-add-section-toggle print-hide" style="display: none;">
+            ➕ Add Payment Methods / Terms
+          </button>
+
+          <!-- Scan to Pay QR Code Section -->
+          <div id="qrSection" class="section-removable-box qr-code-box" style="display: none;">
+            <div class="section-header-row">
+              <label class="notes-label">Payment QR Code</label>
+              <button type="button" id="btnRemoveQr" class="btn-remove-section print-hide" title="Remove QR Code">✕ Remove</button>
+            </div>
+            <div class="qr-content-flex">
+              <div class="qr-code-canvas-wrap" id="qrContainer" title="Scan to pay">
+                <!-- QR Code SVG injected dynamically -->
+                <div id="qrCodeOutput" class="qr-code-output"></div>
+                <span class="qr-caption">Scan to Pay</span>
+              </div>
+              <div class="qr-input-wrap print-hide">
+                <input type="text" id="qrLinkInput" class="table-input" placeholder="Paste Stripe/PayPal link or UPI/wallet address..." style="font-size: 0.85rem; border: 1px solid var(--border-input); border-radius: 4px; padding: 6px 10px;">
+                <span style="font-size: 0.72rem; color: var(--text-dim); display: block; margin-top: 4px;">Generates instant payment QR for your clients</span>
+              </div>
+            </div>
+          </div>
+          <button type="button" id="btnAddQr" class="btn-add-section-toggle print-hide">
+            📱 Add Payment QR Code
+          </button>
+
+        </div>
+
+        <!-- Right: Totals Box -->
+        <div class="totals-box">
+          
+          <div class="total-line">
+            <span>Subtotal</span>
+            <span id="valSubtotal" class="total-line-value">$3,610.00</span>
+          </div>
+
+          <!-- Tax Line (Removable) -->
+          <div class="total-line" id="taxLine">
+            <div class="total-line-input-wrap">
+              <span>Tax Rate (%)</span>
+              <input type="number" id="taxRate" class="total-mini-input" value="8" min="0" max="100" step="0.5">
+              <button type="button" id="btnRemoveTax" class="btn-remove-mini print-hide" title="Remove Tax">✕</button>
+            </div>
+            <span id="valTax" class="total-line-value">$288.80</span>
+          </div>
+          <div id="addTaxWrap" class="add-total-line-wrap print-hide" style="display: none;">
+            <button type="button" id="btnAddTax" class="btn-add-total-toggle">➕ Add Tax</button>
+          </div>
+
+          <!-- Discount Line (Removable) -->
+          <div class="total-line" id="discountLine">
+            <div class="total-line-input-wrap">
+              <span>Discount (%)</span>
+              <input type="number" id="discountRate" class="total-mini-input" value="0" min="0" max="100" step="1">
+              <button type="button" id="btnRemoveDiscount" class="btn-remove-mini print-hide" title="Remove Discount">✕</button>
+            </div>
+            <span id="valDiscount" class="total-line-value">$0.00</span>
+          </div>
+          <div id="addDiscountWrap" class="add-total-line-wrap print-hide" style="display: none;">
+            <button type="button" id="btnAddDiscount" class="btn-add-total-toggle">➕ Add Discount</button>
+          </div>
+
+          <div class="total-divider"></div>
+
+          <div class="grand-total-line">
+            <span>Total Due:</span>
+            <span id="valGrandTotal" class="grand-total-amount">$3,898.80</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Mid-Content Ad Banner (Zero CLS: 728x250) -->
+  <div class="container print-hide">
+    <div class="ad-slot-incontent" id="adSlotInContent">
+      <span class="ad-label">Advertisement</span>
+      <!-- Google AdSense 728x250 Mid-Page Tag -->
+      <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+      <div class="ad-placeholder-text">728 × 250 Mid-Page Ad Placement</div>
+    </div>
+  </div>
+
+  <!-- 500+ Words SEO Editorial Section & FAQ (Print-Hidden) -->
+  <section class="container seo-section print-hide">
+    <h2 class="seo-title">The Complete Guide to Creating Professional Invoices</h2>
+    <p class="seo-subtitle">Everything you need to know about invoice essentials, legal requirements, payment terms, and getting paid faster.</p>
+
+    <div class="seo-cards-grid">
+      
+      <!-- Card 1 -->
+      <div class="seo-card">
+        <h3 class="seo-card-title">📋 Essential Information on a Legal Invoice</h3>
+        <div class="seo-text">
+          <p>An invoice is more than just a request for payment—it is a formal accounting document and a legally binding commercial instrument. In order for an invoice to be considered valid and processed promptly by your client's accounting department, it must include clear, itemized details:</p>
+          <p>• <strong>Your Contact Information:</strong> Business name, full registered address, phone number, and official email address.<br>
+          • <strong>Client Information:</strong> The exact company name, billing department, and point of contact.<br>
+          • <strong>Sequential Invoice Number:</strong> A unique alphanumeric identifier (e.g. <em>INV-1001</em>) used to track payments and prevent duplicate records.<br>
+          • <strong>Dates:</strong> Both the <em>Date of Issue</em> (when the bill was sent) and the <em>Due Date</em> (when payment is expected).<br>
+          • <strong>Itemized Line Items:</strong> Clear descriptions of deliverables, quantities, hourly units, and subtotal amounts.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="seo-card">
+        <h3 class="seo-card-title">⏳ Understanding Invoice Payment Terms (Net 15, Net 30)</h3>
+        <div class="seo-text">
+          <p>Payment terms specify the time frame within which a client is expected to pay. Using precise terminology sets mutual expectations and avoids awkward payment follow-ups:</p>
+          <p>• <strong>Due Upon Receipt:</strong> Payment is expected immediately upon delivery of the invoice. Common for small projects, retail services, and one-off freelance tasks.<br>
+          • <strong>Net 15:</strong> The client has 15 calendar days from the invoice date to complete payment. This is widely considered the best standard for independent contractors and freelancers.<br>
+          • <strong>Net 30:</strong> Standard commercial corporate payment terms. The client has 30 days to settle the balance. Common for enterprise contracts, though freelancers should negotiate shorter windows when possible.<br>
+          • <strong>Late Fees:</strong> Clearly state your late payment policy (e.g., <em>"1.5% interest per month on overdue balances"</em>) to discourage unnecessary payment delays.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="seo-card">
+        <h3 class="seo-card-title">🚀 5 Proven Tips to Get Paid on Time</h3>
+        <div class="seo-text">
+          <p>Chasing late invoices is one of the most frustrating aspects of running an independent business. Implementing these five best practices dramatically reduces payment friction:</p>
+          <p><strong>1. Always Request an Upfront Deposit:</strong> For projects exceeding $1,000, require a 30% to 50% non-refundable deposit before commencing work.</p>
+          <p><strong>2. Invoice Promptly:</strong> Send your invoice immediately upon milestone delivery or on scheduled recurring dates. Delays in billing cause delays in payment.</p>
+          <p><strong>3. Provide Multiple Payment Options:</strong> Make it effortless for clients to pay. Include domestic bank transfer details (ACH/wire), international routing numbers, or convenient payment links.</p>
+          <p><strong>4. Send Polite Automated Reminders:</strong> Send a friendly reminder 3 days before the due date, on the due date, and 3 days post-due date.</p>
+          <p><strong>5. Itemize Clearly:</strong> Vague invoices lead to billing questions and accounting holds. Transparent item descriptions prevent misunderstandings.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="seo-card">
+        <h3 class="seo-card-title">🔒 Why 100% Client-Side Invoicing Matters</h3>
+        <div class="seo-text">
+          <p>Many online invoice generators force users to sign up with their email addresses, store client lists in centralized databases, and lock PDF exports behind expensive monthly subscription paywalls.</p>
+          <p><strong>InvoiceQuick operates 100% in your local web browser:</strong></p>
+          <p>• <strong>Complete Privacy:</strong> Your client details, pricing, and company logo are saved exclusively in your browser's private local storage. No data is transmitted across the internet.<br>
+          • <strong>Zero Subscription Fees:</strong> Generate and print unlimited professional invoices for free forever without watermarks or restrictions.<br>
+          • <strong>Instant PDF Printing:</strong> Uses standard browser print engines to generate clean, publication-quality PDF documents instantly.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ Accordion -->
+    <div class="faq-wrap">
+      <h3 class="faq-title">Frequently Asked Questions</h3>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Is this online invoice generator really free?</span>
+          <span class="faq-chevron">▼</span>
+        </summary>
+        <div class="faq-body">
+          Yes, InvoiceQuick is completely free with no hidden charges, limitations, or watermarks. You can create as many invoices as you need and download or print them directly from your browser.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>How do I download my invoice as a PDF file?</span>
+          <span class="faq-chevron">▼</span>
+        </summary>
+        <div class="faq-body">
+          Click the "Print / Save as PDF" button at the top of the page. In the printer options that appear in your browser, select "Save as PDF" instead of an actual printer. Your browser will download a pristine, professionally formatted PDF invoice with all website buttons and navigation bars automatically removed.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Will my invoice data be saved if I close my browser tab?</span>
+          <span class="faq-chevron">▼</span>
+        </summary>
+        <div class="faq-body">
+          Yes! Every time you edit an input, InvoiceQuick automatically saves your work into your browser's localStorage. When you return to the website on the same device, your logo, business details, line items, and payment instructions will be waiting for you.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Can I add my company logo to the invoice?</span>
+          <span class="faq-chevron">▼</span>
+        </summary>
+        <div class="faq-body">
+          Yes. Click the "+ Add Logo" box in the upper left corner of the invoice sheet and select your image file (PNG, JPG, or SVG). Your logo will instantly display on the invoice and will be safely preserved in your browser's storage.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Can I change the currency symbol?</span>
+          <span class="faq-chevron">▼</span>
+        </summary>
+        <div class="faq-body">
+          Yes. Use the currency dropdown in the top header to select USD ($), EUR (€), GBP (£), CAD (CA$), AUD (A$), or INR (₹). All totals and line items will instantly format with your chosen currency.
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- Footer (Print-Hidden) -->
+  <footer class="site-footer print-hide">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#how-to-invoice">Invoicing Guide</a>
+        <a href="#faq">FAQ</a>
+        <a href="javascript:void(0)" onclick="alert('InvoiceQuick is an independent, 100% client-side billing tool. Your data stays completely in your browser.')">Privacy Notice</a>
+      </div>
+      <p>© 2026 InvoiceQuick.io • 100% Client-Side Invoicing • Safe, Private & Free</p>
+    </div>
+  </footer>
+
+  <!-- Core Script -->
+  <script src="js/invoice.js"></script>
+</body>
+</html>
