@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="invBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="foldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer rounded squircle -->
+  <rect width="64" height="64" rx="15" fill="url(#invBg)"/>
+  
+  <!-- Crisp Invoice Sheet Body -->
+  <path d="M17 12 C17 10.3 18.3 9 20 9 L38 9 L49 20 L49 51 C49 52.7 47.7 54 46 54 L20 54 C18.3 54 17 52.7 17 51 Z" fill="#ffffff"/>
+  
+  <!-- Folded Corner Flap -->
+  <path d="M38 9 L38 20 L49 20 Z" fill="url(#foldGrad)"/>
+  
+  <!-- Primary Invoice Header Line (Brand Indigo) -->
+  <line x1="24" y1="24" x2="34" y2="24" stroke="#4f46e5" stroke-width="3.5" stroke-linecap="round"/>
+  
+  <!-- Invoice Content Lines -->
+  <line x1="24" y1="31" x2="42" y2="31" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="24" y1="37" x2="42" y2="37" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+  <line x1="24" y1="43" x2="32" y2="43" stroke="#cbd5e1" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Quick / Paid Emerald Badge -->
+  <circle cx="42" cy="46" r="6.5" fill="#10b981"/>
+  <path d="M39 46 L41 48 L45.5 43.5" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
