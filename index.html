@@ -166,8 +166,23 @@
           </div>
         </div>
 
+        <!-- Stamp Selector -->
+        <div class="toolbar-group">
+          <select id="stampSelector" class="select-currency" title="Invoice Watermark Stamp">
+            <option value="none">Stamp: None</option>
+            <option value="PAID">Stamp: PAID</option>
+            <option value="DRAFT">Stamp: DRAFT</option>
+            <option value="OVERDUE">Stamp: OVERDUE</option>
+            <option value="VOID">Stamp: VOID</option>
+          </select>
+        </div>
+
         <!-- Actions Group -->
         <div class="toolbar-group">
+          <button type="button" id="btnHistoryToggle" class="btn-secondary btn-with-badge" title="Saved Invoices History">
+            📂 Invoices <span id="historyBadgeCount" class="badge-count">1</span>
+          </button>
+
           <button id="btnSampleInvoice" class="btn-secondary" title="Load sample invoice">
             Sample
           </button>
@@ -176,8 +191,12 @@
             Clear
           </button>
 
-          <button id="btnPrintInvoice" class="btn-primary" title="Print or save as PDF">
-            🖨️ Print / PDF
+          <button id="btnDownloadPdf" class="btn-primary" title="Download pixel-perfect PDF directly">
+            📥 Download PDF
+          </button>
+
+          <button id="btnPrintInvoice" class="btn-secondary" title="Print to printer">
+            🖨️ Print
           </button>
         </div>
       </div>
@@ -204,6 +223,11 @@
     
     <div class="invoice-sheet" id="invoiceSheet">
       
+      <!-- Watermark / Status Stamp Overlay -->
+      <div id="invoiceStamp" class="invoice-stamp-badge stamp-none" style="display: none;">
+        <span id="stampText">PAID</span>
+      </div>
+
       <!-- Top Row: Logo & Invoice Header -->
       <div class="sheet-top-row">
         
@@ -263,7 +287,21 @@ contact@acmestudio.com</textarea>
 
         <!-- Client (Bill To) -->
         <div class="address-block">
-          <span class="section-tag">Billed To (Client Details)</span>
+          <div class="section-tag-row">
+            <span class="section-tag">Billed To (Client Details)</span>
+            <div class="catalog-actions-wrap print-hide">
+              <button type="button" id="btnQuickFillClient" class="btn-catalog-toggle" title="Select or save client">👥 Clients ▾</button>
+              <div id="clientCatalogDropdown" class="catalog-dropdown" style="display: none;">
+                <div class="catalog-dropdown-header">
+                  <span>Saved Clients</span>
+                  <button type="button" id="btnSaveCurrentClient" class="btn-save-catalog" title="Save current client to list">+ Save Current</button>
+                </div>
+                <div id="clientCatalogList" class="catalog-list">
+                  <!-- Populated dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
           <input type="text" id="toName" class="field-name-input" placeholder="Client Business / Client Name" value="Global Enterprises Inc.">
           <textarea id="toDetails" class="field-textarea" placeholder="Client Address&#10;City, Country&#10;Client Contact Email">Attn: Accounting Dept
 456 Market Plaza, Suite 200
@@ -290,17 +328,34 @@ accounts@globalent.com</textarea>
         </table>
       </div>
 
-      <!-- Add Item Row Button -->
+      <!-- Add Item Row Button & Quick Services -->
       <div class="add-item-wrap print-hide">
         <button type="button" id="btnAddItem" class="btn-add-item">
           ➕ Add Line Item
         </button>
+        <div class="service-catalog-wrap">
+          <button type="button" id="btnQuickAddService" class="btn-catalog-secondary" title="Insert common freelance service">
+            ⚡ Preset Services ▾
+          </button>
+          <div id="serviceCatalogDropdown" class="catalog-dropdown" style="display: none;">
+            <div class="catalog-dropdown-header">
+              <span>Quick Service Presets</span>
+            </div>
+            <div class="catalog-list" id="serviceCatalogList">
+              <button type="button" class="catalog-item-btn" data-desc="Web Application Development" data-rate="85">💻 Web Application Development ($85/hr)</button>
+              <button type="button" class="catalog-item-btn" data-desc="UI/UX & Product Design" data-rate="75">🎨 UI/UX & Product Design ($75/hr)</button>
+              <button type="button" class="catalog-item-btn" data-desc="SEO Audit & Technical Optimization" data-rate="120">🔍 SEO Audit & Optimization ($120/hr)</button>
+              <button type="button" class="catalog-item-btn" data-desc="Content Strategy & Copywriting" data-rate="55">✍️ Content Strategy & Copywriting ($55/hr)</button>
+              <button type="button" class="catalog-item-btn" data-desc="Monthly Infrastructure & Maintenance" data-rate="1200">🛠️ Monthly Maintenance Retainer ($1,200)</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Bottom Grid: Notes/Terms & Financial Totals -->
       <div class="sheet-bottom-grid">
         
-        <!-- Left: Notes & Payment Terms (Removable / Addable) -->
+        <!-- Left: Notes, Payment Terms, QR Code & Digital Signature -->
         <div class="notes-block">
           
           <!-- Notes Section -->
@@ -328,6 +383,25 @@ Routing: 987654321</textarea>
           </div>
           <button type="button" id="btnAddTerms" class="btn-add-section-toggle print-hide" style="display: none;">
             ➕ Add Payment Methods / Terms
+          </button>
+
+          <!-- Digital Signature Section -->
+          <div id="signatureSection" class="section-removable-box signature-box">
+            <div class="section-header-row">
+              <label class="notes-label">Authorized Signature</label>
+              <div class="signature-tools print-hide">
+                <button type="button" id="btnClearSignature" class="btn-remove-mini" title="Clear Signature Canvas">✕ Clear</button>
+                <button type="button" id="btnRemoveSignature" class="btn-remove-section" title="Remove Signature Section">✕ Remove</button>
+              </div>
+            </div>
+            <div class="signature-canvas-container">
+              <canvas id="signatureCanvas" width="300" height="75" class="signature-canvas"></canvas>
+              <div class="signature-guide-line"></div>
+              <input type="text" id="signerNameInput" class="signer-name-input" placeholder="Signer Name / Title (optional)" value="Authorized Signatory">
+            </div>
+          </div>
+          <button type="button" id="btnAddSignature" class="btn-add-section-toggle print-hide" style="display: none;">
+            ✍️ Add Authorized Signature
           </button>
 
           <!-- Scan to Pay QR Code Section -->
@@ -552,6 +626,39 @@ Routing: 987654321</textarea>
     </div>
   </div>
 
+  <!-- Slide-Over Invoices History Drawer -->
+  <div id="historyDrawerBackdrop" class="drawer-backdrop print-hide" style="display: none;"></div>
+  <aside id="historyDrawer" class="history-drawer print-hide" aria-label="Invoice History">
+    <div class="drawer-header">
+      <div class="drawer-title-group">
+        <h3 class="drawer-title">📂 Saved Invoices</h3>
+        <span class="drawer-subtitle">Stored privately in your browser</span>
+      </div>
+      <button type="button" id="btnCloseDrawer" class="btn-close-drawer" aria-label="Close Drawer">✕</button>
+    </div>
+
+    <div class="drawer-toolbar">
+      <button type="button" id="btnNewInvoiceFromDrawer" class="btn-drawer-primary">➕ New Blank Invoice</button>
+      <button type="button" id="btnSaveCurrentToHistory" class="btn-drawer-secondary">💾 Save Current</button>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="drawer-tabs">
+      <button type="button" class="drawer-tab active" data-filter="all">All (<span id="countAll">0</span>)</button>
+      <button type="button" class="drawer-tab" data-filter="Draft">Draft (<span id="countDraft">0</span>)</button>
+      <button type="button" class="drawer-tab" data-filter="Sent">Sent (<span id="countSent">0</span>)</button>
+      <button type="button" class="drawer-tab" data-filter="Paid">Paid (<span id="countPaid">0</span>)</button>
+      <button type="button" class="drawer-tab" data-filter="Overdue">Overdue (<span id="countOverdue">0</span>)</button>
+    </div>
+
+    <!-- Invoices List Container -->
+    <div id="historyListContainer" class="drawer-list">
+      <!-- Populated dynamically with invoice cards -->
+    </div>
+  </aside>
+
+  <!-- High-Precision Client-Side PDF Engine -->
+  <script src="js/html2pdf.bundle.min.js"></script>
   <!-- Core Script -->
   <script src="js/invoice.js"></script>
 </body>

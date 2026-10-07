@@ -4,6 +4,8 @@
   'use strict';
 
   const STORAGE_KEY = 'simple_invoice_data_v1';
+  const HISTORY_KEY = 'iq_saved_invoices_v1';
+  const CLIENTS_KEY = 'iq_saved_clients_v1';
 
   const CURRENCIES = {
     USD: { symbol: '$', code: 'USD' },
@@ -13,6 +15,17 @@
     AUD: { symbol: 'A$', code: 'AUD' },
     INR: { symbol: '₹', code: 'INR' }
   };
+
+  const DEFAULT_CLIENTS = [
+    {
+      name: 'Global Enterprises Inc.',
+      details: 'Attn: Accounting Dept\n456 Market Plaza, Suite 200\naccounts@globalent.com'
+    },
+    {
+      name: 'Nexus Digital Media',
+      details: 'Finance Department\n800 Tech Boulevard, Level 4\nbilling@nexusdigital.io'
+    }
+  ];
 
   const DEFAULT_STATE = {
     currency: 'USD',
@@ -51,10 +64,20 @@
 
     // Notes
     notes: 'Thank you for your business! Please remit payment within 14 days.',
-    terms: 'Payment via Bank Transfer (Wire/ACH):\nBank Name: Silicon Valley Bank\nAccount: 1234-5678-9012\nRouting: 987654321'
+    terms: 'Payment via Bank Transfer (Wire/ACH):\nBank Name: Silicon Valley Bank\nAccount: 1234-5678-9012\nRouting: 987654321',
+
+    // Power Features
+    stamp: 'none',
+    showSignature: true,
+    signatureData: null,
+    signerName: 'Authorized Signatory',
+    invoiceId: 'inv_' + Date.now(),
+    status: 'Draft'
   };
 
   let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  let isDrawingSignature = false;
+  let activeHistoryFilter = 'all';
 
   // Helper formatting
   function getCurrencySymbol() {
@@ -92,10 +115,11 @@
     };
   }
 
-  // Save to LocalStorage (0 Server)
+  // Save to LocalStorage & Sync with Invoices History
   function saveToStorage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      syncToHistory();
       showSaveIndicator();
     } catch (e) {
       console.warn('Storage save error:', e);
@@ -124,7 +148,420 @@
     }
   }
 
+  // ==========================================
+  // Invoices History & Status Tracker
+  // ==========================================
+  function getSavedInvoices() {
+    try {
+      const data = localStorage.getItem(HISTORY_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function syncToHistory() {
+    try {
+      let history = getSavedInvoices();
+      const totals = calculateTotals();
+      if (!state.invoiceId) {
+        state.invoiceId = 'inv_' + Date.now();
+      }
+
+      const summary = {
+        id: state.invoiceId,
+        invoiceNumber: state.invoiceNumber || 'INV-1001',
+        clientName: state.toName || 'Unnamed Client',
+        issueDate: state.issueDate || new Date().toISOString().split('T')[0],
+        totalAmount: totals.grandTotal,
+        currency: state.currency || 'USD',
+        status: state.status || 'Draft',
+        updatedAt: Date.now(),
+        data: JSON.parse(JSON.stringify(state))
+      };
+
+      const existingIndex = history.findIndex(item => item.id === state.invoiceId);
+      if (existingIndex >= 0) {
+        history[existingIndex] = summary;
+      } else {
+        history.unshift(summary);
+      }
+
+      if (history.length > 50) history = history.slice(0, 50);
+
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+      updateHistoryBadge();
+    } catch (e) {
+      console.warn('History sync error:', e);
+    }
+  }
+
+  function updateHistoryBadge() {
+    const badge = document.getElementById('historyBadgeCount');
+    const invoices = getSavedInvoices();
+    if (badge) badge.textContent = invoices.length;
+  }
+
+  function openHistoryDrawer() {
+    const drawer = document.getElementById('historyDrawer');
+    const backdrop = document.getElementById('historyDrawerBackdrop');
+    if (drawer && backdrop) {
+      drawer.classList.add('open');
+      backdrop.style.display = 'block';
+      renderHistoryDrawer();
+    }
+  }
+
+  function closeHistoryDrawer() {
+    const drawer = document.getElementById('historyDrawer');
+    const backdrop = document.getElementById('historyDrawerBackdrop');
+    if (drawer && backdrop) {
+      drawer.classList.remove('open');
+      backdrop.style.display = 'none';
+    }
+  }
+
+  function renderHistoryDrawer() {
+    const container = document.getElementById('historyListContainer');
+    if (!container) return;
+    const invoices = getSavedInvoices();
+
+    // Tab Counts
+    const countAll = document.getElementById('countAll');
+    const countDraft = document.getElementById('countDraft');
+    const countSent = document.getElementById('countSent');
+    const countPaid = document.getElementById('countPaid');
+    const countOverdue = document.getElementById('countOverdue');
+
+    if (countAll) countAll.textContent = invoices.length;
+    if (countDraft) countDraft.textContent = invoices.filter(i => i.status === 'Draft').length;
+    if (countSent) countSent.textContent = invoices.filter(i => i.status === 'Sent').length;
+    if (countPaid) countPaid.textContent = invoices.filter(i => i.status === 'Paid').length;
+    if (countOverdue) countOverdue.textContent = invoices.filter(i => i.status === 'Overdue').length;
+
+    const filtered = activeHistoryFilter === 'all' 
+      ? invoices 
+      : invoices.filter(i => i.status === activeHistoryFilter);
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div style="text-align: center; padding: 48px 16px; color: var(--text-dim);">
+          <div style="font-size: 2.4rem; margin-bottom: 10px;">📂</div>
+          <div style="font-weight: 700; color: var(--text-main); font-size: 1rem;">No ${activeHistoryFilter === 'all' ? '' : activeHistoryFilter} Invoices</div>
+          <div style="font-size: 0.82rem; margin-top: 6px; line-height: 1.5;">Invoices you edit or create are automatically stored here.</div>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(inv => {
+      const isCurrent = (inv.id === state.invoiceId);
+      const symbol = (CURRENCIES[inv.currency] || CURRENCIES.USD).symbol;
+      const amtStr = `${symbol}${Number(inv.totalAmount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      return `
+        <div class="invoice-card ${isCurrent ? 'active-current' : ''}">
+          <div class="card-top">
+            <span class="card-num">${inv.invoiceNumber || 'INV-1001'}</span>
+            <button type="button" class="status-pill pill-${inv.status || 'Draft'}" data-toggle-status="${inv.id}" title="Click to cycle status (Draft -> Sent -> Paid -> Overdue)">
+              ${inv.status || 'Draft'}
+            </button>
+          </div>
+          <div class="card-client" title="${inv.clientName || 'Unnamed Client'}">
+            ${inv.clientName || 'Unnamed Client'}
+          </div>
+          <div class="card-meta-row">
+            <span>📅 ${inv.issueDate || 'No date'}</span>
+            <span class="card-total">${amtStr}</span>
+          </div>
+          <div class="card-actions">
+            <button type="button" class="btn-card-action" data-load-id="${inv.id}">Open</button>
+            <button type="button" class="btn-card-action" data-dup-id="${inv.id}">Duplicate</button>
+            <button type="button" class="btn-card-action btn-card-delete" data-del-id="${inv.id}" title="Delete Invoice">🗑️</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Attach card event listeners
+    container.querySelectorAll('[data-load-id]').forEach(btn => {
+      btn.addEventListener('click', () => loadInvoiceById(btn.dataset.loadId));
+    });
+
+    container.querySelectorAll('[data-dup-id]').forEach(btn => {
+      btn.addEventListener('click', () => duplicateInvoiceById(btn.dataset.dupId));
+    });
+
+    container.querySelectorAll('[data-del-id]').forEach(btn => {
+      btn.addEventListener('click', () => deleteInvoiceById(btn.dataset.delId));
+    });
+
+    container.querySelectorAll('[data-toggle-status]').forEach(btn => {
+      btn.addEventListener('click', () => cycleInvoiceStatus(btn.dataset.toggleStatus));
+    });
+  }
+
+  function loadInvoiceById(id) {
+    const invoices = getSavedInvoices();
+    const target = invoices.find(i => i.id === id);
+    if (target && target.data) {
+      state = Object.assign({}, DEFAULT_STATE, target.data);
+      populateInputs();
+      saveToStorage();
+      closeHistoryDrawer();
+    }
+  }
+
+  function duplicateInvoiceById(id) {
+    const invoices = getSavedInvoices();
+    const target = invoices.find(i => i.id === id);
+    if (target && target.data) {
+      const cloned = JSON.parse(JSON.stringify(target.data));
+      cloned.invoiceId = 'inv_' + Date.now();
+      
+      // Auto-increment invoice number
+      const numMatch = (cloned.invoiceNumber || '').match(/(\d+)$/);
+      if (numMatch) {
+        const nextNum = parseInt(numMatch[1], 10) + 1;
+        const prefix = cloned.invoiceNumber.substring(0, numMatch.index);
+        cloned.invoiceNumber = prefix + nextNum;
+      } else {
+        cloned.invoiceNumber = (cloned.invoiceNumber || 'INV') + '-COPY';
+      }
+
+      cloned.issueDate = new Date().toISOString().split('T')[0];
+      cloned.status = 'Draft';
+
+      state = Object.assign({}, DEFAULT_STATE, cloned);
+      populateInputs();
+      saveToStorage();
+      renderHistoryDrawer();
+      closeHistoryDrawer();
+    }
+  }
+
+  function deleteInvoiceById(id) {
+    if (!confirm('Are you sure you want to delete this invoice from history?')) return;
+    let invoices = getSavedInvoices();
+    invoices = invoices.filter(i => i.id !== id);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(invoices));
+    updateHistoryBadge();
+    renderHistoryDrawer();
+  }
+
+  function cycleInvoiceStatus(id) {
+    const statuses = ['Draft', 'Sent', 'Paid', 'Overdue'];
+    let invoices = getSavedInvoices();
+    const target = invoices.find(i => i.id === id);
+    if (target) {
+      const curIdx = statuses.indexOf(target.status || 'Draft');
+      const nextStatus = statuses[(curIdx + 1) % statuses.length];
+      target.status = nextStatus;
+      if (target.data) target.data.status = nextStatus;
+
+      if (id === state.invoiceId) {
+        state.status = nextStatus;
+        if (nextStatus === 'Paid') state.stamp = 'PAID';
+        renderStamp();
+      }
+
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(invoices));
+      renderHistoryDrawer();
+    }
+  }
+
+  // ==========================================
+  // Client Catalog (Quick Fill)
+  // ==========================================
+  function getSavedClients() {
+    try {
+      const saved = localStorage.getItem(CLIENTS_KEY);
+      return saved ? JSON.parse(saved) : DEFAULT_CLIENTS;
+    } catch (e) {
+      return DEFAULT_CLIENTS;
+    }
+  }
+
+  function saveCurrentClient() {
+    const name = (state.toName || '').trim();
+    const details = (state.toDetails || '').trim();
+    if (!name) {
+      alert('Please enter a client name before saving.');
+      return;
+    }
+
+    let clients = getSavedClients();
+    const existing = clients.findIndex(c => c.name.toLowerCase() === name.toLowerCase());
+    if (existing >= 0) {
+      clients[existing].details = details;
+    } else {
+      clients.unshift({ name, details });
+    }
+
+    localStorage.setItem(CLIENTS_KEY, JSON.stringify(clients));
+    renderClientCatalogList();
+    alert(`"${name}" saved to client directory!`);
+  }
+
+  function renderClientCatalogList() {
+    const listEl = document.getElementById('clientCatalogList');
+    if (!listEl) return;
+    const clients = getSavedClients();
+
+    if (clients.length === 0) {
+      listEl.innerHTML = '<div class="catalog-empty-msg">No saved clients yet.<br>Click "+ Save Current" to add.</div>';
+      return;
+    }
+
+    listEl.innerHTML = clients.map((c, i) => `
+      <div style="display: flex; align-items: center; justify-content: space-between; padding-right: 8px;">
+        <button type="button" class="catalog-item-btn" data-client-idx="${i}" style="flex: 1;">
+          <strong>${c.name}</strong>
+        </button>
+        <button type="button" class="btn-remove-mini" data-del-client="${i}" title="Delete client" style="font-size: 0.65rem;">✕</button>
+      </div>
+    `).join('');
+
+    listEl.querySelectorAll('[data-client-idx]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.dataset.clientIdx, 10);
+        const selected = clients[idx];
+        if (selected) {
+          state.toName = selected.name;
+          state.toDetails = selected.details;
+          const toNameEl = document.getElementById('toName');
+          const toDetailsEl = document.getElementById('toDetails');
+          if (toNameEl) toNameEl.value = selected.name;
+          if (toDetailsEl) toDetailsEl.value = selected.details;
+          saveToStorage();
+          const dropdown = document.getElementById('clientCatalogDropdown');
+          if (dropdown) dropdown.style.display = 'none';
+        }
+      });
+    });
+
+    listEl.querySelectorAll('[data-del-client]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = parseInt(btn.dataset.delClient, 10);
+        let cur = getSavedClients();
+        cur.splice(idx, 1);
+        localStorage.setItem(CLIENTS_KEY, JSON.stringify(cur));
+        renderClientCatalogList();
+      });
+    });
+  }
+
+  // ==========================================
+  // Watermark / Status Stamp
+  // ==========================================
+  function renderStamp() {
+    const stampEl = document.getElementById('invoiceStamp');
+    const stampText = document.getElementById('stampText');
+    const stampSelect = document.getElementById('stampSelector');
+    if (!stampEl) return;
+
+    const current = state.stamp || 'none';
+    if (stampSelect) stampSelect.value = current;
+
+    stampEl.className = 'invoice-stamp-badge';
+    if (current === 'none') {
+      stampEl.style.display = 'none';
+      stampEl.classList.add('stamp-none');
+    } else {
+      stampEl.style.display = 'inline-block';
+      stampEl.classList.add(`stamp-${current.toLowerCase()}`);
+      if (stampText) stampText.textContent = current;
+    }
+  }
+
+  // ==========================================
+  // Digital Signature Pad
+  // ==========================================
+  function initSignaturePad() {
+    const canvas = document.getElementById('signatureCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const width = 300;
+    const height = 75;
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.scale(ratio, ratio);
+
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    function getCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    canvas.addEventListener('pointerdown', (e) => {
+      isDrawingSignature = true;
+      const { x, y } = getCoords(e);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!isDrawingSignature) return;
+      const { x, y } = getCoords(e);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    });
+
+    const stopDrawing = () => {
+      if (isDrawingSignature) {
+        isDrawingSignature = false;
+        state.signatureData = canvas.toDataURL();
+        saveToStorage();
+      }
+    };
+
+    canvas.addEventListener('pointerup', stopDrawing);
+    canvas.addEventListener('pointercancel', stopDrawing);
+    canvas.addEventListener('pointerleave', stopDrawing);
+
+    renderSignatureImage();
+  }
+
+  function renderSignatureImage() {
+    const canvas = document.getElementById('signatureCanvas');
+    if (!canvas || !state.signatureData) return;
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.onload = () => {
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, 300, 75);
+    };
+    img.src = state.signatureData;
+  }
+
+  function clearSignature() {
+    const canvas = document.getElementById('signatureCanvas');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    state.signatureData = null;
+    saveToStorage();
+  }
+
+  // ==========================================
   // Item Management
+  // ==========================================
   function addItem(description = 'New Service Item', quantity = 1, rate = 100) {
     state.items.push({
       description: description,
@@ -138,7 +575,6 @@
 
   function removeItem(index) {
     if (state.items.length <= 1) {
-      // Keep at least one empty item row
       state.items = [{ description: '', quantity: 1, rate: 0 }];
     } else {
       state.items.splice(index, 1);
@@ -148,7 +584,6 @@
     saveToStorage();
   }
 
-  // Render Table Items
   function renderItems() {
     const tbody = document.getElementById('itemsTableBody');
     if (!tbody) return;
@@ -157,109 +592,99 @@
 
     state.items.forEach((item, index) => {
       const tr = document.createElement('tr');
-      tr.className = 'item-row';
+      tr.dataset.index = index;
 
-      const lineTotal = (Number(item.quantity) || 0) * (Number(item.rate) || 0);
+      const q = Math.max(0, Number(item.quantity) || 0);
+      const r = Math.max(0, Number(item.rate) || 0);
+      const rowTotal = q * r;
 
       tr.innerHTML = `
         <td class="col-desc">
-          <input type="text" class="table-input item-desc" placeholder="Description of service or product" value="${escapeHtml(item.description)}" data-index="${index}">
+          <input type="text" class="table-input item-desc" placeholder="Description of service or product" value="${escapeHtml(item.description)}">
         </td>
         <td class="col-qty">
-          <input type="number" class="table-input item-qty" min="0" step="any" value="${item.quantity}" data-index="${index}">
+          <input type="number" class="table-input item-qty" min="0" step="any" value="${item.quantity}">
         </td>
         <td class="col-rate">
-          <input type="number" class="table-input item-rate" min="0" step="any" value="${item.rate}" data-index="${index}">
+          <input type="number" class="table-input item-rate" min="0" step="any" value="${item.rate}">
         </td>
         <td class="col-total">
-          <span class="line-total-val">${formatMoney(lineTotal)}</span>
+          <span class="row-total-val">${formatMoney(rowTotal)}</span>
         </td>
         <td class="col-action print-hide">
-          <button type="button" class="btn-delete-row" title="Delete Item" data-index="${index}">✕</button>
+          <button type="button" class="btn-delete-row" title="Delete Row" data-index="${index}">✕</button>
         </td>
       `;
 
       tbody.appendChild(tr);
     });
 
-    // Event listeners on dynamically rendered table rows
-    tbody.querySelectorAll('.item-desc').forEach(input => {
+    // Attach row events
+    tbody.querySelectorAll('.item-desc').forEach((input, idx) => {
       input.addEventListener('input', (e) => {
-        const idx = e.target.dataset.index;
         state.items[idx].description = e.target.value;
         saveToStorage();
       });
     });
 
-    tbody.querySelectorAll('.item-qty').forEach(input => {
+    tbody.querySelectorAll('.item-qty').forEach((input, idx) => {
       input.addEventListener('input', (e) => {
-        const idx = e.target.dataset.index;
         state.items[idx].quantity = e.target.value;
+        updateRowTotal(idx);
         updateTotals();
         saveToStorage();
-        // Update line total text
-        const totalSpan = e.target.closest('tr').querySelector('.line-total-val');
-        if (totalSpan) {
-          const lt = (Number(e.target.value) || 0) * (Number(state.items[idx].rate) || 0);
-          totalSpan.textContent = formatMoney(lt);
-        }
       });
     });
 
-    tbody.querySelectorAll('.item-rate').forEach(input => {
+    tbody.querySelectorAll('.item-rate').forEach((input, idx) => {
       input.addEventListener('input', (e) => {
-        const idx = e.target.dataset.index;
         state.items[idx].rate = e.target.value;
+        updateRowTotal(idx);
         updateTotals();
         saveToStorage();
-        // Update line total text
-        const totalSpan = e.target.closest('tr').querySelector('.line-total-val');
-        if (totalSpan) {
-          const lt = (Number(state.items[idx].quantity) || 0) * (Number(e.target.value) || 0);
-          totalSpan.textContent = formatMoney(lt);
-        }
       });
     });
 
     tbody.querySelectorAll('.btn-delete-row').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const idx = parseInt(e.target.dataset.index, 10);
+        const idx = parseInt(btn.dataset.index, 10);
         removeItem(idx);
       });
     });
   }
 
+  function updateRowTotal(index) {
+    const tr = document.querySelector(`#itemsTableBody tr[data-index="${index}"]`);
+    if (!tr) return;
+    const item = state.items[index];
+    const q = Math.max(0, Number(item.quantity) || 0);
+    const r = Math.max(0, Number(item.rate) || 0);
+    const totalEl = tr.querySelector('.row-total-val');
+    if (totalEl) {
+      totalEl.textContent = formatMoney(q * r);
+    }
+  }
+
   function updateTotals() {
-    const totals = calculateTotals();
+    const { subtotal, taxAmount, discountAmount, grandTotal } = calculateTotals();
 
-    const elSubtotal = document.getElementById('valSubtotal');
-    const elTax = document.getElementById('valTax');
-    const elDiscount = document.getElementById('valDiscount');
-    const elGrandTotal = document.getElementById('valGrandTotal');
-    const elCurrencySymbols = document.querySelectorAll('.currency-symbol');
+    const subEl = document.getElementById('valSubtotal');
+    if (subEl) subEl.textContent = formatMoney(subtotal);
 
-    if (elSubtotal) elSubtotal.textContent = formatMoney(totals.subtotal);
-    if (elTax) elTax.textContent = formatMoney(totals.taxAmount);
-    if (elDiscount) elDiscount.textContent = formatMoney(totals.discountAmount);
-    if (elGrandTotal) elGrandTotal.textContent = formatMoney(totals.grandTotal);
+    const taxEl = document.getElementById('valTax');
+    if (taxEl) taxEl.textContent = formatMoney(taxAmount);
 
-    elCurrencySymbols.forEach(span => {
-      span.textContent = getCurrencySymbol();
-    });
+    const discEl = document.getElementById('valDiscount');
+    if (discEl) discEl.textContent = `-${formatMoney(discountAmount)}`;
+
+    const grandEl = document.getElementById('valGrandTotal');
+    if (grandEl) grandEl.textContent = formatMoney(grandTotal);
   }
 
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>"']/g, function(m) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
-    });
-  }
-
-  // Logo Upload & Remove
   function handleLogoUpload(file) {
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(e) {
+    reader.onload = (e) => {
       state.logo = e.target.result;
       renderLogo();
       saveToStorage();
@@ -270,27 +695,22 @@
   function removeLogo() {
     state.logo = null;
     renderLogo();
+    const input = document.getElementById('logoFileInput');
+    if (input) input.value = '';
     saveToStorage();
   }
 
   function renderLogo() {
-    const logoBox = document.querySelector('.logo-upload-box');
-    const logoImg = document.getElementById('invoiceLogoImg');
-    const uploadPrompt = document.getElementById('logoUploadPrompt');
-    const removeBtn = document.getElementById('btnRemoveLogo');
+    const box = document.querySelector('.logo-upload-box');
+    const img = document.getElementById('invoiceLogoImg');
+    if (!box || !img) return;
 
     if (state.logo) {
-      if (logoBox) logoBox.classList.add('has-logo');
-      logoImg.src = state.logo;
-      logoImg.style.display = 'block';
-      uploadPrompt.style.display = 'none';
-      if (removeBtn) removeBtn.style.display = 'inline-block';
+      img.src = state.logo;
+      box.classList.add('has-logo');
     } else {
-      if (logoBox) logoBox.classList.remove('has-logo');
-      logoImg.src = '';
-      logoImg.style.display = 'none';
-      uploadPrompt.style.display = 'flex';
-      if (removeBtn) removeBtn.style.display = 'none';
+      img.src = '';
+      box.classList.remove('has-logo');
     }
   }
 
@@ -323,12 +743,18 @@
       addDiscountWrap.style.display = state.showDiscount ? 'none' : 'block';
     }
 
-    // QR Code Section Visibility
     const elQr = document.getElementById('qrSection');
     const btnAddQr = document.getElementById('btnAddQr');
     if (elQr && btnAddQr) {
       elQr.style.display = state.showQr ? 'flex' : 'none';
       btnAddQr.style.display = state.showQr ? 'none' : 'inline-flex';
+    }
+
+    const elSig = document.getElementById('signatureSection');
+    const btnAddSig = document.getElementById('btnAddSignature');
+    if (elSig && btnAddSig) {
+      elSig.style.display = state.showSignature !== false ? 'flex' : 'none';
+      btnAddSig.style.display = state.showSignature !== false ? 'none' : 'inline-flex';
     }
   }
 
@@ -355,11 +781,8 @@
   function renderAccentColor() {
     const color = state.accentColor || '#4f46e5';
     document.documentElement.style.setProperty('--primary-indigo', color);
-    
-    // Calculate a slightly darker hover color
     document.documentElement.style.setProperty('--primary-hover', color);
 
-    // Update active swatch
     document.querySelectorAll('.color-swatch-btn').forEach(btn => {
       if (btn.dataset.color.toLowerCase() === color.toLowerCase()) {
         btn.classList.add('active');
@@ -372,18 +795,15 @@
     if (customInput) customInput.value = color;
   }
 
-  // Lightweight Client-Side QR Code Generator (SVG based)
   function renderQrCode() {
     const container = document.getElementById('qrCodeOutput');
     if (!container) return;
 
     const data = (state.qrLink || 'https://paypal.me/').trim();
-    // Use high-speed Google Charts API or fallback SVG QR representation
     const safeUrl = encodeURIComponent(data);
     container.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${safeUrl}" alt="Payment QR Code" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;" loading="lazy">`;
   }
 
-  // Populate Input Fields from State
   function populateInputs() {
     const setVal = (id, val) => {
       const el = document.getElementById(id);
@@ -402,6 +822,7 @@
     setVal('notesText', state.notes);
     setVal('termsText', state.terms);
     setVal('qrLinkInput', state.qrLink);
+    setVal('signerNameInput', state.signerName || 'Authorized Signatory');
 
     const currSelect = document.getElementById('currencySelector');
     if (currSelect) currSelect.value = state.currency || 'USD';
@@ -411,36 +832,35 @@
     renderDocType();
     renderAccentColor();
     renderSectionVisibility();
+    renderStamp();
     renderQrCode();
     renderItems();
     updateTotals();
+    renderSignatureImage();
+    updateHistoryBadge();
   }
 
-  // Clear / Sample actions
   function fillSampleData() {
     state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    state.invoiceId = 'inv_' + Date.now();
     populateInputs();
     saveToStorage();
   }
 
   function openClearModal() {
     const modal = document.getElementById('confirmModal');
-    if (modal) {
-      modal.style.display = 'flex';
-    }
+    if (modal) modal.style.display = 'flex';
   }
 
   function closeClearModal() {
     const modal = document.getElementById('confirmModal');
-    if (modal) {
-      modal.style.display = 'none';
-    }
+    if (modal) modal.style.display = 'none';
   }
 
   function executeClearInvoice() {
     state = {
       currency: 'USD',
-      invoiceNumber: 'INV-1001',
+      invoiceNumber: 'INV-' + (Math.floor(Math.random() * 8999) + 1001),
       issueDate: new Date().toISOString().split('T')[0],
       dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
       logo: null,
@@ -461,14 +881,32 @@
       qrLink: '',
       layout: state.layout || 'modern',
       docType: 'INVOICE',
-      accentColor: state.accentColor || '#4f46e5'
+      accentColor: state.accentColor || '#4f46e5',
+      stamp: 'none',
+      showSignature: true,
+      signatureData: null,
+      signerName: 'Authorized Signatory',
+      invoiceId: 'inv_' + Date.now(),
+      status: 'Draft'
     };
     closeClearModal();
     populateInputs();
     saveToStorage();
   }
 
-  // Bind Form Listeners
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // ==========================================
+  // Form Listeners & Event Bindings
+  // ==========================================
   function bindListeners() {
     const bind = (id, key) => {
       const el = document.getElementById(id);
@@ -494,6 +932,7 @@
     bind('discountRate', 'discountRate');
     bind('notesText', 'notes');
     bind('termsText', 'terms');
+    bind('signerNameInput', 'signerName');
 
     // Currency
     const currSelect = document.getElementById('currencySelector');
@@ -512,6 +951,17 @@
       layoutSelect.addEventListener('change', (e) => {
         state.layout = e.target.value;
         renderLayout();
+        saveToStorage();
+      });
+    }
+
+    // Watermark / Stamp Selector
+    const stampSelect = document.getElementById('stampSelector');
+    if (stampSelect) {
+      stampSelect.addEventListener('change', (e) => {
+        state.stamp = e.target.value;
+        if (state.stamp === 'PAID') state.status = 'Paid';
+        renderStamp();
         saveToStorage();
       });
     }
@@ -539,7 +989,124 @@
       btnRemoveLogo.addEventListener('click', removeLogo);
     }
 
-    // Header Actions
+    // Digital Signature Handlers
+    const btnClearSig = document.getElementById('btnClearSignature');
+    if (btnClearSig) {
+      btnClearSig.addEventListener('click', clearSignature);
+    }
+
+    const btnRemoveSig = document.getElementById('btnRemoveSignature');
+    if (btnRemoveSig) {
+      btnRemoveSig.addEventListener('click', () => {
+        state.showSignature = false;
+        renderSectionVisibility();
+        saveToStorage();
+      });
+    }
+
+    const btnAddSig = document.getElementById('btnAddSignature');
+    if (btnAddSig) {
+      btnAddSig.addEventListener('click', () => {
+        state.showSignature = true;
+        renderSectionVisibility();
+        saveToStorage();
+      });
+    }
+
+    // Quick Service Presets Dropdown
+    const btnQuickService = document.getElementById('btnQuickAddService');
+    const serviceDropdown = document.getElementById('serviceCatalogDropdown');
+    if (btnQuickService && serviceDropdown) {
+      btnQuickService.addEventListener('click', (e) => {
+        e.stopPropagation();
+        serviceDropdown.style.display = serviceDropdown.style.display === 'none' ? 'block' : 'none';
+      });
+
+      serviceDropdown.querySelectorAll('.catalog-item-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const desc = btn.dataset.desc;
+          const rate = parseFloat(btn.dataset.rate) || 0;
+          addItem(desc, 1, rate);
+          serviceDropdown.style.display = 'none';
+        });
+      });
+    }
+
+    // Saved Client Directory Dropdown
+    const btnQuickClient = document.getElementById('btnQuickFillClient');
+    const clientDropdown = document.getElementById('clientCatalogDropdown');
+    const btnSaveClient = document.getElementById('btnSaveCurrentClient');
+
+    if (btnQuickClient && clientDropdown) {
+      btnQuickClient.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = clientDropdown.style.display === 'block';
+        clientDropdown.style.display = isOpen ? 'none' : 'block';
+        if (!isOpen) renderClientCatalogList();
+      });
+    }
+
+    if (btnSaveClient) {
+      btnSaveClient.addEventListener('click', (e) => {
+        e.stopPropagation();
+        saveCurrentClient();
+      });
+    }
+
+    // Slide-Over Invoices Drawer Listeners
+    const btnHistory = document.getElementById('btnHistoryToggle');
+    if (btnHistory) {
+      btnHistory.addEventListener('click', openHistoryDrawer);
+    }
+
+    const btnCloseDrawer = document.getElementById('btnCloseDrawer');
+    if (btnCloseDrawer) {
+      btnCloseDrawer.addEventListener('click', closeHistoryDrawer);
+    }
+
+    const drawerBackdrop = document.getElementById('historyDrawerBackdrop');
+    if (drawerBackdrop) {
+      drawerBackdrop.addEventListener('click', closeHistoryDrawer);
+    }
+
+    const btnNewDrawer = document.getElementById('btnNewInvoiceFromDrawer');
+    if (btnNewDrawer) {
+      btnNewDrawer.addEventListener('click', () => {
+        executeClearInvoice();
+        closeHistoryDrawer();
+      });
+    }
+
+    const btnSaveHistoryExplicit = document.getElementById('btnSaveCurrentToHistory');
+    if (btnSaveHistoryExplicit) {
+      btnSaveHistoryExplicit.addEventListener('click', () => {
+        saveToStorage();
+        renderHistoryDrawer();
+        alert('Invoice successfully saved to history!');
+      });
+    }
+
+    // History Drawer Filter Tabs
+    document.querySelectorAll('.drawer-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeHistoryFilter = tab.dataset.filter;
+        renderHistoryDrawer();
+      });
+    });
+
+    // Close dropdowns on outside click
+    document.addEventListener('click', (e) => {
+      if (serviceDropdown && !serviceDropdown.contains(e.target) && e.target !== btnQuickService) {
+        serviceDropdown.style.display = 'none';
+      }
+      if (clientDropdown && !clientDropdown.contains(e.target) && e.target !== btnQuickClient) {
+        clientDropdown.style.display = 'none';
+      }
+    });
+
+    // Print & Document Title Handlers
     let originalPageTitle = document.title;
     window.addEventListener('beforeprint', () => {
       originalPageTitle = document.title;
@@ -551,6 +1118,73 @@
     window.addEventListener('afterprint', () => {
       document.title = originalPageTitle;
     });
+
+    function downloadDirectPdf() {
+      const sheet = document.getElementById('invoiceSheet');
+      if (!sheet) return;
+
+      const invNum = state.invoiceNumber || 'INV-1001';
+      const client = (state.toName || 'Client').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
+      const filename = `${invNum}_${client}.pdf`;
+
+      const btn = document.getElementById('btnDownloadPdf');
+      let originalText = '';
+      if (btn) {
+        originalText = btn.innerHTML;
+        btn.innerHTML = '⏳ Generating...';
+        btn.disabled = true;
+      }
+
+      // Temporarily hide elements that shouldn't appear in PDF
+      const printHideElements = sheet.querySelectorAll('.print-hide');
+      printHideElements.forEach(el => el.style.setProperty('display', 'none', 'important'));
+
+      const opt = {
+        margin: [8, 10, 8, 10],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+          scrollY: 0,
+          backgroundColor: '#ffffff'
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
+          orientation: 'portrait'
+        }
+      };
+
+      if (window.html2pdf) {
+        window.html2pdf().set(opt).from(sheet).save().then(() => {
+          printHideElements.forEach(el => el.style.removeProperty('display'));
+          if (btn) {
+            btn.innerHTML = '✓ Downloaded!';
+            setTimeout(() => {
+              btn.innerHTML = originalText;
+              btn.disabled = false;
+            }, 2000);
+          }
+        }).catch(err => {
+          console.error('PDF error:', err);
+          printHideElements.forEach(el => el.style.removeProperty('display'));
+          if (btn) {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }
+          window.print();
+        });
+      } else {
+        window.print();
+      }
+    }
+
+    const btnDownload = document.getElementById('btnDownloadPdf');
+    if (btnDownload) {
+      btnDownload.addEventListener('click', downloadDirectPdf);
+    }
 
     const btnPrint = document.getElementById('btnPrintInvoice');
     if (btnPrint) {
@@ -757,6 +1391,8 @@
     loadFromStorage();
     populateInputs();
     bindListeners();
+    initSignaturePad();
+    renderClientCatalogList();
   }
 
   window.addEventListener('DOMContentLoaded', init);
