@@ -223,10 +223,30 @@
     </div>
   </div>
 
+  <!-- Ambient Animated Glow Lights (Zero Interaction Overhead, Print Hidden) -->
+  <div class="ambient-glow ambient-glow-left print-hide" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-glow-right print-hide" aria-hidden="true"></div>
+
   <!-- Hero Intro (Hidden in Print) -->
-  <div class="container hero-banner print-hide" style="text-align: center; margin: 12px auto 20px;">
-    <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">Free Online Invoice Generator</h1>
-    <p style="color: var(--text-muted); font-size: 0.95rem;">Click any field below to edit directly. Auto-saves in your browser. Download or print instantly.</p>
+  <div class="container hero-banner print-hide">
+    <div class="hero-badge">
+      <span class="hero-live-indicator">
+        <span class="hero-live-ping"></span>
+        <span class="hero-live-dot"></span>
+        <span class="hero-live-label">LIVE ENGINE</span>
+      </span>
+      <span class="hero-badge-divider"></span>
+      <span class="hero-badge-text">100% Free • No Signup Required • Client-Side & Private</span>
+    </div>
+    <h1 class="hero-title">Free Online <span class="hero-title-highlight">Invoice Generator</span></h1>
+    <p class="hero-subtitle">Click any field to edit directly. Auto-saves locally in real-time. Download PDF or print instantly.</p>
+    <div class="hero-perks">
+      <span class="hero-perk-pill"><span class="perk-icon">⚡</span> Instant PDF</span>
+      <span class="hero-perk-pill"><span class="perk-icon">🔒</span> Zero Sign-up</span>
+      <span class="hero-perk-pill"><span class="perk-icon">💾</span> Live Auto-Save</span>
+      <span class="hero-perk-pill"><span class="perk-icon">🎨</span> 4 Layouts</span>
+      <span class="hero-perk-pill"><span class="perk-icon">📱</span> QR Code Pay</span>
+    </div>
   </div>
 
   <!-- Main Invoice Paper Canvas -->
@@ -498,58 +518,170 @@ Routing: 987654321</textarea>
 
   <!-- 500+ Words SEO Editorial Section & FAQ (Print-Hidden) -->
   <section class="container seo-section print-hide">
-    <h2 class="seo-title">The Complete Guide to Creating Professional Invoices</h2>
-    <p class="seo-subtitle">Everything you need to know about invoice essentials, legal requirements, payment terms, and getting paid faster.</p>
+    <div class="guide-header-wrap">
+      <div class="guide-badge">
+        <span class="guide-badge-icon">📖</span>
+        <span class="guide-badge-text">Invoicing Masterclass & Legal Essentials</span>
+      </div>
+      <h2 class="seo-title">The Complete Guide to <span class="guide-title-gradient">Professional Invoices</span></h2>
+      <p class="seo-subtitle">Everything you need to know about invoice essentials, legal requirements, payment terms, and getting paid faster.</p>
+
+      <!-- Key Highlights Strip -->
+      <div class="guide-stats-strip">
+        <div class="guide-stat-item">
+          <span class="guide-stat-num">5 min</span>
+          <span class="guide-stat-lbl">Quick Read</span>
+        </div>
+        <div class="guide-stat-sep"></div>
+        <div class="guide-stat-item">
+          <span class="guide-stat-num">100% Free</span>
+          <span class="guide-stat-lbl">No Signup</span>
+        </div>
+        <div class="guide-stat-sep"></div>
+        <div class="guide-stat-item">
+          <span class="guide-stat-num">Net 15 / 30</span>
+          <span class="guide-stat-lbl">Standard Terms</span>
+        </div>
+        <div class="guide-stat-sep"></div>
+        <div class="guide-stat-item">
+          <span class="guide-stat-num">🔒 In-Browser</span>
+          <span class="guide-stat-lbl">100% Private</span>
+        </div>
+      </div>
+    </div>
 
     <div class="seo-cards-grid">
       
-      <!-- Card 1 -->
-      <div class="seo-card">
-        <h3 class="seo-card-title">📋 Essential Information on a Legal Invoice</h3>
-        <div class="seo-text">
-          <p>An invoice is more than just a request for payment—it is a formal accounting document and a legally binding commercial instrument. In order for an invoice to be considered valid and processed promptly by your client's accounting department, it must include clear, itemized details:</p>
-          <p>• <strong>Your Contact Information:</strong> Business name, full registered address, phone number, and official email address.<br>
-          • <strong>Client Information:</strong> The exact company name, billing department, and point of contact.<br>
-          • <strong>Sequential Invoice Number:</strong> A unique alphanumeric identifier (e.g. <em>INV-1001</em>) used to track payments and prevent duplicate records.<br>
-          • <strong>Dates:</strong> Both the <em>Date of Issue</em> (when the bill was sent) and the <em>Due Date</em> (when payment is expected).<br>
-          • <strong>Itemized Line Items:</strong> Clear descriptions of deliverables, quantities, hourly units, and subtotal amounts.</p>
+      <!-- Card 1: Essential Information -->
+      <div class="seo-card modern-guide-card card-indigo">
+        <div class="card-header-flex">
+          <div class="card-icon-bubble icon-indigo">📋</div>
+          <div class="card-header-text">
+            <span class="card-category-tag tag-indigo">Accounting Standard</span>
+            <h3 class="seo-card-title">Essential Information on a Legal Invoice</h3>
+          </div>
+        </div>
+        <p class="guide-lead-text">An invoice is a formal commercial instrument. In order for client accounting departments to process payment without delays, include these itemized elements:</p>
+        <div class="guide-checklist">
+          <div class="guide-check-item">
+            <span class="check-dot">✓</span>
+            <div><strong>Your Full Contact Info:</strong> Registered business name, address, phone number & email.</div>
+          </div>
+          <div class="guide-check-item">
+            <span class="check-dot">✓</span>
+            <div><strong>Client Business Details:</strong> Legal company name, billing department & contact person.</div>
+          </div>
+          <div class="guide-check-item">
+            <span class="check-dot">✓</span>
+            <div><strong>Sequential Invoice ID:</strong> Unique alphanumeric tracker (e.g. <em>INV-1001</em>) for tax records.</div>
+          </div>
+          <div class="guide-check-item">
+            <span class="check-dot">✓</span>
+            <div><strong>Clear Dates:</strong> Both the <em>Date of Issue</em> and agreed <em>Payment Due Date</em>.</div>
+          </div>
+          <div class="guide-check-item">
+            <span class="check-dot">✓</span>
+            <div><strong>Itemized Line Items:</strong> Specific service deliverables, hourly rates, and applicable taxes.</div>
+          </div>
         </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="seo-card">
-        <h3 class="seo-card-title">⏳ Understanding Invoice Payment Terms (Net 15, Net 30)</h3>
-        <div class="seo-text">
-          <p>Payment terms specify the time frame within which a client is expected to pay. Using precise terminology sets mutual expectations and avoids awkward payment follow-ups:</p>
-          <p>• <strong>Due Upon Receipt:</strong> Payment is expected immediately upon delivery of the invoice. Common for small projects, retail services, and one-off freelance tasks.<br>
-          • <strong>Net 15:</strong> The client has 15 calendar days from the invoice date to complete payment. This is widely considered the best standard for independent contractors and freelancers.<br>
-          • <strong>Net 30:</strong> Standard commercial corporate payment terms. The client has 30 days to settle the balance. Common for enterprise contracts, though freelancers should negotiate shorter windows when possible.<br>
-          • <strong>Late Fees:</strong> Clearly state your late payment policy (e.g., <em>"1.5% interest per month on overdue balances"</em>) to discourage unnecessary payment delays.</p>
+      <!-- Card 2: Payment Terms -->
+      <div class="seo-card modern-guide-card card-sky">
+        <div class="card-header-flex">
+          <div class="card-icon-bubble icon-sky">⏳</div>
+          <div class="card-header-text">
+            <span class="card-category-tag tag-sky">Payment Deadlines</span>
+            <h3 class="seo-card-title">Understanding Invoice Payment Terms</h3>
+          </div>
+        </div>
+        <p class="guide-lead-text">Precise payment terms establish mutual clarity, protect your cash flow, and prevent awkward follow-ups:</p>
+        <div class="terms-grid">
+          <div class="term-pill">
+            <div class="term-name">Due on Receipt</div>
+            <div class="term-desc">Immediate payment upon invoice delivery. Best for small one-off freelance deliverables.</div>
+          </div>
+          <div class="term-pill highlight-term">
+            <div class="term-name">Net 15 <span class="term-badge">Recommended</span></div>
+            <div class="term-desc">Payment due within 15 calendar days. The modern standard for independent contractors.</div>
+          </div>
+          <div class="term-pill">
+            <div class="term-name">Net 30</div>
+            <div class="term-desc">Standard corporate enterprise terms giving accounting 30 days to clear invoices.</div>
+          </div>
+          <div class="term-pill">
+            <div class="term-name">Late Payment Clause</div>
+            <div class="term-desc">Specify 1.5% monthly interest on past-due balances to discourage payment holds.</div>
+          </div>
         </div>
       </div>
 
-      <!-- Card 3 -->
-      <div class="seo-card">
-        <h3 class="seo-card-title">🚀 5 Proven Tips to Get Paid on Time</h3>
-        <div class="seo-text">
-          <p>Chasing late invoices is one of the most frustrating aspects of running an independent business. Implementing these five best practices dramatically reduces payment friction:</p>
-          <p><strong>1. Always Request an Upfront Deposit:</strong> For projects exceeding $1,000, require a 30% to 50% non-refundable deposit before commencing work.</p>
-          <p><strong>2. Invoice Promptly:</strong> Send your invoice immediately upon milestone delivery or on scheduled recurring dates. Delays in billing cause delays in payment.</p>
-          <p><strong>3. Provide Multiple Payment Options:</strong> Make it effortless for clients to pay. Include domestic bank transfer details (ACH/wire), international routing numbers, or convenient payment links.</p>
-          <p><strong>4. Send Polite Automated Reminders:</strong> Send a friendly reminder 3 days before the due date, on the due date, and 3 days post-due date.</p>
-          <p><strong>5. Itemize Clearly:</strong> Vague invoices lead to billing questions and accounting holds. Transparent item descriptions prevent misunderstandings.</p>
+      <!-- Card 3: 5 Tips -->
+      <div class="seo-card modern-guide-card card-amber">
+        <div class="card-header-flex">
+          <div class="card-icon-bubble icon-amber">🚀</div>
+          <div class="card-header-text">
+            <span class="card-category-tag tag-amber">Best Practices</span>
+            <h3 class="seo-card-title">5 Proven Tips to Get Paid on Time</h3>
+          </div>
+        </div>
+        <p class="guide-lead-text">Chasing overdue payments hurts business momentum. Adopt these 5 proven tactics to get paid faster:</p>
+        <div class="guide-steps-list">
+          <div class="step-row">
+            <span class="step-num">1</span>
+            <div class="step-body"><strong>Always Request an Upfront Deposit:</strong> For projects over $1,000, secure a 30% to 50% retainer before starting work.</div>
+          </div>
+          <div class="step-row">
+            <span class="step-num">2</span>
+            <div class="step-body"><strong>Invoice Same-Day:</strong> Issue bills immediately upon milestone completion while client appreciation is fresh.</div>
+          </div>
+          <div class="step-row">
+            <span class="step-num">3</span>
+            <div class="step-body"><strong>Provide Multi-Channel Rails:</strong> Include direct bank ACH/wire details, routing codes, or a payment link.</div>
+          </div>
+          <div class="step-row">
+            <span class="step-num">4</span>
+            <div class="step-body"><strong>Automate Polite Check-Ins:</strong> Send friendly payment reminders 3 days before and on the due date.</div>
+          </div>
+          <div class="step-row">
+            <span class="step-num">5</span>
+            <div class="step-body"><strong>Avoid Vague Line Descriptions:</strong> Clear item descriptions prevent client disputes and accounting hold-ups.</div>
+          </div>
         </div>
       </div>
 
-      <!-- Card 4 -->
-      <div class="seo-card">
-        <h3 class="seo-card-title">🔒 Why 100% Client-Side Invoicing Matters</h3>
-        <div class="seo-text">
-          <p>Many online invoice generators force users to sign up with their email addresses, store client lists in centralized databases, and lock PDF exports behind expensive monthly subscription paywalls.</p>
-          <p><strong>QuickBillFree operates 100% in your local web browser:</strong></p>
-          <p>• <strong>Complete Privacy:</strong> Your client details, pricing, and company logo are saved exclusively in your browser's private local storage. No data is transmitted across the internet.<br>
-          • <strong>Zero Subscription Fees:</strong> Generate and print unlimited professional invoices for free forever without watermarks or restrictions.<br>
-          • <strong>Instant PDF Printing:</strong> Uses standard browser print engines to generate clean, publication-quality PDF documents instantly.</p>
+      <!-- Card 4: Client-Side Privacy -->
+      <div class="seo-card modern-guide-card card-emerald">
+        <div class="card-header-flex">
+          <div class="card-icon-bubble icon-emerald">🔒</div>
+          <div class="card-header-text">
+            <span class="card-category-tag tag-emerald">Privacy First</span>
+            <h3 class="seo-card-title">Why 100% Client-Side Invoicing Matters</h3>
+          </div>
+        </div>
+        <p class="guide-lead-text">Many generators store sensitive client data in remote cloud silos and lock PDF downloads behind monthly paywalls. QuickBillFree is built differently:</p>
+        <div class="privacy-perks-box">
+          <div class="privacy-perk-item">
+            <div class="privacy-perk-header">
+              <span class="privacy-icon">🛡️</span>
+              <strong>Complete Browser Isolation</strong>
+            </div>
+            <p>Your client list, logo, and hourly rates remain 100% inside your browser's private localStorage. No tracking, no centralized databases.</p>
+          </div>
+          <div class="privacy-perk-item">
+            <div class="privacy-perk-header">
+              <span class="privacy-icon">⚡</span>
+              <strong>Instant Pixel-Perfect PDF Export</strong>
+            </div>
+            <p>Generates professional print-ready PDFs in seconds using standard local rendering with zero watermarks or ads.</p>
+          </div>
+          <div class="privacy-perk-item">
+            <div class="privacy-perk-header">
+              <span class="privacy-icon">💎</span>
+              <strong>Zero Subscriptions Forever</strong>
+            </div>
+            <p>Create, customize, and save unlimited documents without paying recurring monthly fees or mandatory email signups.</p>
+          </div>
         </div>
       </div>
 

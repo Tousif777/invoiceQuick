@@ -140,11 +140,12 @@
   function showSaveIndicator() {
     const ind = document.getElementById('saveIndicator');
     if (ind) {
+      ind.innerHTML = '<span class="save-indicator-dot"></span> Saved Live';
       ind.classList.add('visible');
       clearTimeout(ind._timer);
       ind._timer = setTimeout(() => {
         ind.classList.remove('visible');
-      }, 1500);
+      }, 1800);
     }
   }
 
@@ -616,7 +617,7 @@
       quantity: quantity,
       rate: rate
     });
-    renderItems();
+    renderItems(true);
     updateTotals();
     saveToStorage();
   }
@@ -632,7 +633,7 @@
     saveToStorage();
   }
 
-  function renderItems() {
+  function renderItems(isNewItem = false) {
     const tbody = document.getElementById('itemsTableBody');
     if (!tbody) return;
 
@@ -641,6 +642,9 @@
     state.items.forEach((item, index) => {
       const tr = document.createElement('tr');
       tr.dataset.index = index;
+      if (isNewItem && index === state.items.length - 1) {
+        tr.classList.add('row-just-added');
+      }
 
       const q = Math.max(0, Number(item.quantity) || 0);
       const r = Math.max(0, Number(item.rate) || 0);
@@ -726,7 +730,16 @@
     if (discEl) discEl.textContent = `-${formatMoney(discountAmount)}`;
 
     const grandEl = document.getElementById('valGrandTotal');
-    if (grandEl) grandEl.textContent = formatMoney(grandTotal);
+    if (grandEl) {
+      const prev = grandEl.textContent;
+      const next = formatMoney(grandTotal);
+      grandEl.textContent = next;
+      if (prev && prev !== next) {
+        grandEl.classList.remove('total-amount-bump');
+        void grandEl.offsetWidth; // Force DOM reflow to re-trigger CSS animation
+        grandEl.classList.add('total-amount-bump');
+      }
+    }
   }
 
   function handleLogoUpload(file) {
