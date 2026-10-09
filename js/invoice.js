@@ -293,12 +293,30 @@
     });
 
     container.querySelectorAll('[data-del-id]').forEach(btn => {
-      btn.addEventListener('click', () => deleteInvoiceById(btn.dataset.delId));
+      btn.addEventListener('click', () => openDeleteModal(btn.dataset.delId));
     });
 
     container.querySelectorAll('[data-toggle-status]').forEach(btn => {
       btn.addEventListener('click', () => cycleInvoiceStatus(btn.dataset.toggleStatus));
     });
+  }
+
+  // Toast Notification Helper
+  let toastTimeout = null;
+  function showToast(message, icon = '✓') {
+    const toast = document.getElementById('appToast');
+    const toastMsg = document.getElementById('toastMessage');
+    const toastIcon = document.getElementById('toastIcon');
+    if (!toast || !toastMsg) return;
+
+    toastMsg.textContent = message;
+    if (toastIcon) toastIcon.textContent = icon;
+    toast.style.display = 'flex';
+
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.style.display = 'none';
+    }, 2800);
   }
 
   function loadInvoiceById(id) {
@@ -309,6 +327,7 @@
       populateInputs();
       saveToStorage();
       closeHistoryDrawer();
+      showToast(`Loaded invoice ${state.invoiceNumber || ''}`, '📂');
     }
   }
 
@@ -337,16 +356,45 @@
       saveToStorage();
       renderHistoryDrawer();
       closeHistoryDrawer();
+      showToast(`Duplicated as new draft ${state.invoiceNumber}`, '📋');
     }
   }
 
-  function deleteInvoiceById(id) {
-    if (!confirm('Are you sure you want to delete this invoice from history?')) return;
+  let pendingDeleteInvoiceId = null;
+
+  function openDeleteModal(id) {
+    pendingDeleteInvoiceId = id;
+    const invoices = getSavedInvoices();
+    const target = invoices.find(i => i.id === id);
+    const descEl = document.getElementById('deleteModalDesc');
+    if (descEl) {
+      if (target) {
+        const invNum = target.invoiceNumber || 'this invoice';
+        const client = target.clientName ? ` for "${target.clientName}"` : '';
+        descEl.textContent = `Are you sure you want to delete ${invNum}${client} from your saved history? This action cannot be undone.`;
+      } else {
+        descEl.textContent = 'Are you sure you want to delete this invoice from your saved history? This action cannot be undone.';
+      }
+    }
+    const modal = document.getElementById('deleteConfirmModal');
+    if (modal) modal.style.display = 'flex';
+  }
+
+  function closeDeleteModal() {
+    pendingDeleteInvoiceId = null;
+    const modal = document.getElementById('deleteConfirmModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function executeDeleteInvoice() {
+    if (!pendingDeleteInvoiceId) return;
     let invoices = getSavedInvoices();
-    invoices = invoices.filter(i => i.id !== id);
+    invoices = invoices.filter(i => i.id !== pendingDeleteInvoiceId);
     localStorage.setItem(HISTORY_KEY, JSON.stringify(invoices));
     updateHistoryBadge();
     renderHistoryDrawer();
+    closeDeleteModal();
+    showToast('Invoice deleted from saved history', '🗑️');
   }
 
   function cycleInvoiceStatus(id) {
@@ -386,7 +434,7 @@
     const name = (state.toName || '').trim();
     const details = (state.toDetails || '').trim();
     if (!name) {
-      alert('Please enter a client name before saving.');
+      showToast('Please enter a client name before saving', '⚠️');
       return;
     }
 
@@ -400,7 +448,7 @@
 
     localStorage.setItem(CLIENTS_KEY, JSON.stringify(clients));
     renderClientCatalogList();
-    alert(`"${name}" saved to client directory!`);
+    showToast(`"${name}" saved to client directory!`, '✓');
   }
 
   function renderClientCatalogList() {
@@ -1082,7 +1130,7 @@
       btnSaveHistoryExplicit.addEventListener('click', () => {
         saveToStorage();
         renderHistoryDrawer();
-        alert('Invoice successfully saved to history!');
+        showToast('Invoice successfully saved to history!', '✓');
       });
     }
 
@@ -1221,6 +1269,34 @@
         }
       });
     }
+
+    // Delete Saved Invoice Confirmation Modal Listeners
+    const btnCancelDelete = document.getElementById('btnCancelDelete');
+    if (btnCancelDelete) {
+      btnCancelDelete.addEventListener('click', closeDeleteModal);
+    }
+
+    const btnConfirmDelete = document.getElementById('btnConfirmDelete');
+    if (btnConfirmDelete) {
+      btnConfirmDelete.addEventListener('click', executeDeleteInvoice);
+    }
+
+    const deleteConfirmModal = document.getElementById('deleteConfirmModal');
+    if (deleteConfirmModal) {
+      deleteConfirmModal.addEventListener('click', (e) => {
+        if (e.target === deleteConfirmModal) {
+          closeDeleteModal();
+        }
+      });
+    }
+
+    // Global keyboard listener (Escape to close modals)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeClearModal();
+        closeDeleteModal();
+      }
+    });
 
     // Removable Section Listeners (Notes, Terms, Tax, Discount)
     const btnRemoveNotes = document.getElementById('btnRemoveNotes');
