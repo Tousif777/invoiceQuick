@@ -1157,6 +1157,130 @@
       });
     });
 
+    // ==========================================
+    // PWA Install Prompt Support
+    // ==========================================
+    let deferredInstallPrompt = null;
+    const btnInstallApp = document.getElementById('btnInstallApp');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      if (btnInstallApp) {
+        btnInstallApp.style.display = 'inline-flex';
+      }
+    });
+
+    if (btnInstallApp) {
+      btnInstallApp.addEventListener('click', async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        const choice = await deferredInstallPrompt.userChoice;
+        if (choice && choice.outcome === 'accepted') {
+          showToast('QuickBillFree installed as app!', '📲');
+        }
+        deferredInstallPrompt = null;
+        btnInstallApp.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('appinstalled', () => {
+      if (btnInstallApp) btnInstallApp.style.display = 'none';
+      showToast('QuickBillFree installed as app', '📲');
+    });
+
+    // ==========================================
+    // Drawer Backup, Export CSV & Restore
+    // ==========================================
+    const btnExportJsonBackup = document.getElementById('btnExportJsonBackup');
+    if (btnExportJsonBackup) {
+      btnExportJsonBackup.addEventListener('click', () => {
+        const invoices = getSavedInvoices();
+        if (!invoices || invoices.length === 0) {
+          showToast('No saved invoices to backup', '⚠️');
+          return;
+        }
+        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(invoices, null, 2));
+        const downloadAnchor = document.createElement('a');
+        const dateStr = new Date().toISOString().slice(0, 10);
+        downloadAnchor.setAttribute('href', dataStr);
+        downloadAnchor.setAttribute('download', `quickbillfree-backup-${dateStr}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        showToast(`Backed up ${invoices.length} invoices (JSON)`, '💾');
+      });
+    }
+
+    const btnExportCsv = document.getElementById('btnExportCsv');
+    if (btnExportCsv) {
+      btnExportCsv.addEventListener('click', () => {
+        const invoices = getSavedInvoices();
+        if (!invoices || invoices.length === 0) {
+          showToast('No saved invoices to export', '⚠️');
+          return;
+        }
+        const headers = ['Invoice Number', 'Client Name', 'Issue Date', 'Due Date', 'Currency', 'Total Amount', 'Status'];
+        const rows = invoices.map(inv => [
+          `"${(inv.invoiceNumber || '').replace(/"/g, '""')}"`,
+          `"${(inv.clientName || '').replace(/"/g, '""')}"`,
+          `"${(inv.issueDate || '').replace(/"/g, '""')}"`,
+          `"${(inv.dueDate || '').replace(/"/g, '""')}"`,
+          `"${(inv.currency || 'USD').replace(/"/g, '""')}"`,
+          Number(inv.totalAmount || 0).toFixed(2),
+          `"${(inv.status || 'Draft').replace(/"/g, '""')}"`
+        ]);
+        const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent([headers.join(','), ...rows.map(r => r.join(','))].join('\n'));
+        const downloadAnchor = document.createElement('a');
+        const dateStr = new Date().toISOString().slice(0, 10);
+        downloadAnchor.setAttribute('href', csvContent);
+        downloadAnchor.setAttribute('download', `quickbillfree-invoices-${dateStr}.csv`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        showToast(`Exported ${invoices.length} invoices to CSV`, '📊');
+      });
+    }
+
+    const inputRestoreBackup = document.getElementById('inputRestoreBackup');
+    if (inputRestoreBackup) {
+      inputRestoreBackup.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const imported = JSON.parse(event.target.result);
+            if (!Array.isArray(imported)) {
+              showToast('Invalid backup file format (must be invoice list)', '❌');
+              return;
+            }
+            let current = getSavedInvoices();
+            const currentIds = new Set(current.map(i => i.id));
+            let addedCount = 0;
+            imported.forEach(inv => {
+              if (inv && typeof inv === 'object' && inv.id) {
+                if (!currentIds.has(inv.id)) {
+                  current.push(inv);
+                  currentIds.add(inv.id);
+                  addedCount++;
+                }
+              }
+            });
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(current));
+            updateHistoryBadge();
+            renderHistoryDrawer();
+            showToast(`Restored ${addedCount} new invoices from backup!`, '✓');
+          } catch (err) {
+            showToast('Failed to read JSON backup file', '❌');
+          }
+          inputRestoreBackup.value = '';
+        };
+        reader.readAsText(file);
+      });
+    }
+
     // Close dropdowns on outside click
     document.addEventListener('click', (e) => {
       if (serviceDropdown && !serviceDropdown.contains(e.target) && e.target !== btnQuickService) {

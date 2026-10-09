@@ -2555,6 +2555,57 @@ body {
   border-color: #fca5a5;
 }
 
+/* Drawer Footer Data Management */
+.drawer-footer-actions {
+  padding: 12px 18px;
+  background: #f8fafc;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-drawer-tool {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-drawer-tool:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: var(--primary-indigo);
+}
+
+.btn-restore-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+/* Install App Button */
+.btn-install-app {
+  background: #eef2ff !important;
+  color: var(--primary-indigo) !important;
+  border: 1px solid #c7d2fe !important;
+  font-weight: 700 !important;
+}
+
+.btn-install-app:hover {
+  background: #e0e7ff !important;
+  border-color: #a5b4fc !important;
+}
+
 /* ========================================================= */
 /* PRINT OPTIMIZATION (@media print)                         */
 /* Ensures ONLY the invoice sheet prints on a single A4 page */

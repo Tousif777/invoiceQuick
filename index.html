@@ -187,6 +187,10 @@
 
       <!-- Right Actions Group -->
       <div class="header-nav-actions">
+        <button type="button" id="btnInstallApp" class="btn-ghost btn-install-app" style="display: none;" title="Install QuickBillFree as Desktop/Mobile App">
+          📲 Install App
+        </button>
+
         <button type="button" id="btnHistoryToggle" class="btn-ghost btn-with-badge" title="Saved Invoices History">
           📂 Invoices <span id="historyBadgeCount" class="badge-count">1</span>
         </button>
@@ -872,11 +876,33 @@ Routing: 987654321</textarea>
     <div id="historyListContainer" class="drawer-list">
       <!-- Populated dynamically with invoice cards -->
     </div>
+
+    <!-- Drawer Backup & Export Tools -->
+    <div class="drawer-footer-actions">
+      <button type="button" id="btnExportJsonBackup" class="btn-drawer-tool" title="Download all invoices as a backup JSON file">
+        ⬇️ Backup JSON
+      </button>
+      <button type="button" id="btnExportCsv" class="btn-drawer-tool" title="Export invoice records to CSV spreadsheet">
+        📊 Export CSV
+      </button>
+      <label class="btn-drawer-tool btn-restore-label" title="Restore invoices from JSON backup">
+        ⬆️ Restore
+        <input type="file" id="inputRestoreBackup" accept=".json" style="display: none;">
+      </label>
+    </div>
   </aside>
 
   <!-- High-Precision Client-Side PDF Engine -->
   <script src="js/html2pdf.bundle.min.js"></script>
   <!-- Core Script -->
   <script src="js/invoice.js"></script>
+  <!-- PWA Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(function() {});
+      });
+    }
+  </script>
 </body>
 </html>
