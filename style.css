@@ -42,6 +42,11 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   background-color: var(--bg-page);
   background-image: 
@@ -58,6 +63,9 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -81,6 +89,9 @@ body {
   z-index: 50;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.03), 0 1px 2px rgba(15, 23, 42, 0.02);
   transition: all 0.2s ease;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
 }
 
 .app-header .container {
@@ -399,6 +410,7 @@ body {
   justify-content: flex-end;
   gap: 4px;
   margin-top: 5px;
+  flex-wrap: wrap;
 }
 
 .preset-label {
@@ -1142,6 +1154,8 @@ body {
 .items-table-wrapper {
   margin-bottom: 22px;
   overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .items-table {
@@ -3185,31 +3199,95 @@ body {
     justify-content: space-between;
     gap: 8px;
   }
+  .header-nav-actions {
+    flex-wrap: wrap;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .header-flex {
-    justify-content: center;
-    gap: 8px;
+  .app-header {
+    overflow-x: hidden;
   }
+
+  .header-flex {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    padding: 8px 0;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .brand-group {
     width: 100%;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
+
+  .header-nav-actions {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .header-nav-actions .btn-ghost,
+  .header-nav-actions .btn-secondary {
+    padding: 5px 9px;
+    font-size: 0.75rem;
+    flex: 0 1 auto;
+  }
+
+  .header-nav-actions .btn-primary {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
   .header-nav-tools {
     order: 3;
     width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    overflow-x: auto;
-    padding: 4px 6px;
+    align-items: center;
+    overflow-x: visible;
+    padding: 6px 8px;
+    gap: 6px;
+    box-sizing: border-box;
   }
-  .header-nav-actions {
-    justify-content: center;
-    width: 100%;
-  }
-}
 
-@media screen and (max-width: 768px) {
+  .header-nav-tools .select-clean {
+    flex: 1 1 calc(50% - 8px);
+    max-width: calc(50% - 4px);
+    min-width: 0;
+    font-size: 0.74rem;
+    padding: 4px 6px;
+    text-overflow: ellipsis;
+  }
+
+  .header-tools-divider {
+    display: none;
+  }
+
+  .color-picker-wrap {
+    width: 100%;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .due-presets-row {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
   .sheet-top-row {
     flex-direction: column;
     align-items: stretch;
@@ -3238,9 +3316,41 @@ body {
 
   .invoice-sheet {
     padding: 24px 16px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .seo-cards-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app-header .container {
+    padding: 0 10px;
+  }
+
+  .brand-title {
+    font-size: 1.02rem;
+  }
+
+  .header-nav-actions {
+    gap: 4px;
+  }
+
+  .header-nav-actions .btn-ghost,
+  .header-nav-actions .btn-secondary {
+    padding: 4px 7px;
+    font-size: 0.72rem;
+  }
+
+  .header-nav-actions .btn-primary {
+    width: 100%;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .btn-install-app {
+    display: none !important;
   }
 }
