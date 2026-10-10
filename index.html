@@ -207,6 +207,10 @@
           Clear
         </button>
 
+        <button id="btnEmailInvoice" class="btn-secondary" title="Compose email with invoice details to client">
+          ✉️ Email
+        </button>
+
         <button id="btnPrintInvoice" class="btn-secondary" title="Print using browser print dialog">
           🖨️ Print
         </button>
@@ -286,6 +290,11 @@
             <input type="text" id="invoiceNumber" class="meta-input" value="INV-1001">
           </div>
 
+          <div class="meta-field-row empty-meta-field" id="poNumberRow">
+            <label for="poNumber" class="meta-label">P.O. #</label>
+            <input type="text" id="poNumber" class="meta-input" placeholder="e.g. PO-8921">
+          </div>
+
           <div class="meta-field-row">
             <label for="issueDate" class="meta-label">Issue Date</label>
             <input type="date" id="issueDate" class="meta-input">
@@ -301,8 +310,9 @@
             <span class="preset-label">Terms:</span>
             <button type="button" class="btn-preset" data-days="0" title="Due Immediately">Receipt</button>
             <button type="button" class="btn-preset" data-days="7" title="Due in 7 days">Net 7</button>
-            <button type="button" class="btn-preset" data-days="14" title="Due in 14 days">Net 14</button>
+            <button type="button" class="btn-preset active" data-days="14" title="Due in 14 days">Net 14</button>
             <button type="button" class="btn-preset" data-days="30" title="Due in 30 days">Net 30</button>
+            <button type="button" class="btn-preset" data-days="60" title="Due in 60 days">Net 60</button>
           </div>
         </div>
 
@@ -497,15 +507,40 @@ Routing: 987654321</textarea>
             <button type="button" id="btnAddDiscount" class="btn-add-total-toggle">➕ Add Discount</button>
           </div>
 
+          <!-- Deposit / Amount Paid Line (Removable) -->
+          <div class="total-line" id="amountPaidLine" style="display: none;">
+            <div class="total-line-input-wrap">
+              <span>Amount Paid (<span id="currencySymbolPaid">$</span>)</span>
+              <input type="number" id="amountPaid" class="total-mini-input amount-paid-input" value="0" min="0" step="any" placeholder="0.00">
+              <button type="button" id="btnRemoveAmountPaid" class="btn-remove-mini print-hide" title="Remove Amount Paid">✕</button>
+            </div>
+            <span id="valAmountPaid" class="total-line-value">$0.00</span>
+          </div>
+          <div id="addAmountPaidWrap" class="add-total-line-wrap print-hide">
+            <button type="button" id="btnAddAmountPaid" class="btn-add-total-toggle">➕ Add Deposit / Paid</button>
+          </div>
+
           <div class="total-divider"></div>
 
           <div class="grand-total-line">
-            <span>Total Due:</span>
+            <span id="grandTotalLabel">Total Due:</span>
             <span id="valGrandTotal" class="grand-total-amount">$3,898.80</span>
+          </div>
+
+          <!-- Balance Due Line (Shown when deposit/paid is recorded) -->
+          <div class="balance-due-line" id="balanceDueLine" style="display: none;">
+            <span class="balance-due-label">Balance Due:</span>
+            <span id="valBalanceDue" class="balance-due-amount">$3,898.80</span>
           </div>
 
         </div>
 
+      </div>
+
+      <!-- Subtle Invoice Sheet Footer Badge (White-label Toggleable) -->
+      <div class="invoice-sheet-footer" id="invoiceSheetFooter">
+        <span class="powered-by-text" id="poweredByBadge">Created with <a href="https://quickbillfree.com" target="_blank" rel="noopener" class="powered-by-link">QuickBillFree.com</a> — Free Online Invoicing</span>
+        <button type="button" id="btnToggleBadge" class="btn-toggle-badge print-hide" title="Remove QuickBillFree watermark">✕ Remove watermark</button>
       </div>
 
     </div>

@@ -67,6 +67,10 @@
     terms: 'Payment via Bank Transfer (Wire/ACH):\nBank Name: Silicon Valley Bank\nAccount: 1234-5678-9012\nRouting: 987654321',
 
     // Power Features
+    poNumber: '',
+    amountPaid: 0,
+    showAmountPaid: false,
+    showPoweredBy: true,
     stamp: 'none',
     showSignature: true,
     signatureData: null,
@@ -90,7 +94,7 @@
     return `${symbol}${num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
-  // Calculate Subtotal, Tax, Discount, Grand Total
+  // Calculate Subtotal, Tax, Discount, Grand Total, and Balance Due
   function calculateTotals() {
     let subtotal = 0;
     state.items.forEach(item => {
@@ -106,12 +110,16 @@
     const discountAmount = (subtotal * discountPercent) / 100;
 
     const grandTotal = Math.max(0, subtotal + taxAmount - discountAmount);
+    const amountPaid = state.showAmountPaid ? Math.max(0, Number(state.amountPaid) || 0) : 0;
+    const balanceDue = Math.max(0, grandTotal - amountPaid);
 
     return {
       subtotal: subtotal,
       taxAmount: taxAmount,
       discountAmount: discountAmount,
-      grandTotal: grandTotal
+      grandTotal: grandTotal,
+      amountPaid: amountPaid,
+      balanceDue: balanceDue
     };
   }
 
@@ -718,7 +726,7 @@
   }
 
   function updateTotals() {
-    const { subtotal, taxAmount, discountAmount, grandTotal } = calculateTotals();
+    const { subtotal, taxAmount, discountAmount, grandTotal, amountPaid, balanceDue } = calculateTotals();
 
     const subEl = document.getElementById('valSubtotal');
     if (subEl) subEl.textContent = formatMoney(subtotal);
@@ -728,6 +736,17 @@
 
     const discEl = document.getElementById('valDiscount');
     if (discEl) discEl.textContent = `-${formatMoney(discountAmount)}`;
+
+    const currPaid = document.getElementById('currencySymbolPaid');
+    if (currPaid) currPaid.textContent = getCurrencySymbol();
+
+    const paidEl = document.getElementById('valAmountPaid');
+    if (paidEl) paidEl.textContent = formatMoney(amountPaid);
+
+    const grandLabel = document.getElementById('grandTotalLabel');
+    if (grandLabel) {
+      grandLabel.textContent = state.showAmountPaid ? 'Total:' : 'Total Due:';
+    }
 
     const grandEl = document.getElementById('valGrandTotal');
     if (grandEl) {
@@ -740,6 +759,82 @@
         grandEl.classList.add('total-amount-bump');
       }
     }
+
+    const balEl = document.getElementById('valBalanceDue');
+    if (balEl) balEl.textContent = formatMoney(balanceDue);
+
+    const balRow = document.getElementById('balanceDueLine');
+    if (balRow) {
+      balRow.style.display = state.showAmountPaid ? 'flex' : 'none';
+    }
+  }
+
+  function updatePoVisibility() {
+    const poRow = document.getElementById('poNumberRow');
+    if (poRow) {
+      if (!state.poNumber || !state.poNumber.trim()) {
+        poRow.classList.add('empty-meta-field');
+      } else {
+        poRow.classList.remove('empty-meta-field');
+      }
+    }
+  }
+
+  function updateTermsActiveState() {
+    const issueInput = document.getElementById('issueDate');
+    const dueInput = document.getElementById('dueDate');
+    if (!issueInput || !dueInput) return;
+
+    const issueVal = issueInput.value;
+    const dueVal = dueInput.value;
+    if (!issueVal || !dueVal) return;
+
+    const issueD = new Date(issueVal);
+    const dueD = new Date(dueVal);
+    const diffDays = Math.round((dueD - issueD) / 86400000);
+
+    document.querySelectorAll('.btn-preset').forEach(btn => {
+      const days = parseInt(btn.dataset.days, 10);
+      if (days === diffDays) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function composeEmailDraft() {
+    const toText = (state.toDetails || '') + ' ' + (state.toName || '');
+    const emailMatch = toText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+    const recipient = emailMatch ? emailMatch[0] : '';
+    
+    const clientName = (state.toName || 'Valued Client').trim().split('\n')[0];
+    const invNum = state.invoiceNumber || 'INV-1001';
+    const sender = (state.fromName || 'Acme Studio Co.').trim().split('\n')[0];
+    const { grandTotal, balanceDue } = calculateTotals();
+    const dueAmountFormatted = state.showAmountPaid ? formatMoney(balanceDue) : formatMoney(grandTotal);
+
+    const subject = `Invoice ${invNum} from ${sender}`;
+    const body = 
+`Hi ${clientName},
+
+Please find the details for invoice ${invNum}.
+
+• Invoice Number: ${invNum}
+• Amount Due: ${dueAmountFormatted}
+• Due Date: ${state.dueDate || 'Upon receipt'}
+
+Please review the attached invoice PDF or let us know if you have any questions.
+
+Thank you for your business!
+
+Best regards,
+${sender}`;
+
+    const mailtoUrl = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+
+    showToast('Opening your email client... Remember to attach your downloaded PDF! ✉️', '✉️');
   }
 
   function handleLogoUpload(file) {
@@ -804,6 +899,17 @@
       addDiscountWrap.style.display = state.showDiscount ? 'none' : 'block';
     }
 
+    const elAmountPaidLine = document.getElementById('amountPaidLine');
+    const addAmountPaidWrap = document.getElementById('addAmountPaidWrap');
+    const balanceDueLine = document.getElementById('balanceDueLine');
+    if (elAmountPaidLine && addAmountPaidWrap) {
+      elAmountPaidLine.style.display = state.showAmountPaid ? 'flex' : 'none';
+      addAmountPaidWrap.style.display = state.showAmountPaid ? 'none' : 'block';
+      if (balanceDueLine) {
+        balanceDueLine.style.display = state.showAmountPaid ? 'flex' : 'none';
+      }
+    }
+
     const elQr = document.getElementById('qrSection');
     const btnAddQr = document.getElementById('btnAddQr');
     if (elQr && btnAddQr) {
@@ -816,6 +922,15 @@
     if (elSig && btnAddSig) {
       elSig.style.display = state.showSignature !== false ? 'flex' : 'none';
       btnAddSig.style.display = state.showSignature !== false ? 'none' : 'inline-flex';
+    }
+
+    const sheetFooter = document.getElementById('invoiceSheetFooter');
+    const btnToggleBadge = document.getElementById('btnToggleBadge');
+    if (sheetFooter) {
+      sheetFooter.style.display = state.showPoweredBy !== false ? 'flex' : 'none';
+      if (btnToggleBadge) {
+        btnToggleBadge.textContent = state.showPoweredBy !== false ? '✕ Remove watermark' : '➕ Show watermark';
+      }
     }
   }
 
@@ -872,6 +987,7 @@
     };
 
     setVal('invoiceNumber', state.invoiceNumber);
+    setVal('poNumber', state.poNumber);
     setVal('issueDate', state.issueDate);
     setVal('dueDate', state.dueDate);
     setVal('fromName', state.fromName);
@@ -880,6 +996,7 @@
     setVal('toDetails', state.toDetails);
     setVal('taxRate', state.taxRate);
     setVal('discountRate', state.discountRate);
+    setVal('amountPaid', state.amountPaid || '');
     setVal('notesText', state.notes);
     setVal('termsText', state.terms);
     setVal('qrLinkInput', state.qrLink);
@@ -897,6 +1014,8 @@
     renderQrCode();
     renderItems();
     updateTotals();
+    updatePoVisibility();
+    updateTermsActiveState();
     renderSignatureImage();
     updateHistoryBadge();
   }
@@ -920,39 +1039,44 @@
 
   function executeClearInvoice() {
     state = {
-      currency: 'USD',
+      currency: state.currency || 'USD',
       invoiceNumber: 'INV-' + (Math.floor(Math.random() * 8999) + 1001),
       issueDate: new Date().toISOString().split('T')[0],
       dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
-      logo: null,
-      fromName: '',
-      fromDetails: '',
+      logo: state.logo || null,
+      fromName: state.fromName || '',
+      fromDetails: state.fromDetails || '',
       toName: '',
       toDetails: '',
       items: [{ description: '', quantity: 1, rate: 0 }],
-      taxRate: 0,
+      taxRate: state.taxRate !== undefined ? state.taxRate : 8,
       discountRate: 0,
-      notes: '',
-      terms: '',
-      showNotes: true,
-      showTerms: true,
-      showTax: true,
+      notes: state.notes || '',
+      terms: state.terms || '',
+      showNotes: state.showNotes !== false,
+      showTerms: state.showTerms !== false,
+      showTax: state.showTax !== false,
       showDiscount: false,
-      showQr: false,
-      qrLink: '',
+      showQr: state.showQr || false,
+      qrLink: state.qrLink || '',
       layout: state.layout || 'modern',
       docType: 'INVOICE',
       accentColor: state.accentColor || '#4f46e5',
       stamp: 'none',
       showSignature: true,
-      signatureData: null,
-      signerName: 'Authorized Signatory',
+      signatureData: state.signatureData || null,
+      signerName: state.signerName || 'Authorized Signatory',
       invoiceId: 'inv_' + Date.now(),
-      status: 'Draft'
+      status: 'Draft',
+      poNumber: '',
+      amountPaid: 0,
+      showAmountPaid: false,
+      showPoweredBy: state.showPoweredBy !== false
     };
     closeClearModal();
     populateInputs();
     saveToStorage();
+    showToast('New invoice created. Your company details are preserved!', '✨');
   }
 
   function escapeHtml(str) {
@@ -975,14 +1099,21 @@
         el.addEventListener('input', (e) => {
           state[key] = e.target.value;
           saveToStorage();
-          if (key === 'taxRate' || key === 'discountRate') {
+          if (key === 'taxRate' || key === 'discountRate' || key === 'amountPaid') {
             updateTotals();
+          }
+          if (key === 'poNumber') {
+            updatePoVisibility();
+          }
+          if (key === 'issueDate' || key === 'dueDate') {
+            updateTermsActiveState();
           }
         });
       }
     };
 
     bind('invoiceNumber', 'invoiceNumber');
+    bind('poNumber', 'poNumber');
     bind('issueDate', 'issueDate');
     bind('dueDate', 'dueDate');
     bind('fromName', 'fromName');
@@ -991,6 +1122,7 @@
     bind('toDetails', 'toDetails');
     bind('taxRate', 'taxRate');
     bind('discountRate', 'discountRate');
+    bind('amountPaid', 'amountPaid');
     bind('notesText', 'notes');
     bind('termsText', 'terms');
     bind('signerNameInput', 'signerName');
@@ -1512,6 +1644,51 @@
       });
     }
 
+    // Deposit / Amount Paid Listeners
+    const btnAddAmountPaid = document.getElementById('btnAddAmountPaid');
+    if (btnAddAmountPaid) {
+      btnAddAmountPaid.addEventListener('click', () => {
+        state.showAmountPaid = true;
+        renderSectionVisibility();
+        updateTotals();
+        saveToStorage();
+        const input = document.getElementById('amountPaid');
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      });
+    }
+
+    const btnRemoveAmountPaid = document.getElementById('btnRemoveAmountPaid');
+    if (btnRemoveAmountPaid) {
+      btnRemoveAmountPaid.addEventListener('click', () => {
+        state.showAmountPaid = false;
+        state.amountPaid = 0;
+        const input = document.getElementById('amountPaid');
+        if (input) input.value = 0;
+        renderSectionVisibility();
+        updateTotals();
+        saveToStorage();
+      });
+    }
+
+    // Toggle Watermark / Footer Badge Listener
+    const btnToggleBadge = document.getElementById('btnToggleBadge');
+    if (btnToggleBadge) {
+      btnToggleBadge.addEventListener('click', () => {
+        state.showPoweredBy = !(state.showPoweredBy !== false);
+        renderSectionVisibility();
+        saveToStorage();
+      });
+    }
+
+    // Email Invoice Action
+    const btnEmail = document.getElementById('btnEmailInvoice');
+    if (btnEmail) {
+      btnEmail.addEventListener('click', composeEmailDraft);
+    }
+
     // Document Type Selector
     const docSelect = document.getElementById('docTypeSelector');
     if (docSelect) {
@@ -1565,6 +1742,7 @@
         
         state.dueDate = dateStr;
         if (dueInput) dueInput.value = dateStr;
+        updateTermsActiveState();
         saveToStorage();
       });
     });

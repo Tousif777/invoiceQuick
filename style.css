@@ -428,6 +428,13 @@ body {
   transform: translateY(-0.5px);
 }
 
+.btn-preset.active {
+  background: var(--primary-indigo);
+  color: #ffffff;
+  border-color: var(--primary-indigo);
+  box-shadow: 0 1px 4px rgba(79, 70, 229, 0.25);
+}
+
 /* Payment QR Code Styling */
 .qr-code-box {
   margin-top: 8px;
@@ -1460,6 +1467,82 @@ body {
   0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0)); }
   40% { transform: scale(1.08); filter: drop-shadow(0 2px 8px rgba(79, 70, 229, 0.35)); }
   100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(79, 70, 229, 0)); }
+}
+
+.amount-paid-input {
+  width: 76px;
+}
+
+.balance-due-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #b91c1c;
+  padding: 10px 14px;
+  background: rgba(254, 242, 242, 0.85);
+  border: 1px solid rgba(252, 165, 165, 0.65);
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+  box-shadow: 0 1px 3px rgba(239, 68, 68, 0.08);
+  animation: rowSlideIn 0.25s ease-out;
+}
+
+.balance-due-label {
+  font-weight: 800;
+  color: #991b1b;
+  letter-spacing: -0.01em;
+}
+
+.balance-due-amount {
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: #dc2626;
+  letter-spacing: -0.02em;
+}
+
+/* Subtle Invoice Sheet Footer Badge */
+.invoice-sheet-footer {
+  margin-top: 32px;
+  padding-top: 14px;
+  border-top: 1px dashed #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  color: var(--text-dim);
+}
+
+.powered-by-text {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.powered-by-link {
+  color: var(--primary-indigo);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.powered-by-link:hover {
+  text-decoration: underline;
+}
+
+.btn-toggle-badge {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.72rem;
+  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.btn-toggle-badge:hover {
+  background: #f1f5f9;
+  color: #475569;
 }
 
 @keyframes rowSlideIn {
@@ -2749,6 +2832,10 @@ body {
     justify-content: flex-end !important;
     gap: 12px !important;
     margin-bottom: 4px !important;
+  }
+
+  .invoice-sheet .meta-field-row.empty-meta-field {
+    display: none !important;
   }
 
   .invoice-sheet .meta-label {
