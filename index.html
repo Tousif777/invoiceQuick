@@ -154,12 +154,48 @@
         </select>
 
         <select id="currencySelector" class="select-currency select-clean select-currency-compact" aria-label="Currency" title="Change Currency">
-          <option value="USD">USD ($)</option>
-          <option value="EUR">EUR (€)</option>
-          <option value="GBP">GBP (£)</option>
-          <option value="CAD">CAD (CA$)</option>
-          <option value="AUD">AUD (A$)</option>
-          <option value="INR">INR (₹)</option>
+          <optgroup label="Popular Global">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD (CA$)</option>
+            <option value="AUD">AUD (A$)</option>
+            <option value="INR">INR (₹)</option>
+          </optgroup>
+          <optgroup label="Asia & Pacific">
+            <option value="JPY">JPY (¥)</option>
+            <option value="SGD">SGD (S$)</option>
+            <option value="NZD">NZD (NZ$)</option>
+            <option value="HKD">HKD (HK$)</option>
+            <option value="CNY">CNY (¥)</option>
+            <option value="BDT">BDT (৳)</option>
+            <option value="PKR">PKR (Rs)</option>
+            <option value="PHP">PHP (₱)</option>
+            <option value="MYR">MYR (RM)</option>
+            <option value="IDR">IDR (Rp)</option>
+            <option value="THB">THB (฿)</option>
+            <option value="VND">VND (₫)</option>
+          </optgroup>
+          <optgroup label="Europe & Middle East">
+            <option value="CHF">CHF (CHF)</option>
+            <option value="AED">AED (AED)</option>
+            <option value="SAR">SAR (SAR)</option>
+            <option value="QAR">QAR (QAR)</option>
+            <option value="ILS">ILS (₪)</option>
+            <option value="TRY">TRY (₺)</option>
+            <option value="PLN">PLN (zł)</option>
+            <option value="SEK">SEK (kr)</option>
+            <option value="NOK">NOK (kr)</option>
+            <option value="DKK">DKK (kr)</option>
+          </optgroup>
+          <optgroup label="Americas & Africa">
+            <option value="BRL">BRL (R$)</option>
+            <option value="MXN">MXN ($)</option>
+            <option value="ZAR">ZAR (R)</option>
+            <option value="NGN">NGN (₦)</option>
+            <option value="KES">KES (KSh)</option>
+            <option value="EGP">EGP (E£)</option>
+          </optgroup>
         </select>
 
         <select id="stampSelector" class="select-currency select-clean" title="Invoice Watermark Stamp">
@@ -361,7 +397,11 @@ accounts@globalent.com</textarea>
           <thead>
             <tr>
               <th class="col-desc">Item Description</th>
-              <th class="col-qty">Quantity</th>
+              <th class="col-qty">
+                <button type="button" id="btnToggleUnit" class="btn-unit-toggle" title="Click to cycle units (Quantity ⇄ Hours ⇄ Days)">
+                  <span id="colUnitLabel">Quantity</span> <span class="unit-arrow print-hide">▾</span>
+                </button>
+              </th>
               <th class="col-rate">Unit Price</th>
               <th class="col-total">Line Total</th>
               <th class="col-action print-hide"></th>
@@ -481,10 +521,18 @@ Routing: 987654321</textarea>
             <span id="valSubtotal" class="total-line-value">$3,610.00</span>
           </div>
 
-          <!-- Tax Line (Removable) -->
+          <!-- Tax Line (Removable & Customizable Label) -->
           <div class="total-line" id="taxLine">
             <div class="total-line-input-wrap">
-              <span>Tax Rate (%)</span>
+              <span id="taxLabelDisplay">Tax</span>
+              <select id="taxLabelSelect" class="tax-label-select print-hide" title="Change Tax Label (VAT, GST, Sales Tax)">
+                <option value="Tax">Tax</option>
+                <option value="VAT">VAT</option>
+                <option value="GST">GST</option>
+                <option value="HST">HST</option>
+                <option value="Sales Tax">Sales Tax</option>
+              </select>
+              <span>(%)</span>
               <input type="number" id="taxRate" class="total-mini-input" value="8" min="0" max="100" step="0.5">
               <button type="button" id="btnRemoveTax" class="btn-remove-mini print-hide" title="Remove Tax">✕</button>
             </div>

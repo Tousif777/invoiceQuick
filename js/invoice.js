@@ -13,7 +13,35 @@
     GBP: { symbol: '£', code: 'GBP' },
     CAD: { symbol: 'CA$', code: 'CAD' },
     AUD: { symbol: 'A$', code: 'AUD' },
-    INR: { symbol: '₹', code: 'INR' }
+    INR: { symbol: '₹', code: 'INR' },
+    JPY: { symbol: '¥', code: 'JPY' },
+    SGD: { symbol: 'S$', code: 'SGD' },
+    NZD: { symbol: 'NZ$', code: 'NZD' },
+    HKD: { symbol: 'HK$', code: 'HKD' },
+    CNY: { symbol: '¥', code: 'CNY' },
+    BDT: { symbol: '৳', code: 'BDT' },
+    PKR: { symbol: 'Rs', code: 'PKR' },
+    PHP: { symbol: '₱', code: 'PHP' },
+    MYR: { symbol: 'RM', code: 'MYR' },
+    IDR: { symbol: 'Rp', code: 'IDR' },
+    THB: { symbol: '฿', code: 'THB' },
+    VND: { symbol: '₫', code: 'VND' },
+    CHF: { symbol: 'CHF', code: 'CHF' },
+    AED: { symbol: 'AED', code: 'AED' },
+    SAR: { symbol: 'SAR', code: 'SAR' },
+    QAR: { symbol: 'QAR', code: 'QAR' },
+    ILS: { symbol: '₪', code: 'ILS' },
+    TRY: { symbol: '₺', code: 'TRY' },
+    PLN: { symbol: 'zł', code: 'PLN' },
+    SEK: { symbol: 'kr', code: 'SEK' },
+    NOK: { symbol: 'kr', code: 'NOK' },
+    DKK: { symbol: 'kr', code: 'DKK' },
+    BRL: { symbol: 'R$', code: 'BRL' },
+    MXN: { symbol: 'Mex$', code: 'MXN' },
+    ZAR: { symbol: 'R', code: 'ZAR' },
+    NGN: { symbol: '₦', code: 'NGN' },
+    KES: { symbol: 'KSh', code: 'KES' },
+    EGP: { symbol: 'E£', code: 'EGP' }
   };
 
   const DEFAULT_CLIENTS = [
@@ -50,8 +78,10 @@
     ],
 
     // Adjustments & Visibility
+    taxLabel: 'Tax',
     taxRate: 8,
     discountRate: 0,
+    unitType: 'Quantity',
     showNotes: true,
     showTerms: true,
     showTax: true,
@@ -1005,6 +1035,14 @@ ${sender}`;
     const currSelect = document.getElementById('currencySelector');
     if (currSelect) currSelect.value = state.currency || 'USD';
 
+    const taxSelect = document.getElementById('taxLabelSelect');
+    if (taxSelect) taxSelect.value = state.taxLabel || 'Tax';
+    const taxDisplay = document.getElementById('taxLabelDisplay');
+    if (taxDisplay) taxDisplay.textContent = state.taxLabel || 'Tax';
+
+    const unitLabel = document.getElementById('colUnitLabel');
+    if (unitLabel) unitLabel.textContent = state.unitType || 'Quantity';
+
     renderLogo();
     renderLayout();
     renderDocType();
@@ -1049,8 +1087,10 @@ ${sender}`;
       toName: '',
       toDetails: '',
       items: [{ description: '', quantity: 1, rate: 0 }],
+      taxLabel: state.taxLabel || 'Tax',
       taxRate: state.taxRate !== undefined ? state.taxRate : 8,
       discountRate: 0,
+      unitType: state.unitType || 'Quantity',
       notes: state.notes || '',
       terms: state.terms || '',
       showNotes: state.showNotes !== false,
@@ -1687,6 +1727,33 @@ ${sender}`;
     const btnEmail = document.getElementById('btnEmailInvoice');
     if (btnEmail) {
       btnEmail.addEventListener('click', composeEmailDraft);
+    }
+
+    // Tax Label Customizer (VAT / GST / Sales Tax)
+    const taxLabelSelect = document.getElementById('taxLabelSelect');
+    if (taxLabelSelect) {
+      taxLabelSelect.addEventListener('change', (e) => {
+        state.taxLabel = e.target.value;
+        const taxDisplay = document.getElementById('taxLabelDisplay');
+        if (taxDisplay) taxDisplay.textContent = state.taxLabel;
+        saveToStorage();
+        showToast(`Tax label updated to ${state.taxLabel}`, '🏷️');
+      });
+    }
+
+    // Line Item Unit Switcher (Quantity / Hours / Days)
+    const btnToggleUnit = document.getElementById('btnToggleUnit');
+    if (btnToggleUnit) {
+      btnToggleUnit.addEventListener('click', () => {
+        const units = ['Quantity', 'Hours', 'Days'];
+        const currentIdx = units.indexOf(state.unitType || 'Quantity');
+        const nextIdx = (currentIdx + 1) % units.length;
+        state.unitType = units[nextIdx];
+        const unitLabel = document.getElementById('colUnitLabel');
+        if (unitLabel) unitLabel.textContent = state.unitType;
+        saveToStorage();
+        showToast(`Unit switched to ${state.unitType}! ⏱️`, '⏱️');
+      });
     }
 
     // Document Type Selector

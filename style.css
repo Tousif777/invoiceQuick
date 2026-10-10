@@ -1408,6 +1408,49 @@ body {
   gap: 6px;
 }
 
+.tax-label-select {
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #f8fafc;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #334155;
+  padding: 1px 4px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.tax-label-select:hover,
+.tax-label-select:focus {
+  border-color: var(--primary-indigo);
+  background: #ffffff;
+}
+
+.btn-unit-toggle {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  transition: color 0.15s ease;
+}
+
+.btn-unit-toggle:hover {
+  color: var(--primary-indigo);
+}
+
+.unit-arrow {
+  font-size: 0.68rem;
+  opacity: 0.7;
+}
+
 .total-mini-input {
   width: 52px;
   text-align: right;
