@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickbillfree-v6';
+const CACHE_NAME = 'quickbillfree-v7';
 const STATIC_ASSETS = [
   './',
   'index.html',

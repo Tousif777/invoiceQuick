@@ -55,6 +55,17 @@
     }
   ];
 
+  // GA4 Conversion & Engagement Event Tracker
+  function trackEvent(eventName, params = {}) {
+    try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, params);
+      }
+    } catch (err) {
+      console.debug('Analytics dispatch notice:', err);
+    }
+  }
+
   const DEFAULT_STATE = {
     currency: 'USD',
     invoiceNumber: 'INV-1001',
@@ -893,6 +904,19 @@ ${sender}`;
     const mailtoUrl = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     window.location.href = mailtoUrl;
 
+    // GA4 Key Event & Lead Tracking
+    trackEvent('generate_lead', {
+      value: Number(grandTotal) || 0,
+      currency: state.currency || 'USD',
+      lead_type: 'email_draft',
+      doc_type: state.docType || 'Invoice'
+    });
+    trackEvent('email_invoice_draft', {
+      value: Number(grandTotal) || 0,
+      currency: state.currency || 'USD',
+      doc_type: state.docType || 'Invoice'
+    });
+
     showToast('Opening your email client... Remember to attach your downloaded PDF! ✉️', '✉️');
   }
 
@@ -1120,6 +1144,7 @@ ${sender}`;
   }
 
   function fillSampleData() {
+    trackEvent('sample_invoice_loaded');
     state = JSON.parse(JSON.stringify(DEFAULT_STATE));
     state.invoiceId = 'inv_' + Date.now();
     populateInputs();
@@ -1594,6 +1619,23 @@ ${sender}`;
               btn.disabled = false;
             }, 2000);
           }
+
+          // GA4 Key Event & Lead Generation Tracking
+          const { grandTotal } = calculateTotals();
+          const invoiceVal = Number(grandTotal) || 0;
+          trackEvent('generate_lead', {
+            value: invoiceVal,
+            currency: state.currency || 'USD',
+            lead_type: 'pdf_download',
+            doc_type: state.docType || 'Invoice',
+            item_count: (state.items || []).length
+          });
+          trackEvent('download_invoice_pdf', {
+            value: invoiceVal,
+            currency: state.currency || 'USD',
+            doc_type: state.docType || 'Invoice',
+            filename: filename
+          });
         }).catch(err => {
           console.error('PDF error:', err);
           printHideElements.forEach(el => el.style.removeProperty('display'));
@@ -1601,9 +1643,22 @@ ${sender}`;
             btn.innerHTML = originalText;
             btn.disabled = false;
           }
+
+          const { grandTotal } = calculateTotals();
+          trackEvent('generate_lead', {
+            value: Number(grandTotal) || 0,
+            currency: state.currency || 'USD',
+            lead_type: 'print_fallback'
+          });
           window.print();
         });
       } else {
+        const { grandTotal } = calculateTotals();
+        trackEvent('generate_lead', {
+          value: Number(grandTotal) || 0,
+          currency: state.currency || 'USD',
+          lead_type: 'print_fallback'
+        });
         window.print();
       }
     }
@@ -1616,6 +1671,18 @@ ${sender}`;
     const btnPrint = document.getElementById('btnPrintInvoice');
     if (btnPrint) {
       btnPrint.addEventListener('click', () => {
+        const { grandTotal } = calculateTotals();
+        trackEvent('generate_lead', {
+          value: Number(grandTotal) || 0,
+          currency: state.currency || 'USD',
+          lead_type: 'print_invoice',
+          doc_type: state.docType || 'Invoice'
+        });
+        trackEvent('print_invoice', {
+          value: Number(grandTotal) || 0,
+          currency: state.currency || 'USD',
+          doc_type: state.docType || 'Invoice'
+        });
         window.print();
       });
     }
