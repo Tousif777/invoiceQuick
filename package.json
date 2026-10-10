@@ -1,0 +1,25 @@
+{
+  "name": "quickbillfree",
+  "version": "1.0.0",
+  "description": "Free, 100% private client-side online invoice generator and instant bill maker. Zero signup, zero tracking, instant PDF export.",
+  "homepage": "https://quickbillfree.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tousif777/invoiceQuick.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Tousif777/invoiceQuick/issues"
+  },
+  "keywords": [
+    "invoice-generator",
+    "free-invoice-generator",
+    "receipt-maker",
+    "pdf-invoice",
+    "client-side",
+    "freelance-invoicing",
+    "tax-invoice",
+    "html5-canvas-signature"
+  ],
+  "author": "Tousif777",
+  "license": "MIT"
+}
