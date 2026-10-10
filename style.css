@@ -31,8 +31,20 @@
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
   --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
   --shadow-lg: 0 10px 30px -5px rgba(15, 23, 42, 0.07), 0 4px 10px -2px rgba(15, 23, 42, 0.03);
-  --shadow-sheet: 0 0 0 1px rgba(15, 23, 42, 0.05), 0 4px 8px -2px rgba(15, 23, 42, 0.03), 0 16px 36px -6px rgba(15, 23, 42, 0.07), 0 32px 70px -16px rgba(15, 23, 42, 0.08);
-  --shadow-sheet-hover: 0 0 0 1px rgba(15, 23, 42, 0.06), 0 8px 16px -2px rgba(15, 23, 42, 0.04), 0 20px 45px -8px rgba(15, 23, 42, 0.09), 0 40px 90px -20px rgba(15, 23, 42, 0.1);
+  --shadow-sheet: 
+    0 1px 2px rgba(15, 23, 42, 0.02),
+    0 4px 8px -1px rgba(15, 23, 42, 0.04),
+    0 12px 24px -4px rgba(15, 23, 42, 0.06),
+    0 24px 48px -8px rgba(15, 23, 42, 0.08),
+    0 48px 80px -16px rgba(15, 23, 42, 0.06),
+    0 0 0 1px rgba(226, 232, 240, 0.85);
+  --shadow-sheet-hover: 
+    0 2px 4px rgba(15, 23, 42, 0.02),
+    0 8px 16px -2px rgba(15, 23, 42, 0.06),
+    0 20px 36px -6px rgba(15, 23, 42, 0.09),
+    0 36px 64px -10px rgba(15, 23, 42, 0.11),
+    0 60px 100px -18px rgba(15, 23, 42, 0.09),
+    0 0 0 1px rgba(199, 210, 254, 0.8);
 }
 
 /* Base Styles */
@@ -269,12 +281,12 @@ body {
   color: #0f172a;
 }
 
-/* Secondary Button */
+/* Secondary Button - 3D Tactile Elevation */
 .btn-secondary {
   height: 32px;
   background: #ffffff;
   color: #334155;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e1;
   padding: 0 11px;
   border-radius: 7px;
   font-family: inherit;
@@ -285,20 +297,26 @@ body {
   align-items: center;
   justify-content: center;
   gap: 5px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 0 #cbd5e1, 0 3px 6px rgba(15, 23, 42, 0.04);
+  transform: translateY(0);
+  transition: all 0.14s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
 
 .btn-secondary:hover {
   background: #f8fafc;
-  border-color: #cbd5e1;
+  border-color: #94a3b8;
   color: #0f172a;
-  transform: translateY(-0.5px);
-  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1.5px);
+  box-shadow: 0 3.5px 0 #cbd5e1, 0 6px 12px rgba(15, 23, 42, 0.07);
 }
 
-/* Primary Hero Button */
+.btn-secondary:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0.5px 0 #cbd5e1, 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+/* Primary Hero Button - 3D Glow & Tactile Depth */
 .btn-primary {
   height: 32px;
   background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
@@ -315,11 +333,22 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 3px 0 #3730a3, 0 6px 14px rgba(79, 70, 229, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform: translateY(0);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   position: relative;
   overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #3730a3, 0 10px 20px rgba(79, 70, 229, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #3730a3, 0 3px 6px rgba(79, 70, 229, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .btn-primary::after {
@@ -596,7 +625,7 @@ body {
   gap: 10px;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(199, 210, 254, 0.8);
+  border: 1px solid rgba(199, 210, 254, 0.85);
   padding: 5px 16px;
   border-radius: 9999px;
   font-size: 0.74rem;
@@ -604,15 +633,16 @@ body {
   color: #334155;
   margin-bottom: 14px;
   letter-spacing: 0.2px;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+  box-shadow: 0 3px 0 rgba(199, 210, 254, 0.6), 0 8px 16px rgba(79, 70, 229, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
   position: relative;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(0);
 }
 
 .hero-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.14);
-  border-color: #a5b4fc;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgba(199, 210, 254, 0.7), 0 12px 24px rgba(79, 70, 229, 0.14);
+  border-color: #818cf8;
 }
 
 .hero-live-indicator {
@@ -719,14 +749,15 @@ body {
   font-size: 0.72rem;
   font-weight: 600;
   color: #475569;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(8px);
   border: 1px solid #e2e8f0;
   padding: 4px 12px;
   border-radius: 9999px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 0 #e2e8f0, 0 4px 10px rgba(15, 23, 42, 0.03);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: default;
+  transform: translateY(0);
 }
 
 .hero-perk-pill:hover {
@@ -734,7 +765,7 @@ body {
   border-color: #cbd5e1;
   color: var(--primary-indigo);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 4px 0 #cbd5e1, 0 8px 18px rgba(79, 70, 229, 0.12);
 }
 
 .hero-perk-pill .perk-icon {
@@ -775,7 +806,9 @@ body {
   max-width: 860px;
   padding: 48px;
   position: relative;
-  transition: box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
 }
 
 .invoice-sheet:hover {
@@ -1767,12 +1800,13 @@ body {
   border: 1px solid rgba(226, 232, 240, 0.85);
   border-radius: 16px;
   padding: 28px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+  box-shadow: 0 3px 0 #e2e8f0, 0 8px 20px rgba(15, 23, 42, 0.04);
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
   position: relative;
   overflow: hidden;
+  transform: translateY(0);
 }
 
 .modern-guide-card::before {
@@ -1791,9 +1825,9 @@ body {
 .modern-guide-card.card-emerald::before { background: linear-gradient(90deg, #059669, #34d399); }
 
 .modern-guide-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
-  border-color: #cbd5e1;
+  transform: translateY(-6px) perspective(1000px) rotateX(1.5deg) rotateY(-0.8deg);
+  box-shadow: 0 6px 0 rgba(199, 210, 254, 0.5), 0 24px 48px -8px rgba(15, 23, 42, 0.1);
+  border-color: #818cf8;
 }
 
 .card-header-flex {
@@ -2262,11 +2296,12 @@ body {
   font-weight: 900;
   letter-spacing: 4px;
   text-transform: uppercase;
-  transform: rotate(-13deg);
+  transform: rotate(-13deg) translateZ(24px);
   border-radius: 6px;
   pointer-events: none;
   user-select: none;
   z-index: 10;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -2845,6 +2880,7 @@ body {
   }
 
   .invoice-sheet {
+    transform: none !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;

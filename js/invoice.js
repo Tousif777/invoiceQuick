@@ -1974,6 +1974,63 @@ ${sender}`;
     }
   }
 
+  // ==========================================
+  // Interactive 3D Parallax Tilt Effect
+  // ==========================================
+  function init3DTiltEffect() {
+    const isPointerFine = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+    if (!isPointerFine) return;
+
+    const wrapper = document.querySelector('.invoice-sheet-wrapper');
+    const sheet = document.getElementById('invoiceSheet');
+    if (!wrapper || !sheet) return;
+
+    let isInputFocused = false;
+    let rafId = null;
+
+    sheet.addEventListener('focusin', () => {
+      isInputFocused = true;
+      resetTilt();
+    });
+
+    sheet.addEventListener('focusout', () => {
+      isInputFocused = false;
+    });
+
+    function resetTilt() {
+      if (rafId) cancelAnimationFrame(rafId);
+      sheet.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease';
+      sheet.style.transform = 'perspective(1400px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+    }
+
+    wrapper.addEventListener('mousemove', (e) => {
+      if (isInputFocused) return;
+
+      const rect = sheet.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      if (x < 0 || x > rect.width || y < 0 || y > rect.height) {
+        resetTilt();
+        return;
+      }
+
+      // Max tilt: subtle ±1.6 degrees for refined, Apple-grade 3D depth
+      const percentX = (x / rect.width) - 0.5;
+      const percentY = (y / rect.height) - 0.5;
+      const rotateY = (percentX * 3.2).toFixed(2);
+      const rotateX = (-percentY * 3.2).toFixed(2);
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        sheet.style.transition = 'transform 0.1s ease-out, box-shadow 0.2s ease';
+        sheet.style.transform = `perspective(1400px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(6px)`;
+      });
+    });
+
+    wrapper.addEventListener('mouseleave', resetTilt);
+  }
+
   // Init
   function init() {
     loadFromStorage();
@@ -1981,6 +2038,7 @@ ${sender}`;
     bindListeners();
     initSignaturePad();
     renderClientCatalogList();
+    init3DTiltEffect();
   }
 
   window.addEventListener('DOMContentLoaded', init);
