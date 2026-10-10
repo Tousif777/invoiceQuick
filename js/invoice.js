@@ -70,6 +70,11 @@
     toName: 'Global Enterprises Inc.',
     toDetails: 'Attn: Accounting Dept\n456 Market Plaza, Suite 200\naccounts@globalent.com',
 
+    // Ship To (Optional)
+    shipToName: '',
+    shipToDetails: '',
+    showShipTo: false,
+
     // Items
     items: [
       { description: 'Website Redesign & UI Development', quantity: 1, rate: 2400 },
@@ -80,7 +85,10 @@
     // Adjustments & Visibility
     taxLabel: 'Tax',
     taxRate: 8,
+    discountType: 'percent',
     discountRate: 0,
+    shippingAmount: 0,
+    showShipping: false,
     unitType: 'Quantity',
     showNotes: true,
     showTerms: true,
@@ -124,7 +132,7 @@
     return `${symbol}${num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
-  // Calculate Subtotal, Tax, Discount, Grand Total, and Balance Due
+  // Calculate Subtotal, Tax, Discount, Shipping, Grand Total, and Balance Due
   function calculateTotals() {
     let subtotal = 0;
     state.items.forEach(item => {
@@ -136,10 +144,18 @@
     const taxPercent = state.showTax ? Math.max(0, Number(state.taxRate) || 0) : 0;
     const taxAmount = (subtotal * taxPercent) / 100;
 
-    const discountPercent = state.showDiscount ? Math.max(0, Number(state.discountRate) || 0) : 0;
-    const discountAmount = (subtotal * discountPercent) / 100;
+    let discountAmount = 0;
+    if (state.showDiscount) {
+      const discVal = Math.max(0, Number(state.discountRate) || 0);
+      if (state.discountType === 'fixed') {
+        discountAmount = Math.min(subtotal, discVal);
+      } else {
+        discountAmount = (subtotal * discVal) / 100;
+      }
+    }
 
-    const grandTotal = Math.max(0, subtotal + taxAmount - discountAmount);
+    const shippingAmount = state.showShipping ? Math.max(0, Number(state.shippingAmount) || 0) : 0;
+    const grandTotal = Math.max(0, subtotal + taxAmount - discountAmount + shippingAmount);
     const amountPaid = state.showAmountPaid ? Math.max(0, Number(state.amountPaid) || 0) : 0;
     const balanceDue = Math.max(0, grandTotal - amountPaid);
 
@@ -147,6 +163,7 @@
       subtotal: subtotal,
       taxAmount: taxAmount,
       discountAmount: discountAmount,
+      shippingAmount: shippingAmount,
       grandTotal: grandTotal,
       amountPaid: amountPaid,
       balanceDue: balanceDue
@@ -756,7 +773,7 @@
   }
 
   function updateTotals() {
-    const { subtotal, taxAmount, discountAmount, grandTotal, amountPaid, balanceDue } = calculateTotals();
+    const { subtotal, taxAmount, discountAmount, shippingAmount, grandTotal, amountPaid, balanceDue } = calculateTotals();
 
     const subEl = document.getElementById('valSubtotal');
     if (subEl) subEl.textContent = formatMoney(subtotal);
@@ -766,6 +783,18 @@
 
     const discEl = document.getElementById('valDiscount');
     if (discEl) discEl.textContent = `-${formatMoney(discountAmount)}`;
+
+    const toggleDiscBtn = document.getElementById('btnToggleDiscountType');
+    if (toggleDiscBtn) {
+      toggleDiscBtn.textContent = state.discountType === 'fixed' ? getCurrencySymbol() : '%';
+      toggleDiscBtn.title = state.discountType === 'fixed' ? 'Switch to Percentage (%) discount' : 'Switch to Flat Cash discount';
+    }
+
+    const currShipping = document.getElementById('currencySymbolShipping');
+    if (currShipping) currShipping.textContent = getCurrencySymbol();
+
+    const shipEl = document.getElementById('valShipping');
+    if (shipEl) shipEl.textContent = formatMoney(shippingAmount);
 
     const currPaid = document.getElementById('currencySymbolPaid');
     if (currPaid) currPaid.textContent = getCurrencySymbol();
@@ -929,6 +958,30 @@ ${sender}`;
       addDiscountWrap.style.display = state.showDiscount ? 'none' : 'block';
     }
 
+    const elShippingLine = document.getElementById('shippingLine');
+    const addShippingWrap = document.getElementById('addShippingWrap');
+    if (elShippingLine && addShippingWrap) {
+      elShippingLine.style.display = state.showShipping ? 'flex' : 'none';
+      addShippingWrap.style.display = state.showShipping ? 'none' : 'block';
+    }
+
+    const elShipToBlock = document.getElementById('shipToBlock');
+    const btnAddShipTo = document.getElementById('btnAddShipTo');
+    const addressGrid = document.querySelector('.address-grid');
+    if (elShipToBlock) {
+      elShipToBlock.style.display = state.showShipTo ? 'block' : 'none';
+      if (btnAddShipTo) {
+        btnAddShipTo.style.display = state.showShipTo ? 'none' : 'inline-flex';
+      }
+      if (addressGrid) {
+        if (state.showShipTo) {
+          addressGrid.classList.add('has-ship-to');
+        } else {
+          addressGrid.classList.remove('has-ship-to');
+        }
+      }
+    }
+
     const elAmountPaidLine = document.getElementById('amountPaidLine');
     const addAmountPaidWrap = document.getElementById('addAmountPaidWrap');
     const balanceDueLine = document.getElementById('balanceDueLine');
@@ -1024,13 +1077,21 @@ ${sender}`;
     setVal('fromDetails', state.fromDetails);
     setVal('toName', state.toName);
     setVal('toDetails', state.toDetails);
+    setVal('shipToName', state.shipToName);
+    setVal('shipToDetails', state.shipToDetails);
     setVal('taxRate', state.taxRate);
     setVal('discountRate', state.discountRate);
+    setVal('shippingAmount', state.shippingAmount || '');
     setVal('amountPaid', state.amountPaid || '');
     setVal('notesText', state.notes);
     setVal('termsText', state.terms);
     setVal('qrLinkInput', state.qrLink);
     setVal('signerNameInput', state.signerName || 'Authorized Signatory');
+
+    const toggleDiscBtn = document.getElementById('btnToggleDiscountType');
+    if (toggleDiscBtn) {
+      toggleDiscBtn.textContent = state.discountType === 'fixed' ? getCurrencySymbol() : '%';
+    }
 
     const currSelect = document.getElementById('currencySelector');
     if (currSelect) currSelect.value = state.currency || 'USD';
@@ -1086,10 +1147,16 @@ ${sender}`;
       fromDetails: state.fromDetails || '',
       toName: '',
       toDetails: '',
+      shipToName: '',
+      shipToDetails: '',
+      showShipTo: false,
       items: [{ description: '', quantity: 1, rate: 0 }],
       taxLabel: state.taxLabel || 'Tax',
       taxRate: state.taxRate !== undefined ? state.taxRate : 8,
+      discountType: 'percent',
       discountRate: 0,
+      shippingAmount: 0,
+      showShipping: false,
       unitType: state.unitType || 'Quantity',
       notes: state.notes || '',
       terms: state.terms || '',
@@ -1139,7 +1206,7 @@ ${sender}`;
         el.addEventListener('input', (e) => {
           state[key] = e.target.value;
           saveToStorage();
-          if (key === 'taxRate' || key === 'discountRate' || key === 'amountPaid') {
+          if (key === 'taxRate' || key === 'discountRate' || key === 'shippingAmount' || key === 'amountPaid') {
             updateTotals();
           }
           if (key === 'poNumber') {
@@ -1160,8 +1227,11 @@ ${sender}`;
     bind('fromDetails', 'fromDetails');
     bind('toName', 'toName');
     bind('toDetails', 'toDetails');
+    bind('shipToName', 'shipToName');
+    bind('shipToDetails', 'shipToDetails');
     bind('taxRate', 'taxRate');
     bind('discountRate', 'discountRate');
+    bind('shippingAmount', 'shippingAmount');
     bind('amountPaid', 'amountPaid');
     bind('notesText', 'notes');
     bind('termsText', 'terms');
@@ -1680,6 +1750,66 @@ ${sender}`;
         state.showDiscount = true;
         renderSectionVisibility();
         updateTotals();
+        saveToStorage();
+      });
+    }
+
+    // Toggle Discount Type (% vs Flat Cash)
+    const btnToggleDiscountType = document.getElementById('btnToggleDiscountType');
+    if (btnToggleDiscountType) {
+      btnToggleDiscountType.addEventListener('click', () => {
+        state.discountType = state.discountType === 'fixed' ? 'percent' : 'fixed';
+        updateTotals();
+        saveToStorage();
+      });
+    }
+
+    // Shipping Fee Listeners
+    const btnAddShipping = document.getElementById('btnAddShipping');
+    if (btnAddShipping) {
+      btnAddShipping.addEventListener('click', () => {
+        state.showShipping = true;
+        renderSectionVisibility();
+        updateTotals();
+        saveToStorage();
+        const input = document.getElementById('shippingAmount');
+        if (input) {
+          input.focus();
+          input.select();
+        }
+      });
+    }
+
+    const btnRemoveShipping = document.getElementById('btnRemoveShipping');
+    if (btnRemoveShipping) {
+      btnRemoveShipping.addEventListener('click', () => {
+        state.showShipping = false;
+        state.shippingAmount = 0;
+        const input = document.getElementById('shippingAmount');
+        if (input) input.value = 0;
+        renderSectionVisibility();
+        updateTotals();
+        saveToStorage();
+      });
+    }
+
+    // Ship To (Delivery Destination) Listeners
+    const btnAddShipTo = document.getElementById('btnAddShipTo');
+    if (btnAddShipTo) {
+      btnAddShipTo.addEventListener('click', () => {
+        state.showShipTo = true;
+        renderSectionVisibility();
+        saveToStorage();
+        const input = document.getElementById('shipToName');
+        if (input) input.focus();
+      });
+    }
+
+    const btnRemoveShipTo = document.getElementById('btnRemoveShipTo');
+    if (btnRemoveShipTo) {
+      btnRemoveShipTo.addEventListener('click', () => {
+        state.showShipTo = false;
+        renderSectionVisibility();
         saveToStorage();
       });
     }

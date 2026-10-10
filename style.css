@@ -1053,6 +1053,18 @@ body {
   border-bottom: 1px solid #f1f5f9;
 }
 
+.address-grid.has-ship-to {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 860px) {
+  .address-grid.has-ship-to {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 .address-block {
   display: flex;
   flex-direction: column;
@@ -1425,6 +1437,24 @@ body {
 .tax-label-select:focus {
   border-color: var(--primary-indigo);
   background: #ffffff;
+}
+
+.btn-mini-toggle {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  color: #475569;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-mini-toggle:hover {
+  background: #e0e7ff;
+  border-color: var(--primary-indigo);
+  color: var(--primary-indigo);
 }
 
 .btn-unit-toggle {
@@ -2900,7 +2930,7 @@ body {
     width: auto !important;
   }
 
-  /* Two Column Address Grid */
+  /* Two or Three Column Address Grid */
   .invoice-sheet .address-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
@@ -2908,6 +2938,11 @@ body {
     margin-bottom: 24px !important;
     padding-bottom: 18px !important;
     border-bottom: 1.5px solid #e2e8f0 !important;
+  }
+
+  .invoice-sheet .address-grid.has-ship-to {
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 20px !important;
   }
 
   .invoice-sheet .address-block {

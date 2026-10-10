@@ -389,6 +389,20 @@ contact@acmestudio.com</textarea>
 accounts@globalent.com</textarea>
         </div>
 
+        <!-- Shipping Destination (Ship To - Optional) -->
+        <div class="address-block" id="shipToBlock" style="display: none;">
+          <div class="section-tag-row">
+            <span class="section-tag">Ship To (Delivery Details)</span>
+            <button type="button" id="btnRemoveShipTo" class="btn-remove-mini print-hide" title="Remove Shipping Address">✕</button>
+          </div>
+          <input type="text" id="shipToName" class="field-name-input" placeholder="Recipient / Delivery Contact" value="">
+          <textarea id="shipToDetails" class="field-textarea" placeholder="Delivery Address, City, Country&#10;Warehouse / Dock / Attention&#10;Contact Phone"></textarea>
+        </div>
+
+      </div>
+
+      <div class="address-tools-bar print-hide" style="margin-top: -24px; margin-bottom: 24px;">
+        <button type="button" id="btnAddShipTo" class="btn-add-section-toggle" style="margin-top: 0; font-size: 0.8rem;">📦 + Add Shipping Destination (Ship To)</button>
       </div>
 
       <!-- Line Items Table -->
@@ -542,17 +556,31 @@ Routing: 987654321</textarea>
             <button type="button" id="btnAddTax" class="btn-add-total-toggle">➕ Add Tax</button>
           </div>
 
-          <!-- Discount Line (Removable) -->
+          <!-- Discount Line (Removable & Toggle % vs $) -->
           <div class="total-line" id="discountLine">
             <div class="total-line-input-wrap">
-              <span>Discount (%)</span>
-              <input type="number" id="discountRate" class="total-mini-input" value="0" min="0" max="100" step="1">
+              <span>Discount</span>
+              <button type="button" id="btnToggleDiscountType" class="btn-mini-toggle print-hide" title="Toggle Percent (%) vs Fixed ($)">%</button>
+              <input type="number" id="discountRate" class="total-mini-input" value="0" min="0" step="any">
               <button type="button" id="btnRemoveDiscount" class="btn-remove-mini print-hide" title="Remove Discount">✕</button>
             </div>
-            <span id="valDiscount" class="total-line-value">$0.00</span>
+            <span id="valDiscount" class="total-line-value">-$0.00</span>
           </div>
           <div id="addDiscountWrap" class="add-total-line-wrap print-hide" style="display: none;">
             <button type="button" id="btnAddDiscount" class="btn-add-total-toggle">➕ Add Discount</button>
+          </div>
+
+          <!-- Shipping Fee Line (Removable) -->
+          <div class="total-line" id="shippingLine" style="display: none;">
+            <div class="total-line-input-wrap">
+              <span>Shipping (<span id="currencySymbolShipping">$</span>)</span>
+              <input type="number" id="shippingAmount" class="total-mini-input amount-paid-input" value="0" min="0" step="any" placeholder="0.00">
+              <button type="button" id="btnRemoveShipping" class="btn-remove-mini print-hide" title="Remove Shipping">✕</button>
+            </div>
+            <span id="valShipping" class="total-line-value">$0.00</span>
+          </div>
+          <div id="addShippingWrap" class="add-total-line-wrap print-hide">
+            <button type="button" id="btnAddShipping" class="btn-add-total-toggle">➕ Add Shipping</button>
           </div>
 
           <!-- Deposit / Amount Paid Line (Removable) -->
