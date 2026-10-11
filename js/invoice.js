@@ -400,8 +400,139 @@
     }
   }
 
+  // Industry Presets for Programmatic Niche Invoicing Pages
+  const PRESETS = {
+    plumber: {
+      fromName: 'Apex Plumbing & Pipeworks LLC',
+      fromDetails: '742 Pipeline Road\nAustin, TX 78701\nservice@apexplumbing.com\nLic #PL-89421',
+      toName: 'Oak Ridge Residential Management',
+      toDetails: 'Attn: Property Manager\n1200 Hill Country Blvd, Unit 4B\nAustin, TX 78704',
+      items: [
+        { description: 'Emergency Drain Snaking & Hydro-Jetting (Main Line)', quantity: 1, rate: 385 },
+        { description: 'PEX Pipe Replacement & Copper Fitting Joints', quantity: 4, rate: 65 },
+        { description: 'Master Bathroom Faucet & Valve Cartridge Rebuild', quantity: 2, rate: 140 },
+        { description: 'Standard Service Call & Diagnostic Fee', quantity: 1, rate: 95 }
+      ],
+      notes: 'Work completed as per local residential plumbing code. 1-year warranty on all installed fixtures and pipe joints.',
+      terms: 'Payment due on receipt. We accept Credit Card, Zelle, or Check payable to Apex Plumbing LLC.',
+      taxRate: 8.25,
+      docType: 'INVOICE'
+    },
+    electrician: {
+      fromName: 'VoltCraft Electrical Services',
+      fromDetails: '88 Spark Avenue, Suite 104\nDenver, CO 80202\ninfo@voltcraft-electric.com\nMaster Electrician Lic #ME-44912',
+      toName: 'Highland Commercial Offices',
+      toDetails: 'Attn: Facilities Director\n500 Mountain View Parkway\nDenver, CO 80211',
+      items: [
+        { description: '200A Main Service Panel Upgrade & Breakers', quantity: 1, rate: 1850 },
+        { description: 'Dedicated 240V Circuit for EV Charger Station', quantity: 1, rate: 650 },
+        { description: 'Commercial LED Recessed Troffer Retrofit & Dimmer Relays', quantity: 12, rate: 75 },
+        { description: 'Electrical Safety Inspection & Permit Filing Fee', quantity: 1, rate: 220 }
+      ],
+      notes: 'All wiring certified and inspected to National Electrical Code (NEC) standards. 2-year workmanship guarantee.',
+      terms: 'Net 15 days. ACH / Wire Transfer: Silicon Valley Bank, Routing 102000076, Acct 88291044.',
+      taxRate: 7.5,
+      docType: 'INVOICE'
+    },
+    cleaning: {
+      fromName: 'Pristine Clean Professional Services',
+      fromDetails: '14 Cleanway Terrace\nChicago, IL 60611\nhello@pristinecleanpro.com\n(312) 555-0199',
+      toName: 'Horizon Creative Studios',
+      toDetails: 'Attn: Studio Operations\n330 Michigan Avenue, 8th Floor\nChicago, IL 60601',
+      items: [
+        { description: 'Commercial Deep Office Cleaning & Sanitation (4,000 sq ft)', quantity: 1, rate: 450 },
+        { description: 'High-Pressure Carpet Steam Cleaning & Stain Extraction', quantity: 3, rate: 120 },
+        { description: 'Exterior & Interior Window Glazing Wash', quantity: 16, rate: 18 },
+        { description: 'Restroom Restock & Eco-Friendly Consumables Pack', quantity: 1, rate: 95 }
+      ],
+      notes: 'Thank you for keeping your workspace spotless! Hospital-grade EPA eco-friendly supplies used throughout.',
+      terms: 'Payment due upon completion. We accept Card, Venmo Business, or Bank Transfer.',
+      taxRate: 6.0,
+      docType: 'INVOICE'
+    },
+    trucking: {
+      fromName: 'CrossCountry Haul & Freight LLC',
+      fromDetails: '100 Interstate Freight Corridor\nDallas, TX 75201\ndispatch@crosscountryfreight.com\nUSDOT #3928174 | MC #918234',
+      toName: 'Lone Star Logistics Hub',
+      toDetails: 'Attn: Freight Receiving Dept\n8800 Commerce Way, Bay 14\nFort Worth, TX 76177',
+      items: [
+        { description: 'Dry Van Freight Haul (Dallas, TX to Atlanta, GA - 780 mi)', quantity: 1, rate: 2150 },
+        { description: 'Fuel Surcharge (DOE Index Adjusted)', quantity: 1, rate: 380 },
+        { description: 'Driver Detention Fee (Bay 14 Unloading > 2 hrs)', quantity: 2, rate: 85 },
+        { description: 'Lumper & Pallet Restack Fee', quantity: 1, rate: 160 }
+      ],
+      notes: 'BOL signed clean with no shortages or damages. Proof of Delivery (POD) attached.',
+      terms: 'Standard Net 30. QuickPay 2% discount if paid within 10 days. Remit to CrossCountry Freight LLC.',
+      taxRate: 0,
+      docType: 'INVOICE'
+    },
+    landscaping: {
+      fromName: 'GreenThumb Landscape & Turf Care',
+      fromDetails: '45 Meadow Lane\nCharlotte, NC 28202\ncontact@greenthumbnc.com\n(704) 555-0182',
+      toName: 'Magnolia Estates HOA',
+      toDetails: 'Attn: HOA Board of Directors\n120 Magnolia Ridge Dr\nCharlotte, NC 28226',
+      items: [
+        { description: 'Commercial Turf Mowing, Edging, Trimming & Debris Blow', quantity: 4, rate: 325 },
+        { description: 'Mulch Installation (Double-Shredded Hardwood Bark - 10 yds)', quantity: 10, rate: 65 },
+        { description: 'Seasonal Flowerbed Planting & Perennial Pruning', quantity: 1, rate: 420 },
+        { description: 'Irrigation Backflow Testing & Drip Line Inspection', quantity: 1, rate: 180 }
+      ],
+      notes: 'Monthly grounds maintenance completed. Lawn treated with organic slow-release fertilizer.',
+      terms: 'Payment due within 15 days. ACH or credit card accepted.',
+      taxRate: 4.75,
+      docType: 'INVOICE'
+    },
+    freelance: {
+      fromName: 'Alex Rivero Design & Code',
+      fromDetails: '742 Market Street, Suite 400\nSan Francisco, CA 94103\nalex@riverocreative.com',
+      toName: 'Acme Digital Media',
+      toDetails: 'Attn: Accounts Payable\n100 Broadway, 15th Fl\nNew York, NY 10005',
+      items: [
+        { description: 'Full-Stack Web App Feature Development (Sprint 4)', quantity: 35, rate: 85 },
+        { description: 'Figma UI/UX Component Library & Style System', quantity: 1, rate: 1200 },
+        { description: 'API Integration & Webhook Deployment', quantity: 1, rate: 650 }
+      ],
+      notes: 'Thanks for working together! All project code merged and tagged.',
+      terms: 'Payment due within 14 days via Bank Transfer or Stripe.',
+      taxRate: 0,
+      docType: 'INVOICE'
+    },
+    contractor: {
+      fromName: 'BuildRight Contracting & Remodeling',
+      fromDetails: '520 Industrial Parkway\nAustin, TX 78744\noffice@buildrighttx.com\nGeneral Contractor Lic #GC-98214',
+      toName: 'Summit Commercial Properties',
+      toDetails: 'Attn: Project Superintendent\n4000 Barton Springs Rd\nAustin, TX 78746',
+      items: [
+        { description: 'Drywall Hanging & Level 4 Mudding/Taping (Phase 2)', quantity: 40, rate: 45 },
+        { description: 'Commercial Framing Lumber & 5/8" Drywall Boards (Materials)', quantity: 1, rate: 1850 },
+        { description: 'Demolition & Debris Disposal Haul-off', quantity: 2, rate: 350 }
+      ],
+      notes: 'Phase 2 milestone completed and signed off by site superintendent.',
+      terms: 'Net 30 days. Remit to BuildRight Contracting LLC.',
+      taxRate: 8.25,
+      docType: 'INVOICE'
+    }
+  };
+
+  let activePresetLoaded = null;
+
   function loadFromStorage() {
     try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const presetParam = urlParams.get('preset');
+      if (presetParam && PRESETS[presetParam.toLowerCase()]) {
+        const presetData = PRESETS[presetParam.toLowerCase()];
+        state = Object.assign({}, DEFAULT_STATE, presetData, {
+          invoiceId: 'inv_' + Date.now(),
+          invoiceNumber: 'INV-' + Math.floor(1000 + Math.random() * 9000),
+          issueDate: new Date().toISOString().split('T')[0],
+          dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0]
+        });
+        activePresetLoaded = presetParam.toLowerCase();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        return;
+      }
+
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         state = Object.assign({}, DEFAULT_STATE, JSON.parse(saved));
@@ -2435,6 +2566,13 @@ ${sender}`;
     renderClientCatalogList();
     init3DTiltEffect();
     initI18n();
+
+    if (activePresetLoaded) {
+      setTimeout(() => {
+        const title = activePresetLoaded.charAt(0).toUpperCase() + activePresetLoaded.slice(1);
+        showToast(`Loaded ${title} invoice template!`, '⚡');
+      }, 350);
+    }
   }
 
   window.addEventListener('DOMContentLoaded', init);
