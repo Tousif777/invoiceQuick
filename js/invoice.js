@@ -562,6 +562,23 @@
       notes: 'Tax Invoice compliant with Canada Revenue Agency (CRA) guidelines. 13% Ontario HST included.',
       terms: 'Payment due within 30 days via Interac e-Transfer or Direct Deposit (EFT).',
       docType: 'INVOICE'
+    },
+    blank: {
+      fromName: '',
+      fromDetails: '',
+      toName: '',
+      toDetails: '',
+      items: [
+        { description: '', quantity: 1, rate: 0 },
+        { description: '', quantity: 1, rate: 0 },
+        { description: '', quantity: 1, rate: 0 },
+        { description: '', quantity: 1, rate: 0 },
+        { description: '', quantity: 1, rate: 0 }
+      ],
+      notes: 'Thank you for your business! Please remit payment within terms.',
+      terms: 'Payment due upon receipt.',
+      taxRate: 0,
+      docType: 'INVOICE'
     }
   };
 
@@ -2628,6 +2645,21 @@ ${sender}`;
         showToast(`Loaded ${title} invoice template!`, '⚡');
       }, 350);
     }
+
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const actionParam = urlParams.get('action');
+      if (actionParam === 'print') {
+        setTimeout(() => {
+          window.print();
+        }, 700);
+      } else if (actionParam === 'download') {
+        setTimeout(() => {
+          const btn = document.getElementById('btnDownloadPdf');
+          if (btn) btn.click();
+        }, 850);
+      }
+    } catch (e) {}
   }
 
   window.addEventListener('DOMContentLoaded', init);
