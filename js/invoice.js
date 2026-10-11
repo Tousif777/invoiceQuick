@@ -511,8 +511,63 @@
       terms: 'Net 30 days. Remit to BuildRight Contracting LLC.',
       taxRate: 8.25,
       docType: 'INVOICE'
+    },
+    'uk-vat': {
+      currency: 'GBP',
+      taxLabel: 'VAT',
+      taxRate: 20,
+      fromName: 'Kensington Digital Consulting Ltd',
+      fromDetails: '71-75 Shelton Street, Covent Garden\nLondon, WC2H 9JQ, United Kingdom\nVAT Reg No: GB 384 9201 55\nCompany No: 12948102',
+      toName: 'Harborview Media UK',
+      toDetails: 'Attn: Accounts Payable\n100 Bishopsgate\nLondon, EC2N 4AG',
+      items: [
+        { description: 'Quarterly Cloud Architecture & Security Audit', quantity: 1, rate: 2500 },
+        { description: 'UK GDPR Data Privacy Compliance Assessment', quantity: 1, rate: 1200 },
+        { description: 'DevOps CI/CD Pipeline Automation Sprint', quantity: 16, rate: 110 }
+      ],
+      notes: 'HMRC Valid Tax Invoice. Reverse charge does not apply. All prices in GBP (£).',
+      terms: 'Payment due within 30 days via BACS / Faster Payments:\nBank: Barclays Bank UK\nSort Code: 20-00-00\nAccount: 83920184\nIBAN: GB29BARC20000083920184',
+      docType: 'TAX INVOICE'
+    },
+    'australia-gst': {
+      currency: 'AUD',
+      taxLabel: 'GST',
+      taxRate: 10,
+      fromName: 'Pacific Rim Creative Pty Ltd',
+      fromDetails: 'Level 14, 300 George Street\nSydney NSW 2000, Australia\nABN: 51 824 901 342',
+      toName: 'Harbour City Retailers',
+      toDetails: 'Attn: Accounts Payable\n55 Collins Street\nMelbourne VIC 3000',
+      items: [
+        { description: 'Brand Identity Design & Corporate Guidelines', quantity: 1, rate: 3200 },
+        { description: 'E-Commerce Shopify Integration & Checkout Setup', quantity: 1, rate: 1850 },
+        { description: 'Monthly Retainer — Digital Marketing Optimization', quantity: 1, rate: 950 }
+      ],
+      notes: 'This document is a Tax Invoice for Australian Taxation Office (ATO) compliance purposes. Total includes 10% GST.',
+      terms: 'Payment due within 14 days. PayID / EFT:\nBSB: 062-000\nAccount Number: 1029 3847\nAccount Name: Pacific Rim Creative Pty Ltd',
+      docType: 'TAX INVOICE'
+    },
+    'canada-gst': {
+      currency: 'CAD',
+      taxLabel: 'HST',
+      taxRate: 13,
+      fromName: 'Maple Ridge Software Solutions Inc.',
+      fromDetails: '250 University Ave, Suite 600\nToronto, ON M5H 3E5, Canada\nCRA Business No: 89421 9021 RT0001',
+      toName: 'St. Lawrence Logistics Corp',
+      toDetails: 'Attn: Accounts Payable\n1000 Rue de la Gauchetière O\nMontréal, QC H3B 4W5',
+      items: [
+        { description: 'Custom SaaS API Backend Integration & Database Migration', quantity: 1, rate: 3400 },
+        { description: 'Mobile Application QA Testing & Performance Optimization', quantity: 20, rate: 95 },
+        { description: 'Monthly Cloud Infrastructure Maintenance & Backups', quantity: 1, rate: 650 }
+      ],
+      notes: 'Tax Invoice compliant with Canada Revenue Agency (CRA) guidelines. 13% Ontario HST included.',
+      terms: 'Payment due within 30 days via Interac e-Transfer or Direct Deposit (EFT).',
+      docType: 'INVOICE'
     }
   };
+
+  PRESETS['uk'] = PRESETS['uk-vat'];
+  PRESETS['australia'] = PRESETS['australia-gst'];
+  PRESETS['canada'] = PRESETS['canada-gst'];
 
   let activePresetLoaded = null;
 
