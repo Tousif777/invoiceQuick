@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7599767103475954" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kostenloser Rechnungsgenerator — Rechnung Schreiben & PDF Downloaden | QuickBillFree</title>
+  <meta name="description" content="Rechnung schreiben online kostenlos und ohne Registrierung. Professionelle Rechnungs-PDFs mit MwSt., QR-Code und automatischen Summen sofort herunterladen.">
+  <meta name="keywords" content="rechnung schreiben kostenlos, rechnungsgenerator online, rechnungsvorlage pdf, rechnung ersteller ohne anmeldung, kleingewerbe rechnung">
+  <link rel="canonical" href="https://quickbillfree.com/de/">
+
+  <!-- Multi-Language SEO hreflang tags -->
+  <link rel="alternate" hreflang="en" href="https://quickbillfree.com/" />
+  <link rel="alternate" hreflang="es" href="https://quickbillfree.com/es/" />
+  <link rel="alternate" hreflang="fr" href="https://quickbillfree.com/fr/" />
+  <link rel="alternate" hreflang="de" href="https://quickbillfree.com/de/" />
+  <link rel="alternate" hreflang="pt" href="https://quickbillfree.com/pt/" />
+  <link rel="alternate" hreflang="it" href="https://quickbillfree.com/it/" />
+  <link rel="alternate" hreflang="x-default" href="https://quickbillfree.com/" />
+
+  <!-- Brand Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/de/">
+  <meta property="og:title" content="Kostenloser Rechnungsgenerator — Rechnung Schreiben & PDF Downloaden">
+  <meta property="og:description" content="Professionelle Rechnungen sofort im Browser erstellen. 100% kostenlos und datenschutzkonform.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QuickBillFree Rechnungsgenerator",
+    "url": "https://quickbillfree.com/de/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All",
+    "inLanguage": "de",
+    "description": "Kostenloser Rechnungsgenerator für Freiberufler, Selbstständige und Kleinunternehmer.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+</head>
+<body class="theme-light">
+
+  <!-- Header -->
+  <header class="app-header print-hide">
+    <div class="container header-inner">
+      <div class="header-brand-group">
+        <a href="../de/" class="logo-wrap" title="QuickBillFree Rechnungen">
+          <div class="logo-symbol">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <span class="logo-text">QuickBill<span class="logo-accent">Free</span></span>
+        </a>
+        <span class="badge-free">100% KOSTENLOS</span>
+      </div>
+
+      <div class="header-nav-tools">
+        <select id="docTypeSelector" class="select-currency select-clean" title="Dokumenttyp">
+          <option value="Invoice">Rechnung</option>
+          <option value="Tax Invoice">Steuerrechnung</option>
+          <option value="Proforma Invoice">Proforma-Rechnung</option>
+          <option value="Receipt">Quittung</option>
+          <option value="Estimate">Kostenvoranschlag</option>
+        </select>
+
+        <select id="currencySelector" class="select-currency" title="Währung">
+          <option value="EUR">EUR (€)</option>
+          <option value="CHF">CHF (CHF)</option>
+          <option value="USD">USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+        </select>
+
+        <select id="stampSelector" class="select-currency select-clean" title="Status-Stempel">
+          <option value="none">Kein Stempel</option>
+          <option value="PAID">BEZAHLT</option>
+          <option value="DRAFT">ENTWURF</option>
+          <option value="OVERDUE">FÄLLIG</option>
+        </select>
+
+        <select id="langSelector" class="select-currency select-clean" title="Sprache">
+          <option value="de" selected>🇩🇪 DE</option>
+          <option value="en">🇺🇸 EN</option>
+          <option value="es">🇪🇸 ES</option>
+          <option value="fr">🇫🇷 FR</option>
+          <option value="pt">🇧🇷 PT</option>
+          <option value="it">🇮🇹 IT</option>
+        </select>
+      </div>
+
+      <div class="header-nav-actions">
+        <button id="btnSampleInvoice" class="btn-ghost" title="Beispieldaten Laden">Beispiel</button>
+        <button id="btnClearInvoice" class="btn-ghost" title="Rechnung Leeren">Zurücksetzen</button>
+        <button id="btnEmailInvoice" class="btn-secondary" title="Als E-Mail Senden">✉️ E-Mail</button>
+        <button id="btnPrintInvoice" class="btn-secondary" title="Drucken">🖨️ Drucken</button>
+        <button id="btnDownloadPdf" class="btn-primary" title="PDF Herunterladen">📥 PDF Herunterladen</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Intro -->
+  <div class="container hero-banner print-hide" style="text-align: center; padding: 24px 0 12px;">
+    <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">Kostenloser Rechnungsgenerator für PDF</h1>
+    <p style="color: var(--text-dim); max-width: 650px; margin: 0 auto; font-size: 0.95rem;">Erstellen Sie professionelle Rechnungen direkt im Browser. Ohne Registrierung, ohne Wasserzeichen und 100% sicher.</p>
+  </div>
+
+  <!-- Interactive Sheet -->
+  <main class="container invoice-stage">
+    <div class="invoice-sheet-wrapper">
+      <div class="invoice-sheet" id="invoiceSheet">
+        <div class="invoice-sheet-header">
+          <div class="logo-upload-wrap" id="logoUploadBox">
+            <input type="file" id="logoFileInput" accept="image/*" class="logo-file-hidden" style="display: none;">
+            <div class="logo-empty-state" id="logoEmptyPrompt">
+              <span class="logo-upload-icon">📷</span>
+              <span class="logo-upload-text">Firmenlogo Hochladen</span>
+            </div>
+            <img id="invoiceLogoPreview" class="invoice-logo-img" alt="Logo" style="display: none;">
+            <button id="btnRemoveLogo" class="btn-remove-logo print-hide" title="Logo Entfernen">✕</button>
+          </div>
+
+          <div class="invoice-meta-block">
+            <div class="invoice-main-title" id="invoiceMainTitle" contenteditable="true">RECHNUNG</div>
+            <div class="meta-field-row">
+              <label for="invoiceNumber" class="meta-label">Rechnung Nr.</label>
+              <input type="text" id="invoiceNumber" class="meta-input" value="RE-2026-1001">
+            </div>
+            <div class="meta-field-row">
+              <label for="issueDate" class="meta-label">Rechnungsdatum</label>
+              <input type="date" id="issueDate" class="meta-input">
+            </div>
+            <div class="meta-field-row">
+              <label for="dueDate" class="meta-label">Fälligkeitsdatum</label>
+              <input type="date" id="dueDate" class="meta-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="address-grid">
+          <div class="address-block">
+            <span class="section-tag">Rechnungssteller (Absender)</span>
+            <input type="text" id="fromName" class="field-name-input" placeholder="Name / Unternehmen" value="Musterstudio GmbH">
+            <textarea id="fromDetails" class="field-textarea" placeholder="Adresse, PLZ, Ort, USt-IdNr.">Friedrichstraße 123
+10117 Berlin, Deutschland
+USt-IdNr.: DE 123456789
+kontakt@musterstudio.de</textarea>
+          </div>
+
+          <div class="address-block">
+            <span class="section-tag">Rechnungsempfänger (Kunde)</span>
+            <input type="text" id="toName" class="field-name-input" placeholder="Kunde / Unternehmen" value="Beispiel AG">
+            <textarea id="toDetails" class="field-textarea" placeholder="Adresse des Kunden">Musterweg 45
+80331 München, Deutschland
+buchhaltung@beispiel.de</textarea>
+          </div>
+        </div>
+
+        <div class="items-table-wrapper">
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th class="col-desc">Bezeichnung</th>
+                <th class="col-qty"><span id="colUnitLabel">Menge</span></th>
+                <th class="col-rate">Einzelpreis</th>
+                <th class="col-total">Gesamtpreis</th>
+                <th class="col-action print-hide"></th>
+              </tr>
+            </thead>
+            <tbody id="itemsTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="add-item-wrap print-hide">
+          <button type="button" id="btnAddItem" class="btn-add-item">➕ Position hinzufügen</button>
+        </div>
+
+        <div class="sheet-bottom-grid">
+          <div class="notes-block">
+            <div id="notesSection" class="section-removable-box">
+              <label for="notesText" class="notes-label">Hinweise & Zahlungsziel</label>
+              <textarea id="notesText" class="field-textarea" style="width: 100%; min-height: 50px;">Vielen Dank für Ihren Auftrag. Bitte überweisen Sie den Rechnungsbetrag innerhalb von 14 Tagen ohne Abzug.</textarea>
+            </div>
+            <div id="termsSection" class="section-removable-box">
+              <label for="termsText" class="notes-label">Bankverbindung / IBAN</label>
+              <textarea id="termsText" class="field-textarea" style="width: 100%; min-height: 65px;">Bank: Deutsche Bank Berlin
+IBAN: DE89 3704 0044 0532 0130 00
+BIC: DEUTDEDBBER</textarea>
+            </div>
+          </div>
+
+          <div class="totals-box">
+            <div class="total-line">
+              <span>Zwischensumme</span>
+              <span id="valSubtotal" class="total-line-value">€0.00</span>
+            </div>
+            <div class="total-line" id="taxLine">
+              <div class="total-line-input-wrap">
+                <span id="taxLabelDisplay">MwSt.</span>
+                <span>(%)</span>
+                <input type="number" id="taxRate" class="total-mini-input" value="19" min="0" max="100" step="0.5">
+              </div>
+              <span id="valTax" class="total-line-value">€0.00</span>
+            </div>
+            <div class="total-divider"></div>
+            <div class="grand-total-line">
+              <span id="grandTotalLabel">Gesamtbetrag:</span>
+              <span id="valGrandTotal" class="grand-total-amount">€0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="container prose print-hide" style="max-width: 860px; margin: 48px auto; padding: 40px; background: #ffffff; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle);">
+    <h2>Pflichtangaben für ordnungsgemäße Rechnungen in Deutschland</h2>
+    <p>Nach § 14 UStG muss eine rechtssichere Rechnung folgende Pflichtbestandteile enthalten:</p>
+    <ul>
+      <li>Vollständiger Name und Anschrift des leistenden Unternehmers und des Leistungsempfängers.</li>
+      <li>Steuernummer oder Umsatzsteuer-Identifikationsnummer (USt-IdNr.).</li>
+      <li>Ausstellungsdatum und eine fortlaufende Rechnungsnummer.</li>
+      <li>Menge und Art der gelieferten Gegenstände oder der Umfang der sonstigen Leistung.</li>
+      <li>Geltender Steuersatz (z. B. 19 % oder 7 %) sowie der auf das Entgelt entfallende Steuerbetrag.</li>
+    </ul>
+  </section>
+
+  <footer class="app-footer print-hide">
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="../">English</a>
+        <a href="../es/">Español</a>
+        <a href="../fr/">Français</a>
+        <a href="../de/">Deutsch</a>
+        <a href="../pt/">Português</a>
+        <a href="../it/">Italiano</a>
+      </div>
+      <div class="footer-links">
+        <a href="../privacy.html">Datenschutz</a>
+        <a href="../terms.html">Nutzungsbedingungen</a>
+        <a href="../blog/">Blog</a>
+      </div>
+      <p>© 2026 QuickBillFree.com • 100% Kostenlose Online-Rechnungen • DSGVO-Konform & Sicher</p>
+    </div>
+  </footer>
+
+  <script src="../js/html2pdf.bundle.min.js"></script>
+  <script src="../js/invoice.js"></script>
+
+</body>
+</html>

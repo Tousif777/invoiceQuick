@@ -66,7 +66,215 @@
     }
   }
 
+  const I18N = {
+    en: {
+      name: 'English',
+      docTitle: 'INVOICE',
+      invoiceNumber: 'Invoice #',
+      poNumber: 'P.O. #',
+      issueDate: 'Issue Date',
+      dueDate: 'Due Date',
+      terms: 'Terms:',
+      billedFrom: 'Billed From (Your Details)',
+      billedTo: 'Billed To (Client Details)',
+      shipTo: 'Ship To (Delivery Details)',
+      colDesc: 'Item Description',
+      colQty: 'Quantity',
+      colHours: 'Hours',
+      colDays: 'Days',
+      colRate: 'Unit Price',
+      colTotal: 'Line Total',
+      addItem: '➕ Add Line Item',
+      notesLabel: 'Notes & Instructions',
+      termsLabel: 'Payment Methods / Terms',
+      signatureLabel: 'Authorized Signature',
+      qrLabel: 'Payment QR Code',
+      subtotal: 'Subtotal',
+      tax: 'Tax',
+      discount: 'Discount',
+      shipping: 'Shipping',
+      amountPaid: 'Amount Paid',
+      totalDue: 'Total Due:',
+      balanceDue: 'Balance Due:',
+      btnDownload: '📥 Download PDF',
+      btnPrint: '🖨️ Print',
+      btnEmail: '✉️ Email',
+      btnClear: 'Clear'
+    },
+    es: {
+      name: 'Español',
+      docTitle: 'FACTURA',
+      invoiceNumber: 'Factura Nº',
+      poNumber: 'Nº Pedido',
+      issueDate: 'Fecha Emisión',
+      dueDate: 'Vencimiento',
+      terms: 'Plazo:',
+      billedFrom: 'Emisor (Tus Datos)',
+      billedTo: 'Facturar a (Cliente)',
+      shipTo: 'Enviar a (Entrega)',
+      colDesc: 'Descripción',
+      colQty: 'Cantidad',
+      colHours: 'Horas',
+      colDays: 'Días',
+      colRate: 'Precio Unitario',
+      colTotal: 'Importe Total',
+      addItem: '➕ Añadir Línea',
+      notesLabel: 'Notas e Instrucciones',
+      termsLabel: 'Métodos y Términos de Pago',
+      signatureLabel: 'Firma Autorizada',
+      qrLabel: 'Código QR de Pago',
+      subtotal: 'Subtotal',
+      tax: 'IVA / Impuesto',
+      discount: 'Descuento',
+      shipping: 'Envío',
+      amountPaid: 'Importe Pagado',
+      totalDue: 'Total a Pagar:',
+      balanceDue: 'Saldo Pendiente:',
+      btnDownload: '📥 Descargar PDF',
+      btnPrint: '🖨️ Imprimir',
+      btnEmail: '✉️ Correo',
+      btnClear: 'Borrar'
+    },
+    fr: {
+      name: 'Français',
+      docTitle: 'FACTURE',
+      invoiceNumber: 'Facture N°',
+      poNumber: 'N° Commande',
+      issueDate: 'Date d\'émission',
+      dueDate: 'Date d\'échéance',
+      terms: 'Modalités:',
+      billedFrom: 'Émetteur (Vos Coordonnées)',
+      billedTo: 'Facturé à (Client)',
+      shipTo: 'Livrer à (Adresse)',
+      colDesc: 'Description',
+      colQty: 'Quantité',
+      colHours: 'Heures',
+      colDays: 'Jours',
+      colRate: 'Prix Unitaire',
+      colTotal: 'Montant Total',
+      addItem: '➕ Ajouter une Ligne',
+      notesLabel: 'Notes & Instructions',
+      termsLabel: 'Conditions de Paiement',
+      signatureLabel: 'Signature Autorisée',
+      qrLabel: 'QR Code de Paiement',
+      subtotal: 'Sous-total',
+      tax: 'TVA',
+      discount: 'Remise',
+      shipping: 'Frais de Port',
+      amountPaid: 'Montant Réglé',
+      totalDue: 'Total TTC:',
+      balanceDue: 'Reste à Payer:',
+      btnDownload: '📥 Télécharger PDF',
+      btnPrint: '🖨️ Imprimer',
+      btnEmail: '✉️ E-mail',
+      btnClear: 'Effacer'
+    },
+    de: {
+      name: 'Deutsch',
+      docTitle: 'RECHNUNG',
+      invoiceNumber: 'Rechnung Nr.',
+      poNumber: 'Bestell-Nr.',
+      issueDate: 'Rechnungsdatum',
+      dueDate: 'Fälligkeitsdatum',
+      terms: 'Zahlungsziel:',
+      billedFrom: 'Rechnungssteller (Absender)',
+      billedTo: 'Rechnungsempfänger (Kunde)',
+      shipTo: 'Lieferadresse',
+      colDesc: 'Bezeichnung',
+      colQty: 'Menge',
+      colHours: 'Stunden',
+      colDays: 'Tage',
+      colRate: 'Einzelpreis',
+      colTotal: 'Gesamtpreis',
+      addItem: '➕ Position hinzufügen',
+      notesLabel: 'Hinweise & Bemerkungen',
+      termsLabel: 'Zahlungsbedingungen & IBAN',
+      signatureLabel: 'Unterschrift',
+      qrLabel: 'Zahlungs-QR-Code',
+      subtotal: 'Zwischensumme',
+      tax: 'MwSt.',
+      discount: 'Rabatt',
+      shipping: 'Versandkosten',
+      amountPaid: 'Bezahlt',
+      totalDue: 'Gesamtbetrag:',
+      balanceDue: 'Offener Betrag:',
+      btnDownload: '📥 PDF Herunterladen',
+      btnPrint: '🖨️ Drucken',
+      btnEmail: '✉️ E-Mail',
+      btnClear: 'Zurücksetzen'
+    },
+    pt: {
+      name: 'Português',
+      docTitle: 'FATURA',
+      invoiceNumber: 'Fatura Nº',
+      poNumber: 'Nº Pedido',
+      issueDate: 'Data de Emissão',
+      dueDate: 'Vencimento',
+      terms: 'Termos:',
+      billedFrom: 'Emitente (Seus Dados)',
+      billedTo: 'Faturar a (Cliente)',
+      shipTo: 'Enviar para (Entrega)',
+      colDesc: 'Descrição',
+      colQty: 'Quantidade',
+      colHours: 'Horas',
+      colDays: 'Dias',
+      colRate: 'Preço Unitário',
+      colTotal: 'Valor Total',
+      addItem: '➕ Adicionar Item',
+      notesLabel: 'Notas e Instruções',
+      termsLabel: 'Formas e Termos de Pagamento',
+      signatureLabel: 'Assinatura Autorizada',
+      qrLabel: 'QR Code de Pagamento',
+      subtotal: 'Subtotal',
+      tax: 'Imposto / IVA',
+      discount: 'Desconto',
+      shipping: 'Frete',
+      amountPaid: 'Valor Pago',
+      totalDue: 'Total a Pagar:',
+      balanceDue: 'Saldo Devedor:',
+      btnDownload: '📥 Baixar PDF',
+      btnPrint: '🖨️ Imprimir',
+      btnEmail: '✉️ E-mail',
+      btnClear: 'Limpar'
+    },
+    it: {
+      name: 'Italiano',
+      docTitle: 'FATTURA',
+      invoiceNumber: 'Fattura N°',
+      poNumber: 'N° Ordine',
+      issueDate: 'Data Emissione',
+      dueDate: 'Scadenza',
+      terms: 'Termini:',
+      billedFrom: 'Emittente (I Tuoi Dati)',
+      billedTo: 'Intestato a (Cliente)',
+      shipTo: 'Spedire a (Destinazione)',
+      colDesc: 'Descrizione',
+      colQty: 'Quantità',
+      colHours: 'Ore',
+      colDays: 'Giorni',
+      colRate: 'Prezzo Unitario',
+      colTotal: 'Totale Riga',
+      addItem: '➕ Aggiungi Voce',
+      notesLabel: 'Note & Istruzioni',
+      termsLabel: 'Termini di Pagamento & IBAN',
+      signatureLabel: 'Firma Autorizzata',
+      qrLabel: 'QR Code di Pagamento',
+      subtotal: 'Subtotale',
+      tax: 'IVA',
+      discount: 'Sconto',
+      shipping: 'Spedizione',
+      amountPaid: 'Importo Pagato',
+      totalDue: 'Totale da Saldare:',
+      balanceDue: 'Totale Dovuto:',
+      btnDownload: '📥 Scarica PDF',
+      btnPrint: '🖨️ Stampa',
+      btnEmail: '✉️ Email',
+      btnClear: 'Cancella'
+    }
+  };
+
   const DEFAULT_STATE = {
+    lang: 'en',
     currency: 'USD',
     invoiceNumber: 'INV-1001',
     issueDate: new Date().toISOString().split('T')[0],
@@ -2098,6 +2306,126 @@ ${sender}`;
     wrapper.addEventListener('mouseleave', resetTilt);
   }
 
+  function applyLanguage(lang) {
+    if (!I18N[lang]) lang = 'en';
+    state.lang = lang;
+    const t = I18N[lang];
+
+    // Document title
+    const mainTitle = document.getElementById('invoiceMainTitle');
+    if (mainTitle) {
+      const titles = ['INVOICE', 'FACTURA', 'FACTURE', 'RECHNUNG', 'FATURA', 'FATTURA'];
+      if (!state.customTitle || titles.includes(mainTitle.textContent.trim())) {
+        mainTitle.textContent = t.docTitle;
+      }
+    }
+
+    // Meta labels
+    const lblInv = document.querySelector('label[for="invoiceNumber"]');
+    if (lblInv) lblInv.textContent = t.invoiceNumber;
+    const lblPo = document.querySelector('label[for="poNumber"]');
+    if (lblPo) lblPo.textContent = t.poNumber;
+    const lblIssue = document.querySelector('label[for="issueDate"]');
+    if (lblIssue) lblIssue.textContent = t.issueDate;
+    const lblDue = document.querySelector('label[for="dueDate"]');
+    if (lblDue) lblDue.textContent = t.dueDate;
+    const lblTerms = document.querySelector('.preset-label');
+    if (lblTerms) lblTerms.textContent = t.terms;
+
+    // Address tags
+    const addressBlocks = document.querySelectorAll('.address-block .section-tag');
+    if (addressBlocks[0]) addressBlocks[0].textContent = t.billedFrom;
+    if (addressBlocks[1]) addressBlocks[1].textContent = t.billedTo;
+    const shipToTag = document.querySelector('#shipToBlock .section-tag');
+    if (shipToTag) shipToTag.textContent = t.shipTo;
+
+    // Table headers
+    const thDesc = document.querySelector('.col-desc');
+    if (thDesc) thDesc.textContent = t.colDesc;
+    const unitLabel = document.getElementById('colUnitLabel');
+    if (unitLabel) {
+      if (state.unitType === 'Hours') unitLabel.textContent = t.colHours;
+      else if (state.unitType === 'Days') unitLabel.textContent = t.colDays;
+      else unitLabel.textContent = t.colQty;
+    }
+    const thRate = document.querySelector('.col-rate');
+    if (thRate) thRate.textContent = t.colRate;
+    const thTotal = document.querySelector('.col-total');
+    if (thTotal) thTotal.textContent = t.colTotal;
+
+    // Add item button
+    const btnAdd = document.getElementById('btnAddItem');
+    if (btnAdd) btnAdd.innerHTML = t.addItem;
+
+    // Notes & terms labels
+    const lblNotes = document.querySelector('label[for="notesText"]');
+    if (lblNotes) lblNotes.textContent = t.notesLabel;
+    const lblPayTerms = document.querySelector('label[for="termsText"]');
+    if (lblPayTerms) lblPayTerms.textContent = t.termsLabel;
+
+    // Totals labels
+    const valSubtotal = document.getElementById('valSubtotal');
+    if (valSubtotal && valSubtotal.previousElementSibling) {
+      valSubtotal.previousElementSibling.textContent = t.subtotal;
+    }
+    const grandTotalLabel = document.getElementById('grandTotalLabel');
+    if (grandTotalLabel) grandTotalLabel.textContent = t.totalDue;
+
+    // Top action buttons
+    const btnDownload = document.getElementById('btnDownloadPdf');
+    if (btnDownload) btnDownload.innerHTML = t.btnDownload;
+    const btnPrint = document.getElementById('btnPrintInvoice');
+    if (btnPrint) btnPrint.innerHTML = t.btnPrint;
+    const btnEmail = document.getElementById('btnEmailInvoice');
+    if (btnEmail) btnEmail.innerHTML = t.btnEmail;
+    const btnClear = document.getElementById('btnClearInvoice');
+    if (btnClear) btnClear.textContent = t.btnClear;
+
+    // Language selector sync
+    const langSelect = document.getElementById('langSelector');
+    if (langSelect && langSelect.value !== lang) {
+      langSelect.value = lang;
+    }
+
+    document.documentElement.lang = lang;
+  }
+
+  function initI18n() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    const path = window.location.pathname;
+    let initialLang = 'en';
+
+    if (urlLang && I18N[urlLang]) {
+      initialLang = urlLang;
+    } else if (path.includes('/es/') || path.endsWith('/es.html') || path.endsWith('/es/')) {
+      initialLang = 'es';
+    } else if (path.includes('/fr/') || path.endsWith('/fr.html') || path.endsWith('/fr/')) {
+      initialLang = 'fr';
+    } else if (path.includes('/de/') || path.endsWith('/de.html') || path.endsWith('/de/')) {
+      initialLang = 'de';
+    } else if (path.includes('/pt/') || path.endsWith('/pt.html') || path.endsWith('/pt/')) {
+      initialLang = 'pt';
+    } else if (path.includes('/it/') || path.endsWith('/it.html') || path.endsWith('/it/')) {
+      initialLang = 'it';
+    } else if (state.lang && I18N[state.lang]) {
+      initialLang = state.lang;
+    }
+
+    applyLanguage(initialLang);
+
+    const langSelect = document.getElementById('langSelector');
+    if (langSelect) {
+      langSelect.value = initialLang;
+      langSelect.addEventListener('change', (e) => {
+        const selected = e.target.value;
+        applyLanguage(selected);
+        saveToStorage();
+        trackEvent('language_change', { lang: selected });
+      });
+    }
+  }
+
   // Init
   function init() {
     loadFromStorage();
@@ -2106,6 +2434,7 @@ ${sender}`;
     initSignaturePad();
     renderClientCatalogList();
     init3DTiltEffect();
+    initI18n();
   }
 
   window.addEventListener('DOMContentLoaded', init);

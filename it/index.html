@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7599767103475954" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generatore di Fatture Gratuito — Crea e Scarica Fattura PDF | QuickBillFree</title>
+  <meta name="description" content="Generatore di fatture gratuito online senza registrazione. Crea fatture professionali in PDF con IVA, QR Code e calcolo automatico.">
+  <meta name="keywords" content="generatore di fatture gratis, creare fattura online, modello fattura pdf, fattura regime forfettario, fattura senza registrazione">
+  <link rel="canonical" href="https://quickbillfree.com/it/">
+
+  <!-- Multi-Language SEO hreflang tags -->
+  <link rel="alternate" hreflang="en" href="https://quickbillfree.com/" />
+  <link rel="alternate" hreflang="es" href="https://quickbillfree.com/es/" />
+  <link rel="alternate" hreflang="fr" href="https://quickbillfree.com/fr/" />
+  <link rel="alternate" hreflang="de" href="https://quickbillfree.com/de/" />
+  <link rel="alternate" hreflang="pt" href="https://quickbillfree.com/pt/" />
+  <link rel="alternate" hreflang="it" href="https://quickbillfree.com/it/" />
+  <link rel="alternate" hreflang="x-default" href="https://quickbillfree.com/" />
+
+  <!-- Brand Favicon -->
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/it/">
+  <meta property="og:title" content="Generatore di Fatture Gratuito — Crea Fatture PDF al Volo">
+  <meta property="og:description" content="Fatturazione 100% gratuita e privata per liberi professionisti e aziende.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QuickBillFree Generatore di Fatture",
+    "url": "https://quickbillfree.com/it/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All",
+    "inLanguage": "it",
+    "description": "Generatore di fatture gratuito e sicuro per freelance e partite IVA.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    }
+  }
+  </script>
+</head>
+<body class="theme-light">
+
+  <header class="app-header print-hide">
+    <div class="container header-inner">
+      <div class="header-brand-group">
+        <a href="../it/" class="logo-wrap" title="QuickBillFree Fatture">
+          <div class="logo-symbol">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <span class="logo-text">QuickBill<span class="logo-accent">Free</span></span>
+        </a>
+        <span class="badge-free">100% GRATIS</span>
+      </div>
+
+      <div class="header-nav-tools">
+        <select id="docTypeSelector" class="select-currency select-clean" title="Tipo di Documento">
+          <option value="Invoice">Fattura</option>
+          <option value="Proforma Invoice">Fattura Proforma</option>
+          <option value="Receipt">Ricevuta</option>
+          <option value="Estimate">Preventivo</option>
+        </select>
+
+        <select id="currencySelector" class="select-currency" title="Valuta">
+          <option value="EUR">EUR (€)</option>
+          <option value="CHF">CHF (CHF)</option>
+          <option value="USD">USD ($)</option>
+          <option value="GBP">GBP (£)</option>
+        </select>
+
+        <select id="stampSelector" class="select-currency select-clean" title="Timbro">
+          <option value="none">Nessun Timbro</option>
+          <option value="PAID">PAGATO</option>
+          <option value="DRAFT">BOZZA</option>
+          <option value="OVERDUE">SCADUTO</option>
+        </select>
+
+        <select id="langSelector" class="select-currency select-clean" title="Lingua">
+          <option value="it" selected>🇮🇹 IT</option>
+          <option value="en">🇺🇸 EN</option>
+          <option value="es">🇪🇸 ES</option>
+          <option value="fr">🇫🇷 FR</option>
+          <option value="de">🇩🇪 DE</option>
+          <option value="pt">🇧🇷 PT</option>
+        </select>
+      </div>
+
+      <div class="header-nav-actions">
+        <button id="btnSampleInvoice" class="btn-ghost" title="Esempio">Esempio</button>
+        <button id="btnClearInvoice" class="btn-ghost" title="Azzera">Azzera</button>
+        <button id="btnEmailInvoice" class="btn-secondary" title="Invia Email">✉️ Email</button>
+        <button id="btnPrintInvoice" class="btn-secondary" title="Stampa">🖨️ Stampa</button>
+        <button id="btnDownloadPdf" class="btn-primary" title="Scarica PDF">📥 Scarica PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container hero-banner print-hide" style="text-align: center; padding: 24px 0 12px;">
+    <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">Generatore di Fatture Gratuito in PDF</h1>
+    <p style="color: var(--text-dim); max-width: 650px; margin: 0 auto; font-size: 0.95rem;">Crea, personalizza e scarica fatture professionali al volo. Senza account, senza filigrane e sicuro al 100%.</p>
+  </div>
+
+  <main class="container invoice-stage">
+    <div class="invoice-sheet-wrapper">
+      <div class="invoice-sheet" id="invoiceSheet">
+        <div class="invoice-sheet-header">
+          <div class="logo-upload-wrap" id="logoUploadBox">
+            <input type="file" id="logoFileInput" accept="image/*" class="logo-file-hidden" style="display: none;">
+            <div class="logo-empty-state" id="logoEmptyPrompt">
+              <span class="logo-upload-icon">📷</span>
+              <span class="logo-upload-text">Carica Logo</span>
+            </div>
+            <img id="invoiceLogoPreview" class="invoice-logo-img" alt="Logo" style="display: none;">
+            <button id="btnRemoveLogo" class="btn-remove-logo print-hide" title="Rimuovi">✕</button>
+          </div>
+
+          <div class="invoice-meta-block">
+            <div class="invoice-main-title" id="invoiceMainTitle" contenteditable="true">FATTURA</div>
+            <div class="meta-field-row">
+              <label for="invoiceNumber" class="meta-label">Fattura N°</label>
+              <input type="text" id="invoiceNumber" class="meta-input" value="FAT-2026-001">
+            </div>
+            <div class="meta-field-row">
+              <label for="issueDate" class="meta-label">Data Emissione</label>
+              <input type="date" id="issueDate" class="meta-input">
+            </div>
+            <div class="meta-field-row">
+              <label for="dueDate" class="meta-label">Scadenza</label>
+              <input type="date" id="dueDate" class="meta-input">
+            </div>
+          </div>
+        </div>
+
+        <div class="address-grid">
+          <div class="address-block">
+            <span class="section-tag">Emittente (I Tuoi Dati)</span>
+            <input type="text" id="fromName" class="field-name-input" placeholder="Tuo Nome / Azienda" value="Studio Design SRL">
+            <textarea id="fromDetails" class="field-textarea" placeholder="P.IVA, Codice Fiscale, Indirizzo">Via Montenapoleone 8
+20121 Milano, Italia
+P.IVA: IT12345678901
+info@studiodesign.it</textarea>
+          </div>
+
+          <div class="address-block">
+            <span class="section-tag">Intestato a (Cliente)</span>
+            <input type="text" id="toName" class="field-name-input" placeholder="Cliente / Azienda" value="Cliente Esempio SpA">
+            <textarea id="toDetails" class="field-textarea" placeholder="Indirizzo del cliente">Via del Corso 120
+00186 Roma, Italia
+amministrazione@esempio.it</textarea>
+          </div>
+        </div>
+
+        <div class="items-table-wrapper">
+          <table class="items-table">
+            <thead>
+              <tr>
+                <th class="col-desc">Descrizione</th>
+                <th class="col-qty"><span id="colUnitLabel">Quantità</span></th>
+                <th class="col-rate">Prezzo Unitario</th>
+                <th class="col-total">Totale Riga</th>
+                <th class="col-action print-hide"></th>
+              </tr>
+            </thead>
+            <tbody id="itemsTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="add-item-wrap print-hide">
+          <button type="button" id="btnAddItem" class="btn-add-item">➕ Aggiungi Voce</button>
+        </div>
+
+        <div class="sheet-bottom-grid">
+          <div class="notes-block">
+            <div id="notesSection" class="section-removable-box">
+              <label for="notesText" class="notes-label">Note & Condizioni</label>
+              <textarea id="notesText" class="field-textarea" style="width: 100%; min-height: 50px;">Grazie per la collaborazione. Saldo da versare entro 14 giorni.</textarea>
+            </div>
+            <div id="termsSection" class="section-removable-box">
+              <label for="termsText" class="notes-label">Dettagli di Pagamento / IBAN</label>
+              <textarea id="termsText" class="field-textarea" style="width: 100%; min-height: 65px;">Bonifico Bancario:
+Banca: Intesa Sanpaolo
+IBAN: IT60 X054 2811 1010 0000 0123 456
+BIC/SWIFT: BCITITMMXXX</textarea>
+            </div>
+          </div>
+
+          <div class="totals-box">
+            <div class="total-line">
+              <span>Imponibile</span>
+              <span id="valSubtotal" class="total-line-value">€0.00</span>
+            </div>
+            <div class="total-line" id="taxLine">
+              <div class="total-line-input-wrap">
+                <span id="taxLabelDisplay">IVA</span>
+                <span>(%)</span>
+                <input type="number" id="taxRate" class="total-mini-input" value="22" min="0" max="100" step="0.5">
+              </div>
+              <span id="valTax" class="total-line-value">€0.00</span>
+            </div>
+            <div class="total-divider"></div>
+            <div class="grand-total-line">
+              <span id="grandTotalLabel">Totale da Saldare:</span>
+              <span id="valGrandTotal" class="grand-total-amount">€0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer print-hide">
+    <div class="container footer-content">
+      <div class="footer-links">
+        <a href="../">English</a>
+        <a href="../es/">Español</a>
+        <a href="../fr/">Français</a>
+        <a href="../de/">Deutsch</a>
+        <a href="../pt/">Português</a>
+        <a href="../it/">Italiano</a>
+      </div>
+      <div class="footer-links">
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Termini di Servizio</a>
+        <a href="../blog/">Blog</a>
+      </div>
+      <p>© 2026 QuickBillFree.com • Fatturazione Gratuita e Sicura nel Tuo Browser</p>
+    </div>
+  </footer>
+
+  <script src="../js/html2pdf.bundle.min.js"></script>
+  <script src="../js/invoice.js"></script>
+
+</body>
+</html>
