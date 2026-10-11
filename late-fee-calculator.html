@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7599767103475954" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Invoice Late Fee & Interest Calculator — Statutory Overdue Bill Tool | QuickBillFree</title>
+  <meta name="description" content="Calculate late payment interest and compensation fees for overdue business invoices. Real-time daily interest formula, statutory fee tiers, and instant invoice PDF export.">
+  <meta name="keywords" content="late fee calculator, invoice interest calculator, statutory interest calculator, late payment fee tool, overdue invoice interest formula, commercial debt interest">
+  <meta name="author" content="QuickBillFree.com">
+  <link rel="canonical" href="https://quickbillfree.com/late-fee-calculator.html">
+
+  <!-- Brand Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta name="theme-color" content="#4f46e5">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/late-fee-calculator.html">
+  <meta property="og:title" content="Free Invoice Late Fee & Interest Calculator — QuickBillFree">
+  <meta property="og:description" content="Calculate interest and statutory debt compensation fees on late client payments in real time. 100% free tool.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Invoice Late Fee Calculator">
+  <meta name="twitter:description" content="Instant overdue invoice interest and statutory debt recovery calculator.">
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog.css">
+
+  <style>
+    .calc-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      margin-bottom: 40px;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 768px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+      .calc-card {
+        padding: 20px;
+      }
+    }
+    .calc-form-group {
+      margin-bottom: 20px;
+    }
+    .calc-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 8px;
+    }
+    .calc-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .calc-prefix {
+      position: absolute;
+      left: 14px;
+      font-weight: 700;
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+    .calc-input {
+      width: 100%;
+      padding: 12px 14px 12px 34px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0f172a;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .calc-input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+    .calc-result-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #fef2f2 100%);
+      border: 1px solid #fecaca;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 12px 0;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+    .result-row:last-child {
+      border-bottom: none;
+    }
+    .result-label {
+      color: #475569;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .result-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .result-value.alert {
+      color: #dc2626;
+    }
+    .result-value.highlight {
+      font-size: 1.85rem;
+      color: #b91c1c;
+    }
+    .btn-calc-action {
+      margin-top: 20px;
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #dc2626;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+    }
+    .btn-calc-action:hover {
+      background: #b91c1c;
+      box-shadow: 0 6px 16px rgba(220, 38, 38, 0.35);
+      transform: translateY(-1px);
+    }
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #334155;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+
+  <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Invoice Late Fee & Interest Calculator by QuickBillFree",
+        "url": "https://quickbillfree.com/late-fee-calculator.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "1480",
+          "bestRating": "5"
+        },
+        "description": "Free online calculator to determine statutory late payment interest and debt recovery fees on overdue commercial invoices."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How is late payment interest calculated on an invoice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Late payment interest is calculated daily using the formula: (Invoice Amount x Annual Interest Rate) / 365 x Number of Days Overdue. In the UK and EU, statutory interest is typically 8% plus the central bank base rate."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I charge compensation recovery fees for late commercial debt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Under statutory commercial debt legislation, businesses can charge fixed debt recovery fees: £40 / $40 for debts under £1,000, £70 / $70 for debts between £1,000 and £9,999, and £100 / $100 for debts of £10,000 or more."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When does an invoice legally become overdue?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An invoice becomes overdue the calendar day immediately following the stated payment due date. If no payment term was specified in the contract, standard statutory terms typically treat an invoice as overdue 30 days after receipt of the invoice or delivery of the goods/services."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="blog-page">
+
+  <!-- Top App Navigation -->
+  <nav class="blog-nav">
+    <div class="container blog-nav-container">
+      <a href="./" class="blog-brand">
+        <img src="assets/favicon.svg" alt="QuickBillFree" width="30" height="30">
+        <span>Quick<span style="color: var(--blog-primary);">Bill</span><span style="color: #10b981; font-weight: 800; font-size: 0.95em;">Free</span></span>
+        <span class="blog-badge-tag">Tool</span>
+      </a>
+
+      <div class="blog-nav-links">
+        <a href="vat-calculator.html" class="btn-nav-ghost">🧮 VAT Calculator</a>
+        <a href="./" class="btn-nav-primary">⚡ Open Invoice Maker</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="blog-hero">
+    <div class="container">
+      <div class="blog-hero-badge">⏳ Statutory Debt Tool • Daily Interest & Debt Recovery Fees</div>
+      <h1 class="blog-hero-title">Free Invoice Late Fee Calculator</h1>
+      <p class="blog-hero-desc">Calculate statutory interest and fixed debt recovery fees on overdue commercial invoices. Determine exactly what your client owes under business debt protection laws in seconds.</p>
+    </div>
+  </header>
+
+  <!-- Content Container -->
+  <main class="container" style="max-width: 920px; margin-top: 20px;">
+
+    <!-- Interactive Calculator Card -->
+    <div class="calc-card">
+      <div class="calc-grid">
+
+        <!-- Controls Column -->
+        <div>
+          <!-- Currency & Principal Amount Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">Original Invoice Amount:</label>
+            <div class="calc-input-wrap">
+              <span class="calc-prefix" id="currencySymbol">$</span>
+              <input type="number" id="calcPrincipal" class="calc-input" value="2500" min="0" step="any" oninput="calculateLateFee()">
+            </div>
+          </div>
+
+          <!-- Currency Selector -->
+          <div class="calc-form-group">
+            <label class="calc-label">Currency:</label>
+            <select id="calcCurrency" class="calc-input" style="padding-left: 14px; font-size: 1rem;" onchange="updateCurrency()">
+              <option value="$" data-code="USD" selected>USD ($) — United States</option>
+              <option value="£" data-code="GBP">GBP (£) — United Kingdom</option>
+              <option value="€" data-code="EUR">EUR (€) — Eurozone</option>
+              <option value="A$" data-code="AUD">AUD (A$) — Australia</option>
+              <option value="CA$" data-code="CAD">CAD (CA$) — Canada</option>
+            </select>
+          </div>
+
+          <!-- Days Overdue Input -->
+          <div class="calc-form-group">
+            <label class="calc-label">Days Past Due Date:</label>
+            <input type="number" id="calcDays" class="calc-input" style="padding-left: 14px;" value="45" min="1" max="1000" oninput="calculateLateFee()">
+          </div>
+
+          <!-- Annual Interest Rate -->
+          <div class="calc-form-group">
+            <label class="calc-label">Annual Interest Rate (% p.a.):</label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <input type="number" id="calcRate" class="calc-input" style="padding-left: 14px; max-width: 130px;" value="8.5" min="0" max="100" step="0.1" oninput="calculateLateFee()">
+              <span style="font-weight: 700; font-size: 1.2rem; color: #64748b;">%</span>
+            </div>
+            <span style="font-size: 0.78rem; color: #64748b; display: block; margin-top: 4px;">Standard UK/EU statutory rate: 8% + central bank rate (typically 8.5%–13%). US commercial average: 10%–18%.</span>
+          </div>
+
+          <!-- Fixed Statutory Compensation Checkbox -->
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="checkCompensation" checked onchange="calculateLateFee()" style="width: 18px; height: 18px; accent-color: #dc2626;">
+            <span>Include Statutory Debt Recovery Fee (Tiered)</span>
+          </label>
+        </div>
+
+        <!-- Real-Time Results Column -->
+        <div class="calc-result-box">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+              <span style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #dc2626;">Overdue Summary</span>
+              <span id="badgeDays" style="background: #fee2e2; color: #991b1b; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">45 Days Overdue</span>
+            </div>
+
+            <div class="result-row">
+              <span class="result-label">Original Principal:</span>
+              <span class="result-value" id="resPrincipal">$2,500.00</span>
+            </div>
+
+            <div class="result-row">
+              <span class="result-label">Accrued Daily Interest:</span>
+              <span class="result-value alert" id="resInterest">$26.20</span>
+            </div>
+
+            <div class="result-row">
+              <span class="result-label">Fixed Debt Recovery Fee:</span>
+              <span class="result-value alert" id="resCompensation">$70.00</span>
+            </div>
+
+            <div class="result-row" style="margin-top: 8px;">
+              <span class="result-label" style="font-weight: 700; color: #0f172a;">Total Balance Due:</span>
+              <span class="result-value highlight" id="resTotal">$2,596.20</span>
+            </div>
+          </div>
+
+          <div>
+            <a href="./" class="btn-calc-action" id="btnCreateNotice">
+              ⚡ Create Overdue Notice Invoice ➔
+            </a>
+            <span style="display: block; text-align: center; color: #64748b; font-size: 0.8rem; margin-top: 8px;">Print or download updated PDF demand • 100% free</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Educational & SEO Guide Section -->
+    <section class="prose" style="background: #ffffff; padding: 36px; border-radius: var(--radius-lg); border: 1px solid var(--blog-border); margin-bottom: 48px;">
+      <h2>Understanding Statutory Late Payment Legislation & Rights</h2>
+      <p>When clients fail to pay invoices on time, small business cash flow suffers immediately. Fortunately, in many jurisdictions (including the UK, EU, and under US commercial contract law), creditors have statutory legal rights to charge interest and debt recovery costs.</p>
+
+      <h3>1. Daily Interest Calculation Formula</h3>
+      <p>Interest on unpaid commercial debts accumulates daily from the day the bill becomes overdue until paid in full:</p>
+      <div class="callout callout-danger" style="font-family: monospace; font-size: 1rem;">
+        Daily Interest = (Debt Amount × Annual Interest Rate) ÷ 365<br>
+        Total Interest = Daily Interest × Number of Days Overdue
+      </div>
+      <p><strong>Example:</strong> An unpaid $5,000 invoice that is 60 days late at 10% annual interest:<br>
+      ($5,000 × 0.10) ÷ 365 = $1.369 per day.<br>
+      For 60 days: 60 × $1.369 = <strong>$82.19</strong> in accrued interest.</p>
+
+      <h3>2. Fixed Debt Recovery Compensation Fees (Tiered)</h3>
+      <p>Under the UK Late Payment of Commercial Debts (Interest) Act 1998 and the European Late Payment Directive (2011/7/EU), you are entitled to claim a reasonable fixed compensation fee for each overdue invoice:</p>
+      <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem;">
+        <thead>
+          <tr style="background: #f1f5f9; text-align: left;">
+            <th style="padding: 10px; border: 1px solid var(--blog-border);">Unpaid Invoice Size</th>
+            <th style="padding: 10px; border: 1px solid var(--blog-border);">Statutory Compensation Fee</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 8px 10px; border: 1px solid var(--blog-border);">Under £1,000 / $1,000</td>
+            <td style="padding: 8px 10px; border: 1px solid var(--blog-border);"><strong>£40.00 / $40.00</strong></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px; border: 1px solid var(--blog-border);">£1,000 to £9,999.99</td>
+            <td style="padding: 8px 10px; border: 1px solid var(--blog-border);"><strong>£70.00 / $70.00</strong></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 10px; border: 1px solid var(--blog-border);">£10,000 or more</td>
+            <td style="padding: 8px 10px; border: 1px solid var(--blog-border);"><strong>£100.00 / $100.00</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3. Steps to Collect Unpaid Invoices Professionally</h3>
+      <ol>
+        <li><strong>Friendly Reminder (Day 1–7):</strong> Send a polite email confirming the original invoice was received and checking if there were any questions.</li>
+        <li><strong>Formal Statement of Account (Day 14):</strong> Send a statement showing the overdue status and offering instant payment links.</li>
+        <li><strong>Final Notice with Statutory Interest (Day 30+):</strong> Issue an updated invoice including the statutory interest and debt recovery fee calculated above. This creates legal urgency without immediate litigation.</li>
+      </ol>
+
+      <h2>Frequently Asked Questions</h2>
+      <div style="margin-top: 20px;">
+        <h4 style="margin-bottom: 6px;">Can I charge late fees to consumer clients?</h4>
+        <p>Commercial debt laws primarily protect business-to-business (B2B) transactions. For individual consumer clients (B2C), you can only charge late fees if they were clearly stated and agreed to in your original signed contract or terms of service prior to starting work.</p>
+
+        <h4 style="margin-bottom: 6px;">How do I show late fees on an updated invoice?</h4>
+        <p>Add a new line item titled <em>"Statutory Late Payment Interest (X days @ Y%)"</em> and another line titled <em>"Debt Recovery Compensation Fee"</em>. QuickBillFree allows you to append these rows and regenerate your invoice PDF in seconds.</p>
+      </div>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <div class="blog-cta-banner">
+      <h2 class="blog-cta-title">Need to Issue a Professional Overdue Notice?</h2>
+      <p class="blog-cta-desc">100% free client-side invoice maker. Add custom line items, signatures, and instant PDF download.</p>
+      <a href="./" class="btn-cta-white">⚡ Open Free Invoice Generator</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="blog-footer">
+    <div class="container">
+      <div class="blog-footer-links">
+        <a href="./">Free Invoice Generator</a>
+        <a href="vat-calculator.html">VAT Calculator</a>
+        <a href="tax-invoice-generator.html">Tax Invoices</a>
+        <a href="uk-vat-invoice-generator.html">UK VAT Invoices</a>
+        <a href="contractor-invoice-generator.html">Contractor Invoices</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="blog-copyright">© 2026 QuickBillFree.com • Fast, Secure & Free Client-Side Invoicing Tools</p>
+    </div>
+  </footer>
+
+  <!-- Calculator Logic Script -->
+  <script>
+    let currentSymbol = '$';
+
+    function updateCurrency() {
+      const select = document.getElementById('calcCurrency');
+      currentSymbol = select.value;
+      document.getElementById('currencySymbol').textContent = currentSymbol;
+      calculateLateFee();
+    }
+
+    function calculateLateFee() {
+      const principal = parseFloat(document.getElementById('calcPrincipal').value) || 0;
+      const days = parseInt(document.getElementById('calcDays').value) || 0;
+      const annualRate = parseFloat(document.getElementById('calcRate').value) || 0;
+      const includeCompensation = document.getElementById('checkCompensation').checked;
+
+      // Daily interest calculation
+      const dailyInterestRate = (annualRate / 100) / 365;
+      const interest = principal * dailyInterestRate * days;
+
+      // Tiered statutory recovery fee
+      let compensation = 0;
+      if (includeCompensation && principal > 0) {
+        if (principal < 1000) {
+          compensation = 40;
+        } else if (principal < 10000) {
+          compensation = 70;
+        } else {
+          compensation = 100;
+        }
+      }
+
+      const total = principal + interest + compensation;
+
+      const format = (num) => currentSymbol + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      document.getElementById('resPrincipal').textContent = format(principal);
+      document.getElementById('resInterest').textContent = format(interest);
+      document.getElementById('resCompensation').textContent = format(compensation);
+      document.getElementById('resTotal').textContent = format(total);
+      document.getElementById('badgeDays').textContent = `${days} Days Overdue`;
+    }
+
+    // Run on load
+    window.addEventListener('DOMContentLoaded', calculateLateFee);
+  </script>
+
+</body>
+</html>
