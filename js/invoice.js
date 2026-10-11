@@ -587,10 +587,145 @@
   PRESETS['canada'] = PRESETS['canada-gst'];
 
   let activePresetLoaded = null;
+  let isSharedInvoiceMode = false;
+
+  // ==========================================
+  // Web Invoice Share Link Engine (Viral Growth Loop)
+  // ==========================================
+  function serializeInvoiceForShare() {
+    const payload = {
+      c: state.currency || 'USD',
+      l: state.lang || 'en',
+      in: state.invoiceNumber || '',
+      id: state.issueDate || '',
+      dd: state.dueDate || '',
+      po: state.poNumber || '',
+      fn: state.fromName || '',
+      fd: state.fromDetails || '',
+      tn: state.toName || '',
+      td: state.toDetails || '',
+      sn: state.shipToName || '',
+      sd: state.shipToDetails || '',
+      sst: state.showShipTo ? 1 : 0,
+      items: (state.items || []).map(it => ({
+        d: it.description || '',
+        q: it.quantity !== undefined ? it.quantity : 1,
+        r: it.rate !== undefined ? it.rate : 0
+      })),
+      tl: state.taxLabel || 'Tax',
+      tr: state.taxRate !== undefined ? state.taxRate : 0,
+      stx: state.showTax ? 1 : 0,
+      dt: state.discountType || 'percent',
+      dr: state.discountRate !== undefined ? state.discountRate : 0,
+      sdi: state.showDiscount ? 1 : 0,
+      sa: state.shippingAmount !== undefined ? state.shippingAmount : 0,
+      ssh: state.showShipping ? 1 : 0,
+      ut: state.unitType || 'Quantity',
+      nt: state.notes || '',
+      snt: state.showNotes ? 1 : 0,
+      tm: state.terms || '',
+      stm: state.showTerms ? 1 : 0,
+      ly: state.layout || 'modern',
+      ac: state.accentColor || '#4f46e5',
+      stp: state.stamp || 'none',
+      ap: state.amountPaid !== undefined ? state.amountPaid : 0,
+      sap: state.showAmountPaid ? 1 : 0,
+      sig: state.signerName || 'Authorized Signatory',
+      ssg: state.showSignature ? 1 : 0
+    };
+
+    if (state.logo && state.logo.length < 35000) {
+      payload.lg = state.logo;
+    }
+
+    const json = JSON.stringify(payload);
+    return btoa(encodeURIComponent(json).replace(/%([0-9A-F]{2})/g, (match, p1) => String.fromCharCode('0x' + p1)));
+  }
+
+  function deserializeInvoiceFromShare(encodedStr) {
+    try {
+      const json = decodeURIComponent(Array.prototype.map.call(atob(encodedStr), (c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+      const p = JSON.parse(json);
+      if (!p || typeof p !== 'object') return null;
+
+      return {
+        currency: p.c || 'USD',
+        lang: p.l || 'en',
+        invoiceNumber: p.in || 'INV-1001',
+        issueDate: p.id || new Date().toISOString().split('T')[0],
+        dueDate: p.dd || new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
+        poNumber: p.po || '',
+        fromName: p.fn || '',
+        fromDetails: p.fd || '',
+        toName: p.tn || '',
+        toDetails: p.td || '',
+        shipToName: p.sn || '',
+        shipToDetails: p.sd || '',
+        showShipTo: Boolean(p.sst),
+        items: Array.isArray(p.items) && p.items.length > 0 ? p.items.map(it => ({
+          description: it.d || '',
+          quantity: Number(it.q) || 1,
+          rate: Number(it.r) || 0
+        })) : DEFAULT_STATE.items,
+        taxLabel: p.tl || 'Tax',
+        taxRate: p.tr !== undefined ? Number(p.tr) : 0,
+        showTax: p.stx !== undefined ? Boolean(p.stx) : true,
+        discountType: p.dt || 'percent',
+        discountRate: p.dr !== undefined ? Number(p.dr) : 0,
+        showDiscount: Boolean(p.sdi),
+        shippingAmount: p.sa !== undefined ? Number(p.sa) : 0,
+        showShipping: Boolean(p.ssh),
+        unitType: p.ut || 'Quantity',
+        notes: p.nt !== undefined ? p.nt : DEFAULT_STATE.notes,
+        showNotes: p.snt !== undefined ? Boolean(p.snt) : true,
+        terms: p.tm !== undefined ? p.tm : DEFAULT_STATE.terms,
+        showTerms: p.stm !== undefined ? Boolean(p.stm) : true,
+        layout: p.ly || 'modern',
+        accentColor: p.ac || '#4f46e5',
+        stamp: p.stp || 'none',
+        amountPaid: p.ap !== undefined ? Number(p.ap) : 0,
+        showAmountPaid: Boolean(p.sap),
+        signerName: p.sig || 'Authorized Signatory',
+        showSignature: p.ssg !== undefined ? Boolean(p.ssg) : true,
+        logo: p.lg || null,
+        invoiceId: 'inv_' + Date.now(),
+        status: 'Shared'
+      };
+    } catch (e) {
+      console.warn('Failed to deserialize shared invoice:', e);
+      return null;
+    }
+  }
+
+  function getShareInvoiceUrl() {
+    const encoded = serializeInvoiceForShare();
+    const base = window.location.origin + window.location.pathname.replace(/\/+$/, '') + '/';
+    return base + '#inv=' + encoded;
+  }
 
   function loadFromStorage() {
     try {
-      const urlParams = new URLSearchParams(window.location.search);
+      // 1. Check for client-side invoice share link in hash (#inv=...) or query param (?inv=...)
+      let invHash = window.location.hash;
+      let urlParams = new URLSearchParams(window.location.search);
+      let shareData = null;
+
+      if (invHash && invHash.startsWith('#inv=')) {
+        shareData = invHash.substring(5);
+      } else if (urlParams.get('inv')) {
+        shareData = urlParams.get('inv');
+      }
+
+      if (shareData) {
+        const decoded = deserializeInvoiceFromShare(shareData);
+        if (decoded) {
+          state = Object.assign({}, DEFAULT_STATE, decoded);
+          isSharedInvoiceMode = true;
+          return;
+        }
+      }
+
+      // 2. Check for trade / country presets
       const presetParam = urlParams.get('preset');
       if (presetParam && PRESETS[presetParam.toLowerCase()]) {
         const presetData = PRESETS[presetParam.toLowerCase()];
@@ -605,6 +740,7 @@
         return;
       }
 
+      // 3. Fallback to local storage draft
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         state = Object.assign({}, DEFAULT_STATE, JSON.parse(saved));
@@ -2147,11 +2283,95 @@ ${sender}`;
       });
     }
 
+    // Share Invoice Modal Listeners (Viral Growth Loop)
+    function openShareModal() {
+      const shareModal = document.getElementById('shareInvoiceModal');
+      const shareInput = document.getElementById('shareInvoiceUrlInput');
+      const waBtn = document.getElementById('btnShareWhatsApp');
+      const emailBtn = document.getElementById('btnShareEmail');
+
+      if (!shareModal) return;
+
+      const shareUrl = getShareInvoiceUrl();
+      if (shareInput) shareInput.value = shareUrl;
+
+      // Copy to clipboard immediately on click
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast('Shareable link copied to clipboard! 🔗', '🔗');
+        }).catch(() => {});
+      }
+
+      // Configure WhatsApp share button
+      if (waBtn) {
+        const sender = (state.fromName || 'Your Invoice').split('\n')[0].trim();
+        const text = encodeURIComponent(`Here is your invoice from ${sender} (${state.invoiceNumber || 'INV'}): ${shareUrl}`);
+        waBtn.href = `https://api.whatsapp.com/send?text=${text}`;
+      }
+
+      // Configure Email share button
+      if (emailBtn) {
+        const subject = encodeURIComponent(`Invoice ${state.invoiceNumber || ''} from ${state.fromName ? state.fromName.split('\n')[0].trim() : 'us'}`);
+        const body = encodeURIComponent(`Hello,\n\nPlease find your invoice online at the following link:\n${shareUrl}\n\nYou can view the full details and download the PDF directly in your browser without creating an account.\n\nThank you!`);
+        emailBtn.href = `mailto:?subject=${subject}&body=${body}`;
+      }
+
+      shareModal.style.display = 'flex';
+      trackEvent('share_invoice_modal_open', { invoice_number: state.invoiceNumber });
+    }
+
+    function closeShareModal() {
+      const shareModal = document.getElementById('shareInvoiceModal');
+      if (shareModal) shareModal.style.display = 'none';
+    }
+
+    const btnShareInvoice = document.getElementById('btnShareInvoice');
+    if (btnShareInvoice) {
+      btnShareInvoice.addEventListener('click', openShareModal);
+    }
+
+    const btnCloseShareModal = document.getElementById('btnCloseShareModal');
+    if (btnCloseShareModal) {
+      btnCloseShareModal.addEventListener('click', closeShareModal);
+    }
+
+    const btnCopyShareUrl = document.getElementById('btnCopyShareUrl');
+    if (btnCopyShareUrl) {
+      btnCopyShareUrl.addEventListener('click', () => {
+        const shareInput = document.getElementById('shareInvoiceUrlInput');
+        if (shareInput) {
+          shareInput.select();
+          const copyText = shareInput.value;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(copyText).then(() => {
+              btnCopyShareUrl.textContent = '✓ Copied!';
+              setTimeout(() => { btnCopyShareUrl.textContent = '📋 Copy'; }, 2000);
+              showToast('Link copied to clipboard! 📋', '📋');
+            });
+          } else {
+            document.execCommand('copy');
+            btnCopyShareUrl.textContent = '✓ Copied!';
+            setTimeout(() => { btnCopyShareUrl.textContent = '📋 Copy'; }, 2000);
+            showToast('Link copied to clipboard! 📋', '📋');
+          }
+          trackEvent('share_invoice_link_copied');
+        }
+      });
+    }
+
+    const shareInvoiceModal = document.getElementById('shareInvoiceModal');
+    if (shareInvoiceModal) {
+      shareInvoiceModal.addEventListener('click', (e) => {
+        if (e.target === shareInvoiceModal) closeShareModal();
+      });
+    }
+
     // Global keyboard listener (Escape to close modals)
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeClearModal();
         closeDeleteModal();
+        closeShareModal();
       }
     });
 
@@ -2644,6 +2864,26 @@ ${sender}`;
         const title = activePresetLoaded.charAt(0).toUpperCase() + activePresetLoaded.slice(1);
         showToast(`Loaded ${title} invoice template!`, '⚡');
       }, 350);
+    }
+
+    if (isSharedInvoiceMode) {
+      const banner = document.getElementById('sharedInvoiceBanner');
+      const invNumEl = document.getElementById('sharedBannerInvNum');
+      const btnSharedDl = document.getElementById('btnSharedBannerDownload');
+      if (banner) {
+        banner.style.display = 'block';
+        if (invNumEl) invNumEl.textContent = state.invoiceNumber || 'INV-1001';
+        if (btnSharedDl) {
+          btnSharedDl.addEventListener('click', () => {
+            const btn = document.getElementById('btnDownloadPdf');
+            if (btn) btn.click();
+          });
+        }
+      }
+      trackEvent('view_shared_invoice', { invoice_number: state.invoiceNumber });
+      setTimeout(() => {
+        showToast(`Viewing shared invoice ${state.invoiceNumber || ''}`, '📄');
+      }, 400);
     }
 
     try {

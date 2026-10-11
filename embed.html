@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBillFree Financial Calculator Widget</title>
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://quickbillfree.com/embed.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: transparent;
+      color: #0f172a;
+      padding: 12px;
+      line-height: 1.5;
+    }
+    .widget-container {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    .widget-header {
+      padding: 12px 18px;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .widget-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .widget-tabs {
+      display: flex;
+      gap: 6px;
+    }
+    .widget-tab-btn {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #475569;
+      transition: all 0.15s;
+    }
+    .widget-tab-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #4f46e5;
+    }
+    .widget-body {
+      padding: 20px;
+    }
+    .widget-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .widget-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .widget-body {
+        padding: 14px;
+      }
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-prefix {
+      position: absolute;
+      left: 12px;
+      font-weight: 700;
+      color: #64748b;
+      font-size: 1rem;
+    }
+    .form-input {
+      width: 100%;
+      padding: 10px 12px 10px 30px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+    .toggle-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .toggle-btn {
+      padding: 8px 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .toggle-btn.active {
+      background: #4f46e5;
+      border-color: #4f46e5;
+      color: #ffffff;
+    }
+    .rate-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+    .rate-pill {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #475569;
+    }
+    .rate-pill.active {
+      background: #e0e7ff;
+      border-color: #6366f1;
+      color: #4338ca;
+    }
+    .result-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+    .result-row:last-of-type {
+      border-bottom: none;
+    }
+    .result-label {
+      font-size: 0.85rem;
+      color: #475569;
+      font-weight: 500;
+    }
+    .result-value {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .result-value.highlight {
+      font-size: 1.5rem;
+      color: #4f46e5;
+    }
+    .btn-create-invoice {
+      display: block;
+      width: 100%;
+      text-align: center;
+      background: #4f46e5;
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 14px;
+      transition: all 0.15s;
+    }
+    .btn-create-invoice:hover {
+      background: #4338ca;
+    }
+    .widget-footer {
+      background: #f8fafc;
+      padding: 8px 16px;
+      border-top: 1px solid #e2e8f0;
+      text-align: right;
+      font-size: 0.74rem;
+      color: #64748b;
+    }
+    .widget-footer a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .widget-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="widget-container">
+    <div class="widget-header">
+      <div class="widget-title">
+        <span id="widgetHeaderIcon">🧮</span>
+        <span id="widgetHeaderTitle">Interactive VAT Calculator</span>
+      </div>
+      <div class="widget-tabs">
+        <button type="button" class="widget-tab-btn active" id="tabVat" onclick="switchWidget('vat')">VAT</button>
+        <button type="button" class="widget-tab-btn" id="tabLateFee" onclick="switchWidget('late-fee')">Late Fee</button>
+      </div>
+    </div>
+
+    <!-- Tool 1: VAT Calculator -->
+    <div id="viewVat" class="widget-body">
+      <div class="widget-grid">
+        <div>
+          <label class="form-label">Mode:</label>
+          <div class="toggle-group">
+            <button type="button" class="toggle-btn active" id="btnVatAdd" onclick="setVatMode('add')">➕ Add VAT</button>
+            <button type="button" class="toggle-btn" id="btnVatRemove" onclick="setVatMode('remove')">➖ Remove VAT</button>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" id="vatAmountLabel">Net Amount (excl. VAT):</label>
+            <div class="input-wrap">
+              <span class="input-prefix" id="vatCurrencySymbol">£</span>
+              <input type="number" id="vatAmount" class="form-input" value="1000" min="0" step="any" oninput="calculateVat()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Currency & Rate (%):</label>
+            <div style="display: flex; gap: 8px;">
+              <select id="vatCurrency" class="form-input" style="padding-left: 10px; font-size: 0.9rem; flex: 1;" onchange="updateVatCurrency()">
+                <option value="£" data-code="GBP" selected>GBP (£)</option>
+                <option value="€" data-code="EUR">EUR (€)</option>
+                <option value="$" data-code="USD">USD ($)</option>
+                <option value="A$" data-code="AUD">AUD (A$)</option>
+                <option value="CA$" data-code="CAD">CAD (CA$)</option>
+              </select>
+              <input type="number" id="vatRate" class="form-input" style="padding-left: 10px; max-width: 90px;" value="20" min="0" max="100" step="0.1" oninput="calculateVat()">
+            </div>
+            <div class="rate-pills">
+              <button type="button" class="rate-pill active" onclick="setVatRate(20)">20% (UK)</button>
+              <button type="button" class="rate-pill" onclick="setVatRate(5)">5%</button>
+              <button type="button" class="rate-pill" onclick="setVatRate(19)">19% (DE)</button>
+              <button type="button" class="rate-pill" onclick="setVatRate(10)">10% (AU)</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <div>
+            <div class="result-row">
+              <span class="result-label">Net Amount:</span>
+              <span class="result-value" id="vatResNet">£1,000.00</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">VAT (<span id="vatResRateLabel">20%</span>):</span>
+              <span class="result-value" id="vatResVat" style="color: #059669;">£200.00</span>
+            </div>
+            <div class="result-row" style="margin-top: 6px;">
+              <span class="result-label" style="font-weight: 700;">Gross Total:</span>
+              <span class="result-value highlight" id="vatResGross">£1,200.00</span>
+            </div>
+          </div>
+          <div>
+            <a href="https://quickbillfree.com/?preset=uk-vat" target="_blank" rel="noopener" class="btn-create-invoice" id="vatBtnInvoice">
+              ⚡ Create Free Invoice ➔
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tool 2: Late Fee Calculator -->
+    <div id="viewLateFee" class="widget-body" style="display: none;">
+      <div class="widget-grid">
+        <div>
+          <div class="form-group">
+            <label class="form-label">Overdue Invoice Amount:</label>
+            <div class="input-wrap">
+              <span class="input-prefix" id="lfCurrencySymbol">$</span>
+              <input type="number" id="lfPrincipal" class="form-input" value="2500" min="0" step="any" oninput="calculateLateFee()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Days Overdue:</label>
+            <input type="number" id="lfDays" class="form-input" style="padding-left: 12px;" value="45" min="1" max="1000" oninput="calculateLateFee()">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Annual Interest Rate (%):</label>
+            <input type="number" id="lfRate" class="form-input" style="padding-left: 12px;" value="12.5" min="0" max="100" step="0.1" oninput="calculateLateFee()">
+          </div>
+        </div>
+
+        <div class="result-box">
+          <div>
+            <div class="result-row">
+              <span class="result-label">Original Principal:</span>
+              <span class="result-value" id="lfResPrincipal">$2,500.00</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">Accumulated Interest:</span>
+              <span class="result-value" id="lfResInterest" style="color: #dc2626;">$38.53</span>
+            </div>
+            <div class="result-row">
+              <span class="result-label">Debt Recovery Fee:</span>
+              <span class="result-value" id="lfResCompensation" style="color: #dc2626;">$70.00</span>
+            </div>
+            <div class="result-row" style="margin-top: 6px;">
+              <span class="result-label" style="font-weight: 700;">Total Balance Due:</span>
+              <span class="result-value highlight" id="lfResTotal" style="color: #dc2626;">$2,608.53</span>
+            </div>
+          </div>
+          <div>
+            <a href="https://quickbillfree.com/" target="_blank" rel="noopener" class="btn-create-invoice" style="background: #dc2626;">
+              ⚡ Send Overdue Demand ➔
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Widget Footer Attribution Backlink -->
+    <div class="widget-footer">
+      <span>Free calculator widget powered by <a href="https://quickbillfree.com/" target="_blank" rel="noopener"><strong>QuickBillFree</strong> Free Invoice Maker ↗</a></span>
+    </div>
+  </div>
+
+  <script>
+    let currentVatMode = 'add';
+    let currentVatSymbol = '£';
+    let currentLfSymbol = '$';
+
+    function switchWidget(tool) {
+      const isVat = tool === 'vat';
+      document.getElementById('viewVat').style.display = isVat ? 'block' : 'none';
+      document.getElementById('viewLateFee').style.display = isVat ? 'none' : 'block';
+      document.getElementById('tabVat').classList.toggle('active', isVat);
+      document.getElementById('tabLateFee').classList.toggle('active', !isVat);
+      document.getElementById('widgetHeaderIcon').textContent = isVat ? '🧮' : '⏳';
+      document.getElementById('widgetHeaderTitle').textContent = isVat ? 'Interactive VAT Calculator' : 'Invoice Late Fee & Interest Calculator';
+      if (typeof gtag === 'function') {
+        gtag('event', 'switch_embed_tab', { tool });
+      }
+    }
+
+    // VAT logic
+    function setVatMode(mode) {
+      currentVatMode = mode;
+      document.getElementById('btnVatAdd').classList.toggle('active', mode === 'add');
+      document.getElementById('btnVatRemove').classList.toggle('active', mode === 'remove');
+      document.getElementById('vatAmountLabel').textContent = mode === 'add' ? 'Net Amount (excl. VAT):' : 'Gross Amount (incl. VAT):';
+      calculateVat();
+    }
+
+    function setVatRate(rate) {
+      document.getElementById('vatRate').value = rate;
+      document.querySelectorAll('.rate-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.startsWith(rate + '%'));
+      });
+      calculateVat();
+    }
+
+    function updateVatCurrency() {
+      const select = document.getElementById('vatCurrency');
+      currentVatSymbol = select.value;
+      document.getElementById('vatCurrencySymbol').textContent = currentVatSymbol;
+      const code = select.options[select.selectedIndex].getAttribute('data-code');
+      const btn = document.getElementById('vatBtnInvoice');
+      if (code === 'GBP') btn.href = 'https://quickbillfree.com/?preset=uk-vat';
+      else if (code === 'AUD') btn.href = 'https://quickbillfree.com/?preset=australia-gst';
+      else if (code === 'CAD') btn.href = 'https://quickbillfree.com/?preset=canada-gst';
+      else btn.href = 'https://quickbillfree.com/';
+      calculateVat();
+    }
+
+    function calculateVat() {
+      const amount = parseFloat(document.getElementById('vatAmount').value) || 0;
+      const rate = parseFloat(document.getElementById('vatRate').value) || 0;
+      let net = 0, vat = 0, gross = 0;
+      if (currentVatMode === 'add') {
+        net = amount;
+        vat = net * (rate / 100);
+        gross = net + vat;
+      } else {
+        gross = amount;
+        net = gross / (1 + (rate / 100));
+        vat = gross - net;
+      }
+      const fmt = (n) => currentVatSymbol + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('vatResNet').textContent = fmt(net);
+      document.getElementById('vatResVat').textContent = fmt(vat);
+      document.getElementById('vatResGross').textContent = fmt(gross);
+      document.getElementById('vatResRateLabel').textContent = rate + '%';
+    }
+
+    // Late Fee logic
+    function calculateLateFee() {
+      const principal = parseFloat(document.getElementById('lfPrincipal').value) || 0;
+      const days = parseInt(document.getElementById('lfDays').value) || 0;
+      const rate = parseFloat(document.getElementById('lfRate').value) || 0;
+      const dailyRate = (rate / 100) / 365;
+      const interest = principal * dailyRate * days;
+      let compensation = 0;
+      if (principal > 0) {
+        if (principal < 1000) compensation = 40;
+        else if (principal < 10000) compensation = 70;
+        else compensation = 100;
+      }
+      const total = principal + interest + compensation;
+      const fmt = (n) => currentLfSymbol + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      document.getElementById('lfResPrincipal').textContent = fmt(principal);
+      document.getElementById('lfResInterest').textContent = fmt(interest);
+      document.getElementById('lfResCompensation').textContent = fmt(compensation);
+      document.getElementById('lfResTotal').textContent = fmt(total);
+    }
+
+    // Initialize based on URL parameter
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlTool = new URLSearchParams(window.location.search).get('tool');
+      if (urlTool === 'late-fee') {
+        switchWidget('late-fee');
+      } else {
+        calculateVat();
+      }
+      calculateLateFee();
+    });
+  </script>
+
+</body>
+</html>

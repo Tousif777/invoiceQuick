@@ -141,6 +141,24 @@
 </head>
 <body>
 
+  <!-- Top Shared Invoice Recipient Banner (Viral Growth Hack) -->
+  <div id="sharedInvoiceBanner" class="shared-invoice-banner print-hide" style="display: none;">
+    <div class="shared-banner-container">
+      <div class="shared-banner-text-group">
+        <span class="shared-banner-pill">📄 Shared Invoice</span>
+        <span class="shared-banner-msg">You are viewing an invoice sent via <strong>QuickBillFree</strong> (<span id="sharedBannerInvNum">#INV-1001</span>)</span>
+      </div>
+      <div class="shared-banner-actions">
+        <button type="button" id="btnSharedBannerDownload" class="btn-shared-primary">
+          📥 Download PDF
+        </button>
+        <a href="./" class="btn-shared-secondary">
+          ⚡ Create Your Own Free Invoice
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Application Bar: Single Unified Row -->
   <header class="app-header">
     <div class="container header-flex">
@@ -262,6 +280,10 @@
 
         <button id="btnClearInvoice" class="btn-ghost" title="Clear invoice">
           Clear
+        </button>
+
+        <button id="btnShareInvoice" class="btn-secondary" title="Share invoice as web link to client">
+          🔗 Share
         </button>
 
         <button id="btnEmailInvoice" class="btn-secondary" title="Compose email with invoice details to client">
@@ -993,6 +1015,48 @@ Routing: 987654321</textarea>
       <div class="modal-actions">
         <button type="button" id="btnCancelDelete" class="btn-modal-cancel">Cancel</button>
         <button type="button" id="btnConfirmDelete" class="btn-modal-confirm">Yes, Delete Invoice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Invoice Link Modal Dialog (Viral Loop Growth Hack) -->
+  <div id="shareInvoiceModal" class="modal-backdrop print-hide" style="display: none;">
+    <div class="modal-card" style="max-width: 480px; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="modal-icon-wrap" style="width: 42px; height: 42px; font-size: 1.25rem; margin-bottom: 0; background: #e0e7ff; color: #4338ca;">🔗</div>
+          <div>
+            <h3 class="modal-title" style="margin-bottom: 2px; font-size: 1.15rem;">Share Web Invoice</h3>
+            <span style="font-size: 0.78rem; color: var(--text-muted);">Instant client-side link • Zero signup required</span>
+          </div>
+        </div>
+        <button type="button" id="btnCloseShareModal" class="btn-close-drawer" style="position: static; font-size: 1.2rem; background: none; border: none; cursor: pointer; color: #64748b;" aria-label="Close">✕</button>
+      </div>
+
+      <p class="modal-desc" style="text-align: left; font-size: 0.85rem; margin-bottom: 16px;">
+        Send this link to your client via WhatsApp, Slack, or Email. They can view the invoice online and download the pixel-perfect PDF in 1 click without creating an account.
+      </p>
+
+      <div style="margin-bottom: 16px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em;">Shareable Link URL</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="shareInvoiceUrlInput" readonly style="width: 100%; padding: 10px 12px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; background: #f8fafc; font-family: monospace; color: #1e293b;" onclick="this.select();">
+          <button type="button" id="btnCopyShareUrl" class="btn-primary" style="white-space: nowrap; padding: 0 16px; font-size: 0.85rem; border-radius: 8px;">
+            📋 Copy
+          </button>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-bottom: 12px;">
+        <a id="btnShareWhatsApp" href="#" target="_blank" rel="noopener" class="btn-secondary" style="flex: 1; text-align: center; justify-content: center; text-decoration: none; font-size: 0.82rem; background: #25D366; color: #ffffff; border: none; font-weight: 600; padding: 10px; border-radius: 8px;">
+          💬 WhatsApp
+        </a>
+        <a id="btnShareEmail" href="#" class="btn-secondary" style="flex: 1; text-align: center; justify-content: center; text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 10px; border-radius: 8px;">
+          ✉️ Email
+        </a>
+      </div>
+      <div style="background: #f1f5f9; padding: 8px 12px; border-radius: 6px; font-size: 0.75rem; color: #64748b; text-align: center;">
+        🔒 Private & Secure: Data is encoded directly in the link hash. Nothing is stored on any server.
       </div>
     </div>
   </div>

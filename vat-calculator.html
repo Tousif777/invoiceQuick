@@ -206,6 +206,70 @@
       box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
       transform: translateY(-1px);
     }
+
+    /* Embed Widget & Modal Styles (Backlink Growth Hack) */
+    .btn-embed-trigger {
+      background: #ffffff;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      transition: all 0.15s;
+    }
+    .btn-embed-trigger:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+    .embed-widget-attribution {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed #e2e8f0;
+      text-align: right;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+    .embed-widget-attribution a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .embed-widget-attribution a:hover {
+      text-decoration: underline;
+    }
+    body.is-embedded-widget {
+      background: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    body.is-embedded-widget .blog-nav,
+    body.is-embedded-widget .blog-hero,
+    body.is-embedded-widget .embed-hide-on-widget,
+    body.is-embedded-widget .prose,
+    body.is-embedded-widget .blog-footer,
+    body.is-embedded-widget footer {
+      display: none !important;
+    }
+    body.is-embedded-widget main.container {
+      max-width: 100% !important;
+      margin: 0 !important;
+      padding: 6px !important;
+    }
+    body.is-embedded-widget .calc-card {
+      margin-bottom: 0 !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
+    }
+    body.is-embedded-widget .embed-widget-attribution {
+      display: block !important;
+    }
   </style>
 
   <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
@@ -295,6 +359,13 @@
   <!-- Content Container -->
   <main class="container" style="max-width: 920px; margin-top: 20px;">
 
+    <!-- Embed Action Header Bar -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;" class="embed-hide-on-widget">
+      <button type="button" class="btn-embed-trigger" onclick="openEmbedModal()" title="Embed this free VAT calculator on your website or blog">
+        💻 Embed This Tool
+      </button>
+    </div>
+
     <!-- Interactive VAT Calculator Card -->
     <div class="calc-card">
       <div class="calc-grid">
@@ -378,6 +449,11 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Embed Mode Attribution Bar (Visible only when ?embed=true) -->
+      <div class="embed-widget-attribution">
+        <span>⚡ Free tool powered by <a href="https://quickbillfree.com/" target="_blank" rel="noopener"><strong>QuickBillFree</strong> Free Invoice Maker & Calculators ↗</a></span>
       </div>
     </div>
 
@@ -550,9 +626,118 @@
       document.getElementById('resRateLabel').textContent = rate + '%';
     }
 
+    // Embed Mode & Modal Handlers (Growth Hack)
+    function openEmbedModal() {
+      const modal = document.getElementById('embedModal');
+      if (modal) modal.style.display = 'flex';
+      if (typeof gtag === 'function') {
+        gtag('event', 'open_embed_modal', { tool: 'vat_calculator' });
+      }
+    }
+
+    function closeEmbedModal() {
+      const modal = document.getElementById('embedModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function copyEmbedSnippet() {
+      const snippet = document.getElementById('embedSnippetText');
+      if (!snippet) return;
+      snippet.select();
+      const text = snippet.value;
+      const btn = document.getElementById('btnCopyEmbedSnippet');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          if (btn) {
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => { btn.textContent = '📋 Copy Embed Code'; }, 2000);
+          }
+          showToast('Embed snippet copied to clipboard! 📋', '✓');
+        });
+      } else {
+        document.execCommand('copy');
+        if (btn) {
+          btn.textContent = '✓ Copied!';
+          setTimeout(() => { btn.textContent = '📋 Copy Embed Code'; }, 2000);
+        }
+        showToast('Embed snippet copied to clipboard! 📋', '✓');
+      }
+      if (typeof gtag === 'function') {
+        gtag('event', 'copy_embed_code', { tool: 'vat_calculator' });
+      }
+    }
+
+    function showToast(msg, icon = '✓') {
+      const toast = document.getElementById('appToast');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+      if (toast && toastMsg) {
+        toastMsg.textContent = msg;
+        if (toastIcon) toastIcon.textContent = icon;
+        toast.style.display = 'flex';
+        toast.classList.add('visible');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+          toast.classList.remove('visible');
+          setTimeout(() => { toast.style.display = 'none'; }, 300);
+        }, 2200);
+      }
+    }
+
+    // Check for embed query parameter
+    if (new URLSearchParams(window.location.search).get('embed') === 'true') {
+      document.body.classList.add('is-embedded-widget');
+    }
+
+    // Close embed modal on outside click or Escape
+    document.addEventListener('click', (e) => {
+      const modal = document.getElementById('embedModal');
+      if (e.target === modal) closeEmbedModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeEmbedModal();
+    });
+
     // Run on load
     window.addEventListener('DOMContentLoaded', calculateVat);
   </script>
+
+  <!-- Embed Tool Modal Dialog -->
+  <div id="embedModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card" style="max-width: 520px; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="modal-icon-wrap" style="width: 40px; height: 40px; font-size: 1.2rem; margin-bottom: 0; background: #e0e7ff; color: #4338ca;">💻</div>
+          <div>
+            <h3 class="modal-title" style="margin-bottom: 2px; font-size: 1.15rem;">Embed Free VAT Calculator</h3>
+            <span style="font-size: 0.78rem; color: #64748b;">Add this interactive widget to your blog or website</span>
+          </div>
+        </div>
+        <button type="button" onclick="closeEmbedModal()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #64748b;" aria-label="Close">✕</button>
+      </div>
+
+      <p class="modal-desc" style="text-align: left; font-size: 0.85rem; margin-bottom: 14px;">
+        Copy and paste the HTML snippet below into your website, WordPress post, or documentation. The calculator is completely free, mobile-responsive, and always up to date.
+      </p>
+
+      <div style="margin-bottom: 14px;">
+        <label style="display: block; font-size: 0.78rem; font-weight: 700; color: #475569; margin-bottom: 6px; text-transform: uppercase;">HTML Embed Snippet</label>
+        <textarea id="embedSnippetText" readonly rows="4" style="width: 100%; padding: 10px; font-family: monospace; font-size: 0.8rem; border: 1.5px solid #cbd5e1; border-radius: 8px; background: #f8fafc; color: #1e293b; resize: none;" onclick="this.select();"><iframe src="https://quickbillfree.com/vat-calculator.html?embed=true" width="100%" height="520" style="border: 1px solid #e2e8f0; border-radius: 12px; max-width: 700px; width: 100%;" frameborder="0" loading="lazy"></iframe>
+<p style="font-size: 12px; color: #64748b; margin-top: 6px; font-family: sans-serif;">Free calculator provided by <a href="https://quickbillfree.com/" target="_blank" rel="noopener" style="color: #4f46e5; text-decoration: underline;">QuickBillFree Free Invoice Maker</a></p></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px;">
+        <button type="button" onclick="closeEmbedModal()" class="btn-modal-cancel" style="padding: 8px 16px; font-size: 0.85rem;">Cancel</button>
+        <button type="button" id="btnCopyEmbedSnippet" onclick="copyEmbedSnippet()" class="btn-primary" style="padding: 8px 18px; font-size: 0.85rem; border-radius: 8px;">📋 Copy Embed Code</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="appToast" class="toast-notification" style="display: none;">
+    <span id="toastIcon" class="toast-icon">✓</span>
+    <span id="toastMessage" class="toast-text">Action completed</span>
+  </div>
 
 </body>
 </html>
