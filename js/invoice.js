@@ -482,6 +482,37 @@
       taxRate: 4.75,
       docType: 'INVOICE'
     },
+    handyman: {
+      fromName: 'Reliable Handyman & Property Care LLC',
+      fromDetails: '18 Oakwood Lane\nColumbus, OH 43215\nservice@reliablehandyman.com\n(614) 555-0144 | Insured & Bonded',
+      toName: 'David & Sarah Henderson',
+      toDetails: '482 Maple Crest Drive\nColumbus, OH 43230',
+      items: [
+        { description: 'Drywall Hole Patching, Sanding & Primer Spot Coat (Living Room)', quantity: 3, rate: 85 },
+        { description: 'Exterior Wooden Fence Post Replacement & Gate Latch Alignment', quantity: 1, rate: 175 },
+        { description: 'Interior Solid Core Door Hanging & Satin Nickel Handle Installation', quantity: 2, rate: 110 },
+        { description: 'Materials & Fasteners Reimbursed (Wood, Screws, Joint Compound)', quantity: 1, rate: 68 }
+      ],
+      notes: 'All repairs completed per estimate. Site thoroughly cleaned and debris hauled away. 90-day workmanship warranty.',
+      terms: 'Payment due on completion. We accept Cash, Check, Venmo, or Credit Card.',
+      taxRate: 7.5,
+      docType: 'INVOICE'
+    },
+    commercial: {
+      fromName: 'Global Pacific Trading Ltd',
+      fromDetails: 'Export Dept, Berth 12, Harbor Road\nSeattle, WA 98101, USA\nTax / EORI ID: US948210492\nContact: export@globalpacific.com',
+      toName: 'Yokohama Precision Components KK',
+      toDetails: 'Attn: Customs Receiving Dept\n3-15 Minato Mirai, Nishi-ku\nYokohama 220-0012, Japan\nImporter Tax ID: JP-88491023',
+      items: [
+        { description: 'Precision CNC Machined Aluminum Brackets (HS Code: 7616.99, Origin: USA)', quantity: 250, rate: 24.50 },
+        { description: 'Industrial Grade Stainless Steel O-Ring Seals (HS Code: 7326.90, Origin: USA)', quantity: 1000, rate: 3.20 },
+        { description: 'Protective Anti-Static Packaging & Export Palletizing', quantity: 2, rate: 120.00 }
+      ],
+      notes: 'Commercial Invoice for Customs Clearance. Country of Origin: USA. Terms of Delivery: Incoterms 2020 CIP (Carriage and Insurance Paid to Narita Intl Airport). Shipped via Air Freight AWB #016-89420194.',
+      terms: 'Payment Terms: 100% Irrevocable Letter of Credit (L/C) at sight. Remit to Global Pacific Trading Ltd, Swift: BOFAUS3N.',
+      taxRate: 0,
+      docType: 'COMMERCIAL INVOICE'
+    },
     freelance: {
       fromName: 'Alex Rivero Design & Code',
       fromDetails: '742 Market Street, Suite 400\nSan Francisco, CA 94103\nalex@riverocreative.com',

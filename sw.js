@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickbillfree-v18';
+const CACHE_NAME = 'quickbillfree-v19';
 const STATIC_ASSETS = [
   './',
   'index.html',
@@ -8,6 +8,9 @@ const STATIC_ASSETS = [
   'embed.html',
   'freshbooks-alternative.html',
   'wave-alternative.html',
+  'free-invoice-generator-no-sign-up.html',
+  'commercial-invoice-generator.html',
+  'handyman-invoice-generator.html',
   'manifest.json',
   'assets/favicon-16x16.png',
   'assets/favicon-32x32.png',
