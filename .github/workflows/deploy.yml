@@ -36,3 +36,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Broadcast URLs to Search Engines (IndexNow)
+        run: node scripts/ping-indexnow.js
+        continue-on-error: true
+
