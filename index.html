@@ -6,8 +6,16 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
+    // Google Consent Mode v2 (EEA & GDPR Compliant)
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+
+    gtag('js', new Date());
     gtag('config', 'G-WH81YDKPS6');
   </script>
 
@@ -981,6 +989,12 @@ Routing: 987654321</textarea>
         <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Free Business Calculators:</span>
         <a href="vat-calculator.html">VAT Calculator (Add/Remove)</a>
         <a href="late-fee-calculator.html">Late Fee & Interest Calculator</a>
+      </div>
+      <div class="footer-links" style="margin-bottom: 8px;">
+        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Free Software Alternatives:</span>
+        <a href="freshbooks-alternative.html">FreshBooks Free Alternative</a>
+        <a href="wave-alternative.html">Wave Invoice Alternative</a>
+        <a href="embed.html">Embeddable Widgets</a>
       </div>
       <div class="footer-links">
         <a href="blog/">Blog & Guides</a>

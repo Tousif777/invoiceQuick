@@ -6,8 +6,16 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
 
+    // Google Consent Mode v2 (EEA & GDPR Compliant)
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+
+    gtag('js', new Date());
     gtag('config', 'G-WH81YDKPS6');
   </script>
   <!-- Google AdSense -->
@@ -354,6 +362,8 @@
         <a href="vat-calculator.html">VAT Calculator</a>
         <a href="late-fee-calculator.html">Late Fee Calculator</a>
         <a href="embed.html">Embed Widget</a>
+        <a href="freshbooks-alternative.html">FreshBooks Alternative</a>
+        <a href="wave-alternative.html">Wave Alternative</a>
         <a href="uk-vat-invoice-generator.html">UK VAT Invoices</a>
         <a href="australia-gst-invoice-generator.html">Australia GST</a>
         <a href="canada-invoice-generator.html">Canada HST</a>
