@@ -23,6 +23,8 @@ Experience the web application live:
 - 🚢 **[Commercial Invoice Generator](https://quickbillfree.com/commercial-invoice-generator.html)** — Customs declarations, HS tariff codes, and Incoterms 2020 export templates.
 - 🛠️ **[Handyman Invoice Generator](https://quickbillfree.com/handyman-invoice-generator.html)** — Mobile billing for home repairs, carpentry, odd jobs, and materials.
 - 📄 **[Printable Blank Invoice PDF](https://quickbillfree.com/blank-invoice-pdf.html)** — Clean, printable blank PDF forms for letter and A4 printing.
+- 📝 **[Google Docs Invoice Template](https://quickbillfree.com/google-docs-invoice-template.html)** — Free editable Google Docs invoice templates and instant PDF creator.
+- 📊 **[Google Sheets Invoice Template](https://quickbillfree.com/google-sheets-invoice-template.html)** — Automated formula invoice spreadsheet template and PDF alternative.
 - 🧮 **[Free VAT Calculator](https://quickbillfree.com/vat-calculator.html)** — Add or remove Value Added Tax forwards and backwards.
 - ⏳ **[Late Fee Calculator](https://quickbillfree.com/late-fee-calculator.html)** — Statutory interest and commercial debt recovery fee calculator.
 
