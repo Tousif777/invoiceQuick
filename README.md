@@ -16,8 +16,10 @@ Experience the web application live:
 
 ### 📑 Specialized Free Invoicing Tools
 - ⚡ **[Free Invoice Generator (No Sign Up)](https://quickbillfree.com/free-invoice-generator-no-sign-up.html)** — Instant PDF download without registration, email capture, or paywalls.
+- 💼 **[QuickBooks Free Alternative](https://quickbillfree.com/quickbooks-alternative.html)** — Avoid $35–$90/month fees with zero bank linking and instant PDF billing.
 - 🔄 **[FreshBooks Free Alternative](https://quickbillfree.com/freshbooks-alternative.html)** — Unmetered invoicing alternative without $19–$60/month subscriptions.
 - 🌊 **[Wave Invoice Free Alternative](https://quickbillfree.com/wave-alternative.html)** — 100% client-side alternative to Wave without fees or vendor lock-in.
+- 📦 **[Zoho Invoice Free Alternative](https://quickbillfree.com/zoho-invoice-alternative.html)** — Simple PDF generator without Zoho's complex enterprise onboarding.
 - 🚢 **[Commercial Invoice Generator](https://quickbillfree.com/commercial-invoice-generator.html)** — Customs declarations, HS tariff codes, and Incoterms 2020 export templates.
 - 🛠️ **[Handyman Invoice Generator](https://quickbillfree.com/handyman-invoice-generator.html)** — Mobile billing for home repairs, carpentry, odd jobs, and materials.
 - 📄 **[Printable Blank Invoice PDF](https://quickbillfree.com/blank-invoice-pdf.html)** — Clean, printable blank PDF forms for letter and A4 printing.
