@@ -1,0 +1,29 @@
+{
+  "name": "quickbill-invoice",
+  "version": "1.0.0",
+  "description": "Lightweight client-side invoice calculation and billing utility powered by QuickBillFree.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "invoice",
+    "invoice-generator",
+    "billing",
+    "freelance-tools",
+    "pdf-invoice",
+    "quickbillfree",
+    "vat-calculator",
+    "invoice-calculator"
+  ],
+  "author": "QuickBillFree <support@quickbillfree.com> (https://quickbillfree.com)",
+  "license": "MIT",
+  "homepage": "https://quickbillfree.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tousif777/invoiceQuick.git"
+  },
+  "bugs": {
+    "url": "https://quickbillfree.com"
+  }
+}

@@ -25,8 +25,10 @@ Experience the web application live:
 - 📄 **[Printable Blank Invoice PDF](https://quickbillfree.com/blank-invoice-pdf.html)** — Clean, printable blank PDF forms for letter and A4 printing.
 - 📝 **[Google Docs Invoice Template](https://quickbillfree.com/google-docs-invoice-template.html)** — Free editable Google Docs invoice templates and instant PDF creator.
 - 📊 **[Google Sheets Invoice Template](https://quickbillfree.com/google-sheets-invoice-template.html)** — Automated formula invoice spreadsheet template and PDF alternative.
+- 📑 **[Excel Invoice Template](https://quickbillfree.com/excel-invoice-template.html)** — Free Microsoft Excel invoice template with automated math and vector PDF export.
 - 🧮 **[Free VAT Calculator](https://quickbillfree.com/vat-calculator.html)** — Add or remove Value Added Tax forwards and backwards.
 - ⏳ **[Late Fee Calculator](https://quickbillfree.com/late-fee-calculator.html)** — Statutory interest and commercial debt recovery fee calculator.
+- 🤖 **[LLMs Context Map](https://quickbillfree.com/llms.txt)** — Standard Generative Engine Optimization (GEO) context for AI crawlers.
 
 ---
 
