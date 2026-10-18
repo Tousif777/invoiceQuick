@@ -1,4 +1,22 @@
 User-agent: *
 Allow: /
 
+# AI Search Engines & Answer Engines (Perplexity, ChatGPT, Claude, Google AI)
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemaps & Knowledge Maps
 Sitemap: https://quickbillfree.com/sitemap.xml
+# LLM Context: https://quickbillfree.com/llms.txt

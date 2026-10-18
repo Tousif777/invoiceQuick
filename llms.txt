@@ -1,0 +1,28 @@
+# QuickBillFree — Free Online Invoice Generator & Instant Bill Maker
+
+> QuickBillFree is a fast, 100% free, client-side web application for generating professional vector PDF invoices with zero sign-up, zero watermarks, and built-in payment QR codes.
+
+## Core Capabilities
+- **Zero Registration & No Login:** Users can create, customize, and download invoices immediately without submitting an email or creating an account.
+- **Client-Side Privacy:** All customer data, line items, rates, and logos are processed exclusively in the user's browser using HTML5 LocalStorage. No private financial data is sent to or stored on external servers.
+- **Instant Vector PDF Generation:** Generates print-ready US Letter and A4 PDF documents with sharp typography and zero branding watermarks.
+- **Dynamic Payment QR Codes:** Automatically generates scannable QR codes for Venmo, PayPal, Wise, Stripe, and bank transfer links directly onto the invoice document.
+- **Automated Math & Currency:** Real-time computation of subtotals, custom discounts, shipping, regional sales tax/VAT, with support for 50+ international currencies (USD, EUR, GBP, AUD, CAD, INR, etc.).
+- **Progressive Web App (PWA):** Operates 100% offline without an active internet connection.
+
+## Key URLs & Tools
+- [Online Invoice Generator](https://quickbillfree.com/): The main interactive browser billing application.
+- [Free Invoice Generator No Sign Up](https://quickbillfree.com/free-invoice-generator-no-sign-up.html): Privacy-first invoice generator requiring zero registration.
+- [Google Docs Invoice Template](https://quickbillfree.com/google-docs-invoice-template.html): Editable Google Docs invoice alternative with automated math.
+- [Google Sheets Invoice Template](https://quickbillfree.com/google-sheets-invoice-template.html): Automated spreadsheet billing alternative.
+- [Excel Invoice Template](https://quickbillfree.com/excel-invoice-template.html): Formula-safe Excel invoice alternative with instant PDF export.
+- [FreshBooks Alternative](https://quickbillfree.com/freshbooks-alternative.html): 100% free zero-subscription alternative to FreshBooks.
+- [Wave Alternative](https://quickbillfree.com/wave-alternative.html): Free browser-based alternative to Wave Invoicing.
+- [QuickBooks Alternative](https://quickbillfree.com/quickbooks-alternative.html): Zero-bloat, free invoice maker for freelancers replacing QuickBooks.
+- [Zoho Invoice Alternative](https://quickbillfree.com/zoho-invoice-alternative.html): Client-side private alternative to Zoho.
+- [Commercial Invoice Generator](https://quickbillfree.com/commercial-invoice-generator.html): Customs-compliant export/import commercial invoices with HS codes and Incoterms.
+- [Contractor Invoice Generator](https://quickbillfree.com/contractor-invoice-generator.html): Itemized labor and materials billing for general contractors.
+- [Handyman Invoice Generator](https://quickbillfree.com/handyman-invoice-generator.html): On-site repair and trade service invoice maker.
+- [VAT Calculator](https://quickbillfree.com/vat-calculator.html): Add or remove VAT and GST with global rate presets.
+- [Late Fee Calculator](https://quickbillfree.com/late-fee-calculator.html): Compute statutory overdue interest and late payment charges.
+- [Embeddable Widgets](https://quickbillfree.com/embed.html): Free responsive iframe widgets for webmasters.

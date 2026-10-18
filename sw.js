@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickbillfree-v22';
+const CACHE_NAME = 'quickbillfree-v23';
 const STATIC_ASSETS = [
   './',
   'index.html',
@@ -13,6 +13,7 @@ const STATIC_ASSETS = [
   'free-invoice-generator-no-sign-up.html',
   'google-docs-invoice-template.html',
   'google-sheets-invoice-template.html',
+  'excel-invoice-template.html',
   'commercial-invoice-generator.html',
   'handyman-invoice-generator.html',
   'manifest.json',
