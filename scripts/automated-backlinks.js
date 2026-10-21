@@ -54,7 +54,9 @@ async function run() {
     { name: 'HypeStat (DA 64)', url: 'https://hypestat.com/info/quickbillfree.com' },
     { name: 'SiteWorthTraffic (DA 48)', url: 'https://www.siteworthtraffic.com/report/quickbillfree.com' },
     { name: 'WebsiteInformer (DA 62)', url: 'https://website.informer.com/quickbillfree.com' },
-    { name: 'URLVoid Security Scan (DA 67)', url: 'https://www.urlvoid.com/scan/quickbillfree.com/' }
+    { name: 'URLVoid Security Scan (DA 67)', url: 'https://www.urlvoid.com/scan/quickbillfree.com/' },
+    { name: 'BuiltWith Technology Profile (DA 89)', url: 'https://builtwith.com/quickbillfree.com' },
+    { name: 'Who.is Domain Record (DA 82)', url: 'https://who.is/whois/quickbillfree.com' }
   ];
 
   for (const prof of domainProfiles) {
