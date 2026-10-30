@@ -360,9 +360,6 @@
       subtotal += (q * r);
     });
 
-    const taxPercent = state.showTax ? Math.max(0, Number(state.taxRate) || 0) : 0;
-    const taxAmount = (subtotal * taxPercent) / 100;
-
     let discountAmount = 0;
     if (state.showDiscount) {
       const discVal = Math.max(0, Number(state.discountRate) || 0);
@@ -373,8 +370,12 @@
       }
     }
 
+    const taxableBase = Math.max(0, subtotal - discountAmount);
+    const taxPercent = state.showTax ? Math.max(0, Number(state.taxRate) || 0) : 0;
+    const taxAmount = (taxableBase * taxPercent) / 100;
+
     const shippingAmount = state.showShipping ? Math.max(0, Number(state.shippingAmount) || 0) : 0;
-    const grandTotal = Math.max(0, subtotal + taxAmount - discountAmount + shippingAmount);
+    const grandTotal = Math.max(0, taxableBase + taxAmount + shippingAmount);
     const amountPaid = state.showAmountPaid ? Math.max(0, Number(state.amountPaid) || 0) : 0;
     const balanceDue = Math.max(0, grandTotal - amountPaid);
 
@@ -625,6 +626,7 @@
   // ==========================================
   function serializeInvoiceForShare() {
     const payload = {
+      dct: state.docType || 'INVOICE',
       c: state.currency || 'USD',
       l: state.lang || 'en',
       in: state.invoiceNumber || '',
@@ -640,8 +642,8 @@
       sst: state.showShipTo ? 1 : 0,
       items: (state.items || []).map(it => ({
         d: it.description || '',
-        q: it.quantity !== undefined ? it.quantity : 1,
-        r: it.rate !== undefined ? it.rate : 0
+        q: (it.quantity !== undefined && it.quantity !== null && it.quantity !== '' && !isNaN(it.quantity)) ? Number(it.quantity) : 0,
+        r: (it.rate !== undefined && it.rate !== null && it.rate !== '' && !isNaN(it.rate)) ? Number(it.rate) : 0
       })),
       tl: state.taxLabel || 'Tax',
       tr: state.taxRate !== undefined ? state.taxRate : 0,
@@ -680,6 +682,7 @@
       if (!p || typeof p !== 'object') return null;
 
       return {
+        docType: p.dct || 'INVOICE',
         currency: p.c || 'USD',
         lang: p.l || 'en',
         invoiceNumber: p.in || 'INV-1001',
@@ -695,8 +698,8 @@
         showShipTo: Boolean(p.sst),
         items: Array.isArray(p.items) && p.items.length > 0 ? p.items.map(it => ({
           description: it.d || '',
-          quantity: Number(it.q) || 1,
-          rate: Number(it.r) || 0
+          quantity: (it.q !== undefined && it.q !== null && it.q !== '' && !isNaN(it.q)) ? Number(it.q) : 1,
+          rate: (it.r !== undefined && it.r !== null && it.r !== '' && !isNaN(it.r)) ? Number(it.r) : 0
         })) : DEFAULT_STATE.items,
         taxLabel: p.tl || 'Tax',
         taxRate: p.tr !== undefined ? Number(p.tr) : 0,
@@ -768,6 +771,17 @@
         });
         activePresetLoaded = presetParam.toLowerCase();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+        // Clean preset param from URL address bar so subsequent browser refreshes resume active draft
+        if (window.history && window.history.replaceState) {
+          try {
+            const cleanUrl = new URL(window.location.href);
+            cleanUrl.searchParams.delete('preset');
+            const newSearch = cleanUrl.searchParams.toString();
+            const newUrl = cleanUrl.pathname + (newSearch ? '?' + newSearch : '') + cleanUrl.hash;
+            window.history.replaceState({}, document.title, newUrl);
+          } catch (_) {}
+        }
         return;
       }
 
@@ -2911,9 +2925,10 @@ ${sender}`;
           });
         }
       }
-      trackEvent('view_shared_invoice', { invoice_number: state.invoiceNumber });
+      trackEvent('view_shared_invoice', { invoice_number: state.invoiceNumber, doc_type: state.docType || 'INVOICE' });
       setTimeout(() => {
-        showToast(`Viewing shared invoice ${state.invoiceNumber || ''}`, '📄');
+        const docLabel = (state.docType || 'invoice').toLowerCase();
+        showToast(`Viewing shared ${docLabel} ${state.invoiceNumber || ''}`, '📄');
       }, 400);
     }
 
