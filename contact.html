@@ -29,6 +29,19 @@
   <meta name="author" content="MD Tousif">
   <link rel="canonical" href="https://quickbillfree.com/contact.html">
 
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/contact.html">
+  <meta property="og:title" content="Contact Us — QuickBillFree Support">
+  <meta property="og:description" content="Have questions, feature requests, or bug reports? Reach out to the QuickBillFree product team.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact Us — QuickBillFree Support">
+  <meta name="twitter:description" content="Have questions, feature requests, or bug reports? Reach out to the QuickBillFree product team.">
+  <meta name="twitter:image" content="https://quickbillfree.com/assets/og-image.png">
+
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="shortcut icon" href="favicon.ico">
   <meta name="theme-color" content="#4f46e5">
@@ -40,22 +53,48 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="blog.css">
 
-  <!-- Schema.org ContactPage -->
+  <!-- Schema.org Organization & ContactPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "QuickBillFree",
-      "url": "https://quickbillfree.com",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "email": "support@quickbillfree.com",
-        "contactType": "Customer Support",
-        "availableLanguage": ["English"]
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://quickbillfree.com/#organization",
+        "name": "QuickBillFree",
+        "url": "https://quickbillfree.com/",
+        "logo": "https://quickbillfree.com/assets/favicon.svg",
+        "description": "Provider of 100% free, client-side, privacy-first invoicing tools for freelancers and small businesses.",
+        "founder": {
+          "@type": "Person",
+          "name": "MD Tousif",
+          "url": "https://github.com/Tousif777"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "support@quickbillfree.com",
+          "contactType": "Customer Support",
+          "availableLanguage": ["English"]
+        },
+        "sameAs": [
+          "https://github.com/Tousif777/invoiceQuick"
+        ]
+      },
+      {
+        "@type": "ContactPage",
+        "@id": "https://quickbillfree.com/contact.html#webpage",
+        "url": "https://quickbillfree.com/contact.html",
+        "name": "Contact Us — QuickBillFree",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "QuickBillFree",
+          "url": "https://quickbillfree.com/"
+        },
+        "about": {
+          "@id": "https://quickbillfree.com/#organization"
+        }
       }
-    }
+    ]
   }
   </script>
 </head>

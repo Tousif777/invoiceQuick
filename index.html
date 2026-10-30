@@ -24,7 +24,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuickBillFree — Free Online Invoice Generator & Instant Bill Maker</title>
+  <title>QuickBillFree — Free Online Invoice Generator (No Sign-Up)</title>
 
   <!-- Multi-Language SEO hreflang tags -->
   <link rel="alternate" hreflang="en" href="https://quickbillfree.com/" />
@@ -45,7 +45,7 @@
   <meta name="theme-color" content="#4f46e5">
   
   <!-- SEO Meta Tags -->
-  <meta name="description" content="Free online invoice generator at QuickBillFree.com. Create, customize, and download professional PDF invoices in seconds. 100% free, no signup required, completely private in your browser.">
+  <meta name="description" content="Create, customize, and download professional PDF invoices in seconds. 100% free, no signup required, and completely private in your browser.">
   <meta name="keywords" content="quickbillfree, free invoice generator, invoice maker, online bill generator, receipt maker, pdf invoice, freelance invoice template, instant invoice">
   <meta name="author" content="QuickBillFree.com">
   <link rel="canonical" href="https://quickbillfree.com/">
@@ -76,7 +76,29 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "Organization",
+        "@id": "https://quickbillfree.com/#organization",
+        "name": "QuickBillFree",
+        "url": "https://quickbillfree.com/",
+        "logo": "https://quickbillfree.com/assets/favicon.svg",
+        "description": "Provider of 100% free, client-side, privacy-first invoicing tools for freelancers and small businesses.",
+        "founder": {
+          "@type": "Person",
+          "name": "MD Tousif",
+          "url": "https://github.com/Tousif777"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "support@quickbillfree.com",
+          "contactType": "customer service"
+        },
+        "sameAs": [
+          "https://github.com/Tousif777/invoiceQuick"
+        ]
+      },
+      {
         "@type": "WebApplication",
+        "@id": "https://quickbillfree.com/#app",
         "name": "QuickBillFree — Free Online Invoice Generator",
         "url": "https://quickbillfree.com/",
         "applicationCategory": "BusinessApplication",
