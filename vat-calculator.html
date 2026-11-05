@@ -608,19 +608,6 @@
       const select = document.getElementById('calcCurrency');
       currentSymbol = select.value;
       document.getElementById('currencySymbol').textContent = currentSymbol;
-      
-      const opt = select.options[select.selectedIndex];
-      const code = opt.getAttribute('data-code');
-      const btnInvoice = document.getElementById('btnCreateInvoice');
-      if (code === 'GBP') {
-        btnInvoice.href = './?preset=uk-vat';
-      } else if (code === 'AUD') {
-        btnInvoice.href = './?preset=australia-gst';
-      } else if (code === 'CAD') {
-        btnInvoice.href = './?preset=canada-gst';
-      } else {
-        btnInvoice.href = './';
-      }
       calculateVat();
     }
 
@@ -648,6 +635,20 @@
       document.getElementById('resVat').textContent = format(vat);
       document.getElementById('resGross').textContent = format(gross);
       document.getElementById('resRateLabel').textContent = rate + '%';
+
+      // Pass calculated results seamlessly into the invoice generator
+      const select = document.getElementById('calcCurrency');
+      const opt = select ? select.options[select.selectedIndex] : null;
+      const code = opt ? opt.getAttribute('data-code') : 'GBP';
+      let preset = 'uk-vat';
+      if (code === 'AUD') preset = 'australia-gst';
+      else if (code === 'CAD') preset = 'canada-gst';
+      else if (code === 'USD') preset = 'freelance';
+
+      const btnInvoice = document.getElementById('btnCreateInvoice');
+      if (btnInvoice) {
+        btnInvoice.href = `./?preset=${preset}&calcNet=${net.toFixed(2)}&calcRate=${rate}&currency=${code}&docType=TAX%20INVOICE`;
+      }
     }
 
     // Embed Mode & Modal Handlers (Growth Hack)

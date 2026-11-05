@@ -3089,6 +3089,22 @@ body {
     color: inherit !important;
   }
 
+  .invoice-sheet textarea.table-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 0.95rem !important;
+    font-weight: inherit !important;
+    color: inherit !important;
+    resize: none !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    line-height: 1.45 !important;
+    min-height: auto !important;
+    height: auto !important;
+  }
+
   .invoice-sheet .col-action {
     display: none !important;
   }

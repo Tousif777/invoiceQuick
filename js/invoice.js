@@ -664,7 +664,9 @@
       ap: state.amountPaid !== undefined ? state.amountPaid : 0,
       sap: state.showAmountPaid ? 1 : 0,
       sig: state.signerName || 'Authorized Signatory',
-      ssg: state.showSignature ? 1 : 0
+      ssg: state.showSignature ? 1 : 0,
+      qr: state.qrLink || '',
+      sqr: state.showQr ? 1 : 0
     };
 
     if (state.logo && state.logo.length < 35000) {
@@ -721,6 +723,8 @@
         showAmountPaid: Boolean(p.sap),
         signerName: p.sig || 'Authorized Signatory',
         showSignature: p.ssg !== undefined ? Boolean(p.ssg) : true,
+        qrLink: p.qr || '',
+        showQr: Boolean(p.sqr),
         logo: p.lg || null,
         invoiceId: 'inv_' + Date.now(),
         status: 'Shared'
@@ -759,8 +763,13 @@
         }
       }
 
-      // 2. Check for trade / country presets
+      // 2. Check for trade / country presets or calculator results
       const presetParam = urlParams.get('preset');
+      const calcNet = parseFloat(urlParams.get('calcNet') || urlParams.get('amount'));
+      const calcRate = urlParams.get('calcRate') !== null ? parseFloat(urlParams.get('calcRate')) : null;
+      const calcCurrency = urlParams.get('currency');
+      const calcDocType = urlParams.get('docType');
+
       if (presetParam && PRESETS[presetParam.toLowerCase()]) {
         const presetData = PRESETS[presetParam.toLowerCase()];
         state = Object.assign({}, DEFAULT_STATE, presetData, {
@@ -769,14 +778,74 @@
           issueDate: new Date().toISOString().split('T')[0],
           dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0]
         });
+
+        if (calcNet && !isNaN(calcNet) && calcNet > 0) {
+          state.items = [
+            { description: 'Professional Services / Goods (as calculated)', quantity: 1, rate: calcNet }
+          ];
+        }
+        if (calcRate !== null && !isNaN(calcRate)) {
+          state.taxRate = calcRate;
+          state.showTax = true;
+        }
+        if (calcCurrency && CURRENCIES[calcCurrency]) {
+          state.currency = calcCurrency;
+        }
+        if (calcDocType) {
+          state.docType = calcDocType;
+        }
+
         activePresetLoaded = presetParam.toLowerCase();
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
-        // Clean preset param from URL address bar so subsequent browser refreshes resume active draft
+        // Clean query params so subsequent browser refreshes resume active draft
         if (window.history && window.history.replaceState) {
           try {
             const cleanUrl = new URL(window.location.href);
             cleanUrl.searchParams.delete('preset');
+            cleanUrl.searchParams.delete('calcNet');
+            cleanUrl.searchParams.delete('calcRate');
+            cleanUrl.searchParams.delete('amount');
+            cleanUrl.searchParams.delete('currency');
+            cleanUrl.searchParams.delete('docType');
+            const newSearch = cleanUrl.searchParams.toString();
+            const newUrl = cleanUrl.pathname + (newSearch ? '?' + newSearch : '') + cleanUrl.hash;
+            window.history.replaceState({}, document.title, newUrl);
+          } catch (_) {}
+        }
+        return;
+      }
+
+      if (calcNet && !isNaN(calcNet) && calcNet > 0) {
+        state = Object.assign({}, DEFAULT_STATE, {
+          invoiceId: 'inv_' + Date.now(),
+          invoiceNumber: 'INV-' + Math.floor(1000 + Math.random() * 9000),
+          issueDate: new Date().toISOString().split('T')[0],
+          dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0],
+          items: [
+            { description: 'Professional Services / Goods (as calculated)', quantity: 1, rate: calcNet }
+          ]
+        });
+        if (calcRate !== null && !isNaN(calcRate)) {
+          state.taxRate = calcRate;
+          state.showTax = true;
+        }
+        if (calcCurrency && CURRENCIES[calcCurrency]) {
+          state.currency = calcCurrency;
+        }
+        if (calcDocType) {
+          state.docType = calcDocType;
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+        if (window.history && window.history.replaceState) {
+          try {
+            const cleanUrl = new URL(window.location.href);
+            cleanUrl.searchParams.delete('calcNet');
+            cleanUrl.searchParams.delete('calcRate');
+            cleanUrl.searchParams.delete('amount');
+            cleanUrl.searchParams.delete('currency');
+            cleanUrl.searchParams.delete('docType');
             const newSearch = cleanUrl.searchParams.toString();
             const newUrl = cleanUrl.pathname + (newSearch ? '?' + newSearch : '') + cleanUrl.hash;
             window.history.replaceState({}, document.title, newUrl);
@@ -1310,7 +1379,7 @@
 
       tr.innerHTML = `
         <td class="col-desc">
-          <input type="text" class="table-input item-desc" placeholder="Description of service or product" value="${escapeHtml(item.description)}">
+          <textarea class="table-input item-desc" rows="1" placeholder="Description of service or product" style="resize: none; overflow: hidden; height: auto; display: block; width: 100%; box-sizing: border-box; line-height: 1.45;">${escapeHtml(item.description)}</textarea>
         </td>
         <td class="col-qty">
           <input type="number" class="table-input item-qty" min="0" step="any" value="${item.quantity}">
@@ -1329,9 +1398,17 @@
       tbody.appendChild(tr);
     });
 
+    function autoGrow(el) {
+      if (!el) return;
+      el.style.height = 'auto';
+      el.style.height = Math.max(el.scrollHeight, 28) + 'px';
+    }
+
     // Attach row events
     tbody.querySelectorAll('.item-desc').forEach((input, idx) => {
+      autoGrow(input);
       input.addEventListener('input', (e) => {
+        autoGrow(e.target);
         state.items[idx].description = e.target.value;
         saveToStorage();
       });
@@ -1650,7 +1727,22 @@ ${sender}`;
     const docSelect = document.getElementById('docTypeSelector');
     const type = state.docType || 'INVOICE';
     if (titleEl) titleEl.textContent = type;
-    if (docSelect) docSelect.value = type;
+    if (docSelect) {
+      let matched = false;
+      const upper = type.trim().toUpperCase();
+      for (let i = 0; i < docSelect.options.length; i++) {
+        const optVal = docSelect.options[i].value.toUpperCase();
+        const optText = docSelect.options[i].textContent.toUpperCase();
+        if (optVal === upper || optText === upper || optVal.includes(upper) || upper.includes(optVal)) {
+          docSelect.selectedIndex = i;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        docSelect.value = type;
+      }
+    }
   }
 
   function renderAccentColor() {
@@ -2183,6 +2275,31 @@ ${sender}`;
       const printHideElements = sheet.querySelectorAll('.print-hide');
       printHideElements.forEach(el => el.style.setProperty('display', 'none', 'important'));
 
+      // Temporarily expand all textareas so html2canvas captures full multiline content without clipping
+      const allTextareas = sheet.querySelectorAll('textarea');
+      const savedStyles = [];
+      allTextareas.forEach((ta, idx) => {
+        savedStyles[idx] = {
+          height: ta.style.height,
+          overflow: ta.style.overflow,
+          minHeight: ta.style.minHeight
+        };
+        ta.style.height = 'auto';
+        ta.style.height = (ta.scrollHeight + 6) + 'px';
+        ta.style.overflow = 'hidden';
+      });
+
+      const restorePdfStyles = () => {
+        printHideElements.forEach(el => el.style.removeProperty('display'));
+        allTextareas.forEach((ta, idx) => {
+          if (savedStyles[idx]) {
+            ta.style.height = savedStyles[idx].height;
+            ta.style.overflow = savedStyles[idx].overflow;
+            ta.style.minHeight = savedStyles[idx].minHeight;
+          }
+        });
+      };
+
       const opt = {
         margin: [8, 10, 8, 10],
         filename: filename,
@@ -2198,12 +2315,13 @@ ${sender}`;
           unit: 'mm',
           format: 'a4',
           orientation: 'portrait'
-        }
+        },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
       if (window.html2pdf) {
         window.html2pdf().set(opt).from(sheet).save().then(() => {
-          printHideElements.forEach(el => el.style.removeProperty('display'));
+          restorePdfStyles();
           if (btn) {
             btn.innerHTML = '✓ Downloaded!';
             setTimeout(() => {
@@ -2230,7 +2348,7 @@ ${sender}`;
           });
         }).catch(err => {
           console.error('PDF error:', err);
-          printHideElements.forEach(el => el.style.removeProperty('display'));
+          restorePdfStyles();
           if (btn) {
             btn.innerHTML = originalText;
             btn.disabled = false;
@@ -2348,16 +2466,19 @@ ${sender}`;
       }
 
       // Configure WhatsApp share button
+      const docLabel = (state.docType || 'Invoice').trim();
+      const docLabelLower = docLabel.toLowerCase();
       if (waBtn) {
         const sender = (state.fromName || 'Your Invoice').split('\n')[0].trim();
-        const text = encodeURIComponent(`Here is your invoice from ${sender} (${state.invoiceNumber || 'INV'}): ${shareUrl}`);
+        const text = encodeURIComponent(`Here is your ${docLabelLower} from ${sender} (${state.invoiceNumber || 'INV'}): ${shareUrl}`);
         waBtn.href = `https://api.whatsapp.com/send?text=${text}`;
       }
 
       // Configure Email share button
       if (emailBtn) {
-        const subject = encodeURIComponent(`Invoice ${state.invoiceNumber || ''} from ${state.fromName ? state.fromName.split('\n')[0].trim() : 'us'}`);
-        const body = encodeURIComponent(`Hello,\n\nPlease find your invoice online at the following link:\n${shareUrl}\n\nYou can view the full details and download the PDF directly in your browser without creating an account.\n\nThank you!`);
+        const sender = state.fromName ? state.fromName.split('\n')[0].trim() : 'us';
+        const subject = encodeURIComponent(`${docLabel} ${state.invoiceNumber || ''} from ${sender}`);
+        const body = encodeURIComponent(`Hello,\n\nPlease find your ${docLabelLower} online at the following link:\n${shareUrl}\n\nYou can view the full details and download the PDF directly in your browser without creating an account.\n\nThank you!`);
         emailBtn.href = `mailto:?subject=${subject}&body=${body}`;
       }
 
@@ -2915,8 +3036,13 @@ ${sender}`;
       const banner = document.getElementById('sharedInvoiceBanner');
       const invNumEl = document.getElementById('sharedBannerInvNum');
       const btnSharedDl = document.getElementById('btnSharedBannerDownload');
+      const docLabel = (state.docType || 'Invoice').trim();
       if (banner) {
         banner.style.display = 'block';
+        const pill = banner.querySelector('.shared-banner-pill');
+        if (pill) pill.textContent = `📄 Shared ${docLabel}`;
+        const msg = banner.querySelector('.shared-banner-msg');
+        if (msg) msg.innerHTML = `You are viewing a ${escapeHtml(docLabel.toLowerCase())} sent via <strong>QuickBillFree</strong> (<span id="sharedBannerInvNum">${escapeHtml(state.invoiceNumber || 'INV-1001')}</span>)`;
         if (invNumEl) invNumEl.textContent = state.invoiceNumber || 'INV-1001';
         if (btnSharedDl) {
           btnSharedDl.addEventListener('click', () => {
@@ -2927,8 +3053,7 @@ ${sender}`;
       }
       trackEvent('view_shared_invoice', { invoice_number: state.invoiceNumber, doc_type: state.docType || 'INVOICE' });
       setTimeout(() => {
-        const docLabel = (state.docType || 'invoice').toLowerCase();
-        showToast(`Viewing shared ${docLabel} ${state.invoiceNumber || ''}`, '📄');
+        showToast(`Viewing shared ${docLabel.toLowerCase()} ${state.invoiceNumber || ''}`, '📄');
       }, 400);
     }
 
