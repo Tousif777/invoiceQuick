@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      width: 320px;
+      padding: 16px;
+      background: #ffffff;
+      color: #0f172a;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+    }
+    .logo-img {
+      width: 28px;
+      height: 28px;
+    }
+    .brand-title {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: -0.3px;
+    }
+    .brand-primary {
+      color: #4f46e5;
+    }
+    .brand-free {
+      color: #10b981;
+      font-weight: 800;
+    }
+    .badge {
+      margin-left: auto;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .btn-main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px;
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.25);
+      transition: background 0.15s;
+      margin-bottom: 12px;
+    }
+    .btn-main:hover {
+      background: #4338ca;
+    }
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .card-tool {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      background: #f8fafc;
+      transition: all 0.15s;
+      font-size: 0.8rem;
+    }
+    .card-tool:hover {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      transform: translateY(-1px);
+    }
+    .card-icon {
+      font-size: 1.1rem;
+    }
+    .card-title {
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .card-desc {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 0.72rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icons/icon48.png" class="logo-img" alt="Logo">
+    <span class="brand-title">Quick<span class="brand-primary">Bill</span><span class="brand-free">Free</span></span>
+    <span class="badge">No Sign-up</span>
+  </div>
+
+  <a href="https://quickbillfree.com/" target="_blank" class="btn-main" id="btnNewInvoice">
+    ⚡ Create Invoice Now (Free)
+  </a>
+
+  <div class="section-title">Quick Country & Preset Templates</div>
+  <div class="grid">
+    <a href="https://quickbillfree.com/?preset=uk-vat" target="_blank" class="card-tool">
+      <span class="card-icon">🇬🇧</span>
+      <span class="card-title">UK VAT</span>
+      <span class="card-desc">20% VAT compliant</span>
+    </a>
+    <a href="https://quickbillfree.com/?preset=freelance" target="_blank" class="card-tool">
+      <span class="card-icon">💻</span>
+      <span class="card-title">Freelancer</span>
+      <span class="card-desc">Hourly & services</span>
+    </a>
+    <a href="https://quickbillfree.com/?preset=australia-gst" target="_blank" class="card-tool">
+      <span class="card-icon">🇦🇺</span>
+      <span class="card-title">Australia GST</span>
+      <span class="card-desc">10% GST tax invoice</span>
+    </a>
+    <a href="https://quickbillfree.com/?preset=contractor" target="_blank" class="card-tool">
+      <span class="card-icon">🔨</span>
+      <span class="card-title">Contractor</span>
+      <span class="card-desc">Trade & labor billing</span>
+    </a>
+  </div>
+
+  <div class="section-title">Calculators & Helpers</div>
+  <div class="grid">
+    <a href="https://quickbillfree.com/vat-calculator.html" target="_blank" class="card-tool">
+      <span class="card-icon">🧮</span>
+      <span class="card-title">VAT Calculator</span>
+      <span class="card-desc">Add or remove VAT</span>
+    </a>
+    <a href="https://quickbillfree.com/late-fee-calculator.html" target="_blank" class="card-tool">
+      <span class="card-icon">⏳</span>
+      <span class="card-title">Late Fee Calc</span>
+      <span class="card-desc">Statutory interest</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    <span>🔒 100% Client-Side Private</span>
+    <span>PDF Export • Free Forever</span>
+  </div>
+</body>
+</html>

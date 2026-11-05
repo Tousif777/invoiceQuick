@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "QuickBillFree — Free Invoice Generator & VAT Tools",
+  "short_name": "QuickBillFree",
+  "version": "1.0.0",
+  "description": "Create professional PDF invoices, calculate VAT and late fees instantly. 100% free, zero signup, no watermark.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "QuickBillFree — Free Invoice Maker"
+  },
+  "permissions": []
+}
