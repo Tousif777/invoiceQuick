@@ -611,12 +611,30 @@
       terms: 'Payment due upon receipt.',
       taxRate: 0,
       docType: 'INVOICE'
+    },
+    hvac: {
+      fromName: 'ClimatePro Heating & Air Conditioning LLC',
+      fromDetails: '1420 Thermal Way, Suite 104\nDallas, TX 75201\nservice@climateprohvac.com\n(214) 555-0198 | EPA & NATE Certified Lic #TACLA-48201',
+      toName: 'Preston Hollow Commercial Center',
+      toDetails: 'Attn: Facility Operations\n8400 Preston Rd\nDallas, TX 75225',
+      items: [
+        { description: 'Commercial HVAC Seasonal Diagnostic & Performance Tune-Up', quantity: 2, rate: 165 },
+        { description: 'Refrigerant System Evacuation & R-410A Re-charge (lbs)', quantity: 6, rate: 75 },
+        { description: 'Dual Run Capacitor & Contactor Relay Replacement (OEM Parts)', quantity: 2, rate: 145 },
+        { description: 'Evaporator & Condenser Coil Chemical Clean & Fin Straighten', quantity: 1, rate: 280 }
+      ],
+      notes: 'Summer cooling inspection and component overhaul complete. System tested at optimal 18°F delta T split.',
+      terms: 'Payment due within 15 days. We accept Check, ACH Direct Deposit, or Credit Card.',
+      taxRate: 8.25,
+      docType: 'INVOICE'
     }
   };
 
   PRESETS['uk'] = PRESETS['uk-vat'];
   PRESETS['australia'] = PRESETS['australia-gst'];
   PRESETS['canada'] = PRESETS['canada-gst'];
+  PRESETS['lawn-care'] = PRESETS['landscaping'];
+  PRESETS['lawncare'] = PRESETS['landscaping'];
 
   let activePresetLoaded = null;
   let isSharedInvoiceMode = false;
