@@ -658,6 +658,22 @@
       terms: 'Payment due upon vehicle delivery. We accept Credit Cards, Apple Pay, Debit, or Cash.',
       taxRate: 8.25,
       docType: 'INVOICE'
+    },
+    quote: {
+      fromName: 'Vanguard Creative & Technical Studio',
+      fromDetails: '100 Innovation Way, Suite 300\nAustin, TX 78701\ncontact@vanguardstudio.com\nTel: (512) 555-0199',
+      toName: 'Summit Peak Enterprise Solutions',
+      toDetails: 'Attn: Procurement & Operations\n500 Congress Avenue\nAustin, TX 78701',
+      items: [
+        { description: 'Phase 1: Project Discovery, Scope & Architecture Definition', quantity: 1, rate: 1850 },
+        { description: 'Phase 2: Custom Responsive Web UI/UX Design System', quantity: 1, rate: 3200 },
+        { description: 'Phase 3: Frontend Component Development & Integration', quantity: 40, rate: 95 },
+        { description: 'Cloud Infrastructure & Security Deployment Setup', quantity: 1, rate: 750 }
+      ],
+      notes: 'This formal quotation is valid for 30 calendar days from issue date. Work commences upon signed approval and 30% project deposit.',
+      terms: 'Estimate valid for 30 days. Remittance schedule: 30% upfront retainer, 70% upon milestone completion.',
+      taxRate: 0,
+      docType: 'QUOTE'
     }
   };
 
@@ -669,6 +685,8 @@
   PRESETS['bill-maker'] = PRESETS['bill'];
   PRESETS['auto-repair'] = PRESETS['mechanic'];
   PRESETS['auto'] = PRESETS['mechanic'];
+  PRESETS['estimate'] = PRESETS['quote'];
+  PRESETS['quotation'] = PRESETS['quote'];
 
   let activePresetLoaded = null;
   let isSharedInvoiceMode = false;
@@ -817,7 +835,7 @@
 
       // 2. Check for trade / country presets or calculator results
       const presetParam = urlParams.get('preset');
-      const calcNet = parseFloat(urlParams.get('calcNet') || urlParams.get('amount'));
+      const calcNet = parseFloat(urlParams.get('calcNet') || urlParams.get('amount') || urlParams.get('rate'));
       const calcRate = urlParams.get('calcRate') !== null ? parseFloat(urlParams.get('calcRate')) : null;
       const calcCurrency = urlParams.get('currency');
       const calcDocType = urlParams.get('docType');

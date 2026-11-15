@@ -33,6 +33,8 @@
 - [Handyman Invoice Generator](https://quickbillfree.com/handyman-invoice-generator.html): On-site repair and trade service invoice maker.
 - [VAT Calculator](https://quickbillfree.com/vat-calculator.html): Add or remove VAT and GST with global rate presets.
 - [Late Fee Calculator](https://quickbillfree.com/late-fee-calculator.html): Compute statutory overdue interest and late payment charges.
+- [Freelance Hourly Rate Calculator](https://quickbillfree.com/hourly-rate-calculator.html): Interactive calculator to compute target hourly rates and day rates with 1-click invoice creation.
+- [Online Quote Maker](https://quickbillfree.com/quote-maker.html): Generate professional job quotes, bids, and estimates with instant PDF export.
 - [Embeddable Widgets](https://quickbillfree.com/embed.html): Free responsive iframe widgets for webmasters.
 - [Knowledge Hub & Guides](https://quickbillfree.com/blog/): Actionable invoicing, cash flow, and payment guides.
 - [Unpaid Invoices & Late Fees Guide](https://quickbillfree.com/blog/how-to-handle-unpaid-invoices-late-fees.html): Recovery timeline, statutory interest rules, and copy-paste email templates.

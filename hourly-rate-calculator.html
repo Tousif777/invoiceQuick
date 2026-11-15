@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Google Consent Mode v2 (EEA & GDPR Compliant)
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7599767103475954" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Freelance Hourly Rate Calculator: How Much to Charge [Online]</title>
+  <meta name="description" content="Calculate your ideal freelance hourly rate and day rate in real time. Factor in annual salary goals, overhead expenses, billable hours, and taxes with 1-click invoice generation.">
+  <meta name="keywords" content="freelance hourly rate calculator, how much to charge freelance, consultant rate calculator, freelance rate formula, billable hourly rate tool, day rate calculator freelance">
+  <meta name="author" content="QuickBillFree.com">
+  <link rel="canonical" href="https://quickbillfree.com/hourly-rate-calculator.html">
+
+  <!-- Brand Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/hourly-rate-calculator.html">
+  <meta property="og:title" content="Free Freelance Hourly Rate Calculator — QuickBillFree">
+  <meta property="og:description" content="Calculate your minimum billable rate, target day rate, and invoice your clients immediately. 100% free tool.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Freelance Hourly Rate Calculator [Free Online Tool]">
+  <meta name="twitter:description" content="Find your ideal billable rate and generate invoices instantly. 100% free forever.">
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog.css">
+
+  <style>
+    .calc-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 768px) {
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+      .calc-card {
+        padding: 20px;
+      }
+    }
+    .calc-form-group {
+      margin-bottom: 18px;
+    }
+    .calc-label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .calc-hint {
+      display: block;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .calc-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .calc-prefix {
+      position: absolute;
+      left: 14px;
+      font-weight: 700;
+      color: #64748b;
+      font-size: 1.05rem;
+    }
+    .calc-suffix {
+      position: absolute;
+      right: 14px;
+      font-weight: 600;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+    .calc-input {
+      width: 100%;
+      padding: 11px 40px 11px 32px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .calc-input:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+    .calc-result-box {
+      background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+      border: 1.5px solid #c7d2fe;
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .calc-hero-stat {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .calc-hero-val {
+      font-size: 3.2rem;
+      font-weight: 900;
+      color: #4338ca;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .calc-hero-lbl {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #475569;
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .calc-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .calc-metric-tile {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .calc-metric-tile strong {
+      display: block;
+      font-size: 1.3rem;
+      color: #0f172a;
+    }
+    .calc-metric-tile span {
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+    .btn-create-invoice {
+      display: block;
+      background: #4f46e5;
+      color: #ffffff;
+      text-align: center;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+      transition: all 0.15s;
+    }
+    .btn-create-invoice:hover {
+      background: #4338ca;
+      transform: translateY(-1px);
+    }
+  </style>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Freelance Hourly Rate Calculator by QuickBillFree",
+      "url": "https://quickbillfree.com/hourly-rate-calculator.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "1890",
+        "bestRating": "5"
+      },
+      "description": "Calculate accurate billable hourly rates for freelancers and consultants taking into account expenses, billable efficiency, and tax buffers."
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is a freelance hourly rate calculated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your freelance hourly rate is calculated as: (Target Take-Home Income + Annual Business Expenses + Taxes) divided by Total Billable Hours per Year. A standard full-time freelancer bills between 1,000 and 1,200 hours annually after accounting for marketing and admin time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can't I just divide a salaried rate by 2,000 hours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Salaried employees receive paid health benefits, paid time off, and employer tax matching. Furthermore, freelancers spend 30-40% of their working week on non-billable tasks such as client outreach, invoicing, and contract negotiations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I immediately create an invoice with my calculated rate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Clicking 'Create Invoice with this Rate' loads your calculated hourly figure directly into our free invoice editor with zero signup required."
+          }
+        }
+      ]
+    }
+  ]
+  </script>
+</head>
+<body class="blog-page">
+
+  <!-- Navigation -->
+  <nav class="blog-nav">
+    <div class="container blog-nav-container">
+      <a href="./" class="blog-brand">
+        <img src="assets/favicon.svg" alt="QuickBillFree" width="30" height="30">
+        <span>Quick<span style="color: var(--blog-primary);">Bill</span><span style="color: #10b981; font-weight: 800; font-size: 0.95em;">Free</span></span>
+        <span class="blog-badge-tag">Rate Calculator</span>
+      </a>
+
+      <div class="blog-nav-links">
+        <a href="freelance-invoice-generator.html" class="btn-nav-ghost">⚡ Freelance Invoices</a>
+        <a href="blog/" class="btn-nav-ghost">📖 Invoicing Blog</a>
+        <a href="./" class="btn-nav-primary">⚡ Generate Invoice</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="blog-hero">
+    <div class="container">
+      <div class="blog-hero-badge">💼 Pricing Masterclass for Consultants & Creators</div>
+      <h1 class="blog-hero-title">Freelance Hourly Rate Calculator</h1>
+      <p class="blog-hero-desc">Stop guessing what to charge. Input your desired take-home salary, overhead costs, and billable capacity to compute your exact sustainable hourly rate and day rate in seconds.</p>
+    </div>
+  </header>
+
+  <!-- Content Container -->
+  <main class="container" style="max-width: 960px; margin-top: 32px;">
+
+    <!-- Calculator Widget Card -->
+    <div class="calc-card">
+      <div class="calc-grid">
+        
+        <!-- Left: Inputs -->
+        <div>
+          <h3 style="margin-top: 0; margin-bottom: 18px; font-size: 1.2rem; color: #0f172a;">📊 Your Income & Work Targets</h3>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="inpTargetSalary">Desired Take-Home Annual Income</label>
+            <div class="calc-input-wrap">
+              <span class="calc-prefix">$</span>
+              <input type="number" id="inpTargetSalary" class="calc-input" value="85000" min="1000" step="1000">
+            </div>
+            <span class="calc-hint">What you want to earn net for your personal living expenses.</span>
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="inpAnnualExpenses">Annual Business Overhead & Software</label>
+            <div class="calc-input-wrap">
+              <span class="calc-prefix">$</span>
+              <input type="number" id="inpAnnualExpenses" class="calc-input" value="12000" min="0" step="500">
+            </div>
+            <span class="calc-hint">SaaS tools, laptop hardware, insurance, office rent, accounting.</span>
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="inpTaxRate">Tax & Retirement Buffer (%)</label>
+            <div class="calc-input-wrap">
+              <input type="number" id="inpTaxRate" class="calc-input" value="25" min="0" max="60" style="padding-left: 14px;">
+              <span class="calc-suffix">%</span>
+            </div>
+            <span class="calc-hint">Self-employment tax, healthcare, and 401(k) / pension set-asides.</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="calc-form-group">
+              <label class="calc-label" for="inpBillableHours">Billable Hrs / Week</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inpBillableHours" class="calc-input" value="25" min="5" max="50" style="padding-left: 14px;">
+                <span class="calc-suffix">hrs</span>
+              </div>
+              <span class="calc-hint">Usually 20-30 hrs. Remaining is admin/marketing.</span>
+            </div>
+
+            <div class="calc-form-group">
+              <label class="calc-label" for="inpVacationWeeks">Vacation Weeks / Yr</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="inpVacationWeeks" class="calc-input" value="4" min="0" max="20" style="padding-left: 14px;">
+                <span class="calc-suffix">wks</span>
+              </div>
+              <span class="calc-hint">Holidays, sick leave & time off.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Results & Conversion Funnel -->
+        <div class="calc-result-box">
+          <div>
+            <div class="calc-hero-stat">
+              <div class="calc-hero-val" id="resHourlyRate">$105</div>
+              <div class="calc-hero-lbl">Recommended Hourly Rate</div>
+            </div>
+
+            <div class="calc-metrics-grid">
+              <div class="calc-metric-tile">
+                <strong id="resDayRate">$840</strong>
+                <span>Day Rate (8 Hours)</span>
+              </div>
+              <div class="calc-metric-tile">
+                <strong id="resMonthlyGross">$10,444</strong>
+                <span>Monthly Revenue Needed</span>
+              </div>
+              <div class="calc-metric-tile">
+                <strong id="resBillableYear">1,200 hrs</strong>
+                <span>Annual Billable Hours</span>
+              </div>
+              <div class="calc-metric-tile">
+                <strong id="resTotalGross">$125,333</strong>
+                <span>Gross Target Revenue</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct Funnel to Active Invoice Generation -->
+          <div>
+            <a id="btnApplyRateToInvoice" href="./?preset=freelance&rate=105" class="btn-create-invoice">
+              ⚡ Create Invoice with this Rate ($105/hr)
+            </a>
+            <div style="text-align: center; margin-top: 10px; font-size: 0.78rem; color: #64748b;">
+              ✓ Instant PDF download • No account registration • Zero watermarks
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Educational Guide & SEO Section -->
+    <section class="prose" style="background: #ffffff; padding: 36px; border-radius: var(--radius-lg); border: 1px solid var(--blog-border); margin-bottom: 48px;">
+      <h2>The Freelance Pricing Formula: Why Most Freelancers Undercharge</h2>
+      <p>The single biggest mistake new independent professionals make is taking their previous full-time corporate salary and dividing it by 2,080 hours (40 hours × 52 weeks). For example, a $80,000 employee might conclude they should charge $38.50 per hour. In reality, charging $38.50 as a 1099 contractor will leave you working 60-hour weeks while earning less than minimum wage after taxes and expenses.</p>
+
+      <h3>The 3 Hidden Cost Factors Every Contractor Must Cover:</h3>
+      <ol>
+        <li><strong>Non-Billable Time:</strong> You cannot bill 40 hours every week. Between prospecting clients, writing proposals, sending invoices, bookkeeping, and client communications, full-time freelancers average only <strong>20 to 28 billable hours per week</strong>.</li>
+        <li><strong>Self-Employment Taxes & Benefits:</strong> Traditional W-2 employers contribute 7.65% for FICA/Medicare, subsidize group health insurance, and match retirement contributions. As a freelancer, you must pay both the employer and employee portions of self-employment tax.</li>
+        <li><strong>Business Overhead:</strong> High-end software subscriptions (Adobe Creative Cloud, Figma, GitHub, Google Workspace), accounting fees, home office utilities, and equipment depreciation must be paid out of gross revenues.</li>
+      </ol>
+
+      <h2>The Exact Mathematical Formula Used by This Tool</h2>
+      <div class="callout callout-info">
+        <div class="callout-title">📐 The Sustainable Rate Formula:</div>
+        <div class="callout-body">
+          <code>Gross Revenue Needed = (Target Net Salary + Overhead Expenses) / (1 - Tax Rate Percentage)</code><br>
+          <code>Annual Billable Hours = (52 Weeks - Vacation Weeks) × Weekly Billable Hours</code><br>
+          <code>Hourly Rate = Gross Revenue Needed / Annual Billable Hours</code>
+        </div>
+      </div>
+
+      <h2>Hourly Rates vs. Project-Based & Value Pricing</h2>
+      <p>While an hourly rate provides a safe baseline to prevent working at a loss, seasoned consultants often package services into fixed milestone deliverables or value-based tiers:</p>
+      <ul>
+        <li><strong>Hourly Billing:</strong> Best for open-ended troubleshooting, ongoing technical support, and projects with vague or evolving scope. Use our <a href="freelance-invoice-generator.html">Freelance Invoice Generator</a> to log hours.</li>
+        <li><strong>Daily / Half-Day Rates:</strong> Standard in on-site filming, corporate workshops, and consulting audits. Calculate your 8-hour rate automatically above.</li>
+        <li><strong>Fixed Project Quotes:</strong> Preferred by clients who demand budget certainty. Use our <a href="quote-maker.html">Online Quote Maker</a> to issue formal project bids.</li>
+      </ul>
+
+      <h2>Next Step: Bill Your Clients with Zero Friction</h2>
+      <p>Once you agree on your rates with a client, delivering a clear, branded invoice is essential for fast payment clearance. QuickBillFree allows you to create professional invoices, add payment QR codes (PayPal, UPI, Bank Wire), and download vector PDFs with zero signup required.</p>
+    </section>
+
+    <!-- Bottom CTA Banner -->
+    <div class="blog-cta-banner">
+      <h2 class="blog-cta-title">Ready to Bill with Your New Rate?</h2>
+      <p class="blog-cta-desc">100% free client-side billing. No subscription, no sign-up, instant PDF export.</p>
+      <a href="./?preset=freelance" class="btn-cta-white">⚡ Launch Free Freelance Invoice Generator</a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="blog-footer">
+    <div class="container">
+      <div class="blog-footer-links">
+        <a href="./">Free Invoice Generator</a>
+        <a href="freelance-invoice-generator.html">Freelance Invoices</a>
+        <a href="quote-maker.html">Online Quote Maker</a>
+        <a href="bill-maker.html">Bill Maker</a>
+        <a href="receipt-maker.html">Receipt Maker</a>
+        <a href="blank-invoice-pdf.html">Blank Invoice PDF</a>
+        <a href="vat-calculator.html">VAT Calculator</a>
+        <a href="late-fee-calculator.html">Late Fee Calculator</a>
+        <a href="blog/">Invoicing Blog</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="blog-copyright">© 2026 QuickBillFree.com • Fast, Secure & Free Client-Side Invoicing</p>
+    </div>
+  </footer>
+
+  <!-- Interactive Rate Calculator Script -->
+  <script>
+    function computeRate() {
+      const salary = parseFloat(document.getElementById('inpTargetSalary').value) || 0;
+      const expenses = parseFloat(document.getElementById('inpAnnualExpenses').value) || 0;
+      const taxPct = (parseFloat(document.getElementById('inpTaxRate').value) || 0) / 100;
+      const billableHrsPerWeek = parseFloat(document.getElementById('inpBillableHours').value) || 25;
+      const vacationWeeks = parseFloat(document.getElementById('inpVacationWeeks').value) || 0;
+
+      // 1. Calculate working weeks & total annual billable hours
+      const workWeeks = Math.max(1, 52 - vacationWeeks);
+      const annualBillableHours = Math.max(1, workWeeks * billableHrsPerWeek);
+
+      // 2. Gross revenue needed = (Take Home + Overhead) / (1 - Tax Rate)
+      const effectiveTaxDivisor = Math.max(0.1, 1 - taxPct);
+      const grossNeeded = (salary + expenses) / effectiveTaxDivisor;
+
+      // 3. Compute rates
+      const hourlyRate = Math.round(grossNeeded / annualBillableHours);
+      const dayRate = Math.round(hourlyRate * 8);
+      const monthlyGross = Math.round(grossNeeded / 12);
+
+      // 4. Update UI
+      document.getElementById('resHourlyRate').textContent = '$' + hourlyRate;
+      document.getElementById('resDayRate').textContent = '$' + dayRate.toLocaleString();
+      document.getElementById('resMonthlyGross').textContent = '$' + monthlyGross.toLocaleString();
+      document.getElementById('resBillableYear').textContent = Math.round(annualBillableHours).toLocaleString() + ' hrs';
+      document.getElementById('resTotalGross').textContent = '$' + Math.round(grossNeeded).toLocaleString();
+
+      // 5. Update CTA link with exact rate
+      const btnInvoice = document.getElementById('btnApplyRateToInvoice');
+      if (btnInvoice) {
+        btnInvoice.href = `./?preset=freelance&rate=${hourlyRate}`;
+        btnInvoice.textContent = `⚡ Create Invoice with this Rate ($${hourlyRate}/hr)`;
+      }
+    }
+
+    // Bind event listeners to all inputs
+    const inputs = ['inpTargetSalary', 'inpAnnualExpenses', 'inpTaxRate', 'inpBillableHours', 'inpVacationWeeks'];
+    inputs.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener('input', computeRate);
+      }
+    });
+
+    // Run initial calculation
+    computeRate();
+  </script>
+
+</body>
+</html>

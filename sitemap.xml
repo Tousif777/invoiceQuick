@@ -121,6 +121,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://quickbillfree.com/hourly-rate-calculator.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://quickbillfree.com/quote-maker.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://quickbillfree.com/blank-invoice-pdf.html</loc>
     <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
