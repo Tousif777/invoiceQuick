@@ -16,18 +16,28 @@ Experience the web application live:
 
 ### 📑 Specialized Free Invoicing Tools
 - ⚡ **[Free Invoice Generator (No Sign Up)](https://quickbillfree.com/free-invoice-generator-no-sign-up.html)** — Instant PDF download without registration, email capture, or paywalls.
+- 💎 **[Free Invoice Generator (No Watermark)](https://quickbillfree.com/free-invoice-generator-no-watermark.html)** — 100% unbranded, clean PDF invoices without watermarks or vendor branding.
+- 🧾 **[Free Online Bill Maker](https://quickbillfree.com/bill-maker.html)** — Fast, itemized bill generator for goods and client services with instant PDF export.
+- 📋 **[Online Quote & Estimate Maker](https://quickbillfree.com/quote-maker.html)** — Professional project quotations, job bids, and cost estimates with validity terms.
+- 🧮 **[Freelance Hourly Rate Calculator](https://quickbillfree.com/hourly-rate-calculator.html)** — Interactive calculator to compute target billable rates with 1-click invoice creation.
+- 🧾 **[Free Online Receipt Maker](https://quickbillfree.com/receipt-maker.html)** — Generate official payment receipts with red PAID watermark stamps.
+- 📄 **[Printable Blank Invoice PDF](https://quickbillfree.com/blank-invoice-pdf.html)** — Clean, printable blank PDF forms for letter and A4 printing.
+- 🔧 **[Auto Repair & Mechanic Invoices](https://quickbillfree.com/mechanic-invoice-generator.html)** — Itemize VIN, odometer readings, parts, and labor for automotive repair shops.
+- 🏗️ **[Contractor Invoice Generator](https://quickbillfree.com/contractor-invoice-generator.html)** — General contractor billing with progress draws, permits, and retainage deductions.
+- 🚫 **[Invoice Simple Alternative](https://quickbillfree.com/invoice-simple-alternative.html)** — Unlimited invoices escaping Invoice Simple's 3-invoice paywall.
+- 🧞 **[FreeBillGenie Alternative](https://quickbillfree.com/freebillgenie-alternative.html)** — 100% client-side alternative to FreeBillGenie and FreeBillKit.
 - 💼 **[QuickBooks Free Alternative](https://quickbillfree.com/quickbooks-alternative.html)** — Avoid $35–$90/month fees with zero bank linking and instant PDF billing.
 - 🔄 **[FreshBooks Free Alternative](https://quickbillfree.com/freshbooks-alternative.html)** — Unmetered invoicing alternative without $19–$60/month subscriptions.
 - 🌊 **[Wave Invoice Free Alternative](https://quickbillfree.com/wave-alternative.html)** — 100% client-side alternative to Wave without fees or vendor lock-in.
 - 📦 **[Zoho Invoice Free Alternative](https://quickbillfree.com/zoho-invoice-alternative.html)** — Simple PDF generator without Zoho's complex enterprise onboarding.
 - 🚢 **[Commercial Invoice Generator](https://quickbillfree.com/commercial-invoice-generator.html)** — Customs declarations, HS tariff codes, and Incoterms 2020 export templates.
 - 🛠️ **[Handyman Invoice Generator](https://quickbillfree.com/handyman-invoice-generator.html)** — Mobile billing for home repairs, carpentry, odd jobs, and materials.
-- 📄 **[Printable Blank Invoice PDF](https://quickbillfree.com/blank-invoice-pdf.html)** — Clean, printable blank PDF forms for letter and A4 printing.
 - 📝 **[Google Docs Invoice Template](https://quickbillfree.com/google-docs-invoice-template.html)** — Free editable Google Docs invoice templates and instant PDF creator.
 - 📊 **[Google Sheets Invoice Template](https://quickbillfree.com/google-sheets-invoice-template.html)** — Automated formula invoice spreadsheet template and PDF alternative.
 - 📑 **[Excel Invoice Template](https://quickbillfree.com/excel-invoice-template.html)** — Free Microsoft Excel invoice template with automated math and vector PDF export.
 - 🧮 **[Free VAT Calculator](https://quickbillfree.com/vat-calculator.html)** — Add or remove Value Added Tax forwards and backwards.
 - ⏳ **[Late Fee Calculator](https://quickbillfree.com/late-fee-calculator.html)** — Statutory interest and commercial debt recovery fee calculator.
+- 📡 **[RSS / Atom Feed](https://quickbillfree.com/feed.xml)** — Automatic content syndication and web feed updates.
 - 🤖 **[LLMs Context Map](https://quickbillfree.com/llms.txt)** — Standard Generative Engine Optimization (GEO) context for AI crawlers.
 
 ---
