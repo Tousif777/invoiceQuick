@@ -642,6 +642,22 @@
       terms: 'Payment due upon receipt. We accept ACH Direct Deposit, Company Check, or Card.',
       taxRate: 0,
       docType: 'BILL'
+    },
+    mechanic: {
+      fromName: 'Apex Precision Auto Care & Repair LLC',
+      fromDetails: '1840 Motor City Parkway, Bay 4\nAustin, TX 78702\nservice@apexprecisionauto.com\nTel: (512) 555-0144 | ASE Certified Shop',
+      toName: 'Marcus Vance',
+      toDetails: 'Vehicle: 2021 Toyota RAV4 AWD\nVIN: 4T3BFREV6MU194821\nOdometer: 64,820 miles\nLicense Plate: TX-784-KPL',
+      items: [
+        { description: 'Front & Rear Brake Pad and Ceramic Rotor Replacement (Labor)', quantity: 2.5, rate: 125 },
+        { description: 'OEM Front Brake Pad Set & Premium Vented Rotors', quantity: 1, rate: 245 },
+        { description: 'Full Synthetic Motor Oil 0W-20 & Engine Filter Replacement', quantity: 1, rate: 85 },
+        { description: 'Comprehensive 40-Point Safety & OBD-II Diagnostic Scan', quantity: 1, rate: 95 }
+      ],
+      notes: 'All parts backed by 24-month / 24,000-mile parts and labor warranty. Road test passed.',
+      terms: 'Payment due upon vehicle delivery. We accept Credit Cards, Apple Pay, Debit, or Cash.',
+      taxRate: 8.25,
+      docType: 'INVOICE'
     }
   };
 
@@ -651,6 +667,8 @@
   PRESETS['lawn-care'] = PRESETS['landscaping'];
   PRESETS['lawncare'] = PRESETS['landscaping'];
   PRESETS['bill-maker'] = PRESETS['bill'];
+  PRESETS['auto-repair'] = PRESETS['mechanic'];
+  PRESETS['auto'] = PRESETS['mechanic'];
 
   let activePresetLoaded = null;
   let isSharedInvoiceMode = false;
