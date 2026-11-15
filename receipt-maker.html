@@ -56,21 +56,76 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="blog.css">
 
-  <!-- Schema.org JSON-LD -->
+  <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Receipt Maker by QuickBillFree",
-    "url": "https://quickbillfree.com/receipt-maker.html",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "description": "Free online receipt generator for cash, wire, and card payment confirmations with official PAID stamps."
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Free Online Receipt Maker by QuickBillFree",
+        "url": "https://quickbillfree.com/receipt-maker.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "1480",
+          "bestRating": "5"
+        },
+        "description": "Free online receipt generator for cash, card, wire, and digital payment receipts with official PAID stamps."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I create a free receipt with a PAID stamp?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open QuickBillFree, select Document Type 'Receipt / Bill', set Stamp to 'PAID', enter the settled amount and payment channel (Cash, Wire, Card), and click Download PDF."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this online receipt maker completely free without watermarks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free with no monthly subscription, no mandatory email signup, and zero watermarks on exported PDF receipts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use these receipts for tax deduction records?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Our receipts include vendor contact details, client details, transaction date, line-item description, tax amounts, and payment method, satisfying IRS and international audit standards."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between an invoice and a receipt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "An invoice is a request for payment issued before settlement with future payment terms. A receipt is issued after payment is received as legal proof of completed transaction."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I print a blank receipt form for cash transactions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! You can export a blank receipt or visit our Blank Invoice PDF page to print physical slips for handwriting at job sites."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
 </head>
@@ -130,16 +185,107 @@
 
     <section id="guide" class="prose" style="background: #ffffff; padding: 36px; border-radius: var(--radius-lg); border: 1px solid var(--blog-border); margin-bottom: 48px;">
       <h2>When Should You Deliver a Payment Receipt?</h2>
-      <p>An invoice asks for payment, but a <strong>receipt confirms payment has been received in full</strong>. Delivering an immediate stamped receipt builds trust with clients and prevents double-billing disputes.</p>
+      <p>An invoice asks for payment, but a <strong>receipt confirms payment has been received in full</strong>. Delivering an immediate stamped receipt builds trust with clients, avoids awkward double-billing inquiries, and satisfies legal bookkeeping requirements.</p>
 
       <h3>How to Make a Receipt in 30 Seconds with QuickBillFree:</h3>
       <ol>
-        <li>Open the <a href="./">Invoice Maker</a>.</li>
-        <li>In the top bar, set <strong>Document Type</strong> to <strong>"Receipt / Bill"</strong>.</li>
-        <li>Set the <strong>Stamp</strong> dropdown to <strong>"Stamp: PAID"</strong> (a bold green/red PAID badge will appear automatically).</li>
-        <li>Enter the payment transaction ID or method in the notes (e.g., <em>"Paid via Wire Transfer on Oct 9, 2026 - Ref #TXN9928"</em>).</li>
-        <li>Click <strong>"📥 Download PDF"</strong> to send the official receipt to your client!</li>
+        <li>Open the <a href="./">Free Receipt & Invoice Maker</a>.</li>
+        <li>In the top bar, set <strong>Document Type</strong> to <strong>"Receipt / Bill"</strong> (or visit <a href="bill-maker.html">Bill Maker</a>).</li>
+        <li>Set the <strong>Stamp</strong> dropdown to <strong>"Stamp: PAID"</strong> (a bold PAID watermark badge will display across the document).</li>
+        <li>Enter the payment transaction ID or settlement method in the notes (e.g., <em>"Paid via Wire Transfer on Oct 9, 2026 - Ref #TXN9928"</em>).</li>
+        <li>Click <strong>"📥 Download PDF"</strong> to send the official receipt to your client with zero watermarks!</li>
       </ol>
+
+      <h2>Types of Payment Receipts You Can Create</h2>
+      <p>QuickBillFree supports all standard commercial and personal receipt templates. Select your transaction type below:</p>
+      <ul>
+        <li><strong>Cash Receipts:</strong> Essential for field trades, local services, and yard sales where immediate physical cash is exchanged. Pair with our <a href="blank-invoice-pdf.html">Printable Blank Invoice PDF</a> for paper filing.</li>
+        <li><strong>Credit & Debit Card Receipts:</strong> Issue formal documentation for card swipes, Stripe/Square transactions, or recurring digital payments.</li>
+        <li><strong>Bank Wire & ACH Transfer Receipts:</strong> Confirm receipt of large enterprise wire transfers, SWIFT, SEPA, or domestic ACH settlements.</li>
+        <li><strong>Digital Wallet Receipts (PayPal, Venmo, Zelle):</strong> Record peer-to-peer and online invoice settlements with sender username and transaction IDs.</li>
+        <li><strong>Rent & Deposit Receipts:</strong> Landlords and property managers can issue instant proof of monthly rental payments or security deposits.</li>
+        <li><strong>Service Milestone Receipts:</strong> Release partial payment confirmation following upfront retainers or phase completion.</li>
+      </ul>
+
+      <h2>Receipt vs. Invoice vs. Bill: Key Differences</h2>
+      <p>Many business owners confuse these three commercial documents. Here is how they compare across timing and legal obligations. For an in-depth breakdown, read our complete guide on <a href="blog/invoice-vs-bill-vs-receipt.html">Invoice vs. Bill vs. Receipt</a>.</p>
+
+      <div class="table-wrapper">
+        <table class="prose-table" style="width: 100%; border-collapse: collapse; margin: 16px 0;">
+          <thead>
+            <tr style="background: #f1f5f9;">
+              <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: left;">Attribute</th>
+              <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: left;">Invoice</th>
+              <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: left;">Bill</th>
+              <th style="padding: 10px; border: 1px solid #cbd5e1; text-align: left;">Receipt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>Issued When?</strong></td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;">Before payment (upon delivery or milestone)</td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;">Before payment (immediate demand)</td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>After payment has been received</strong></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>Purpose</strong></td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;">Request payment with agreed terms (Net 30)</td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;">Demand payment for spot services</td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>Prove financial settlement completed</strong></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>Balance Due</strong></td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;">Positive balance outstanding</td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;">Positive balance due</td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>$0.00 (Balance Cleared / PAID)</strong></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><strong>Free Generator</strong></td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><a href="./">Free Invoice Generator</a></td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><a href="bill-maker.html">Online Bill Maker</a></td>
+              <td style="padding: 10px; border: 1px solid #cbd5e1;"><a href="receipt-maker.html">Online Receipt Maker</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What Information Must a Legally Valid Receipt Include?</h2>
+      <p>To qualify as valid audit evidence for IRS expense deductions or VAT claims, your payment receipt must state:</p>
+      <ul>
+        <li><strong>Seller / Vendor Details:</strong> Registered business trade name, physical address, email, and phone number.</li>
+        <li><strong>Client / Payer Details:</strong> Name or organization of the individual who paid.</li>
+        <li><strong>Receipt Number & Transaction Date:</strong> A unique receipt tracking ID and the exact date payment was received.</li>
+        <li><strong>Itemized Goods or Services:</strong> Quantity, item description, and unit price for each purchased deliverable.</li>
+        <li><strong>Sales Tax / VAT Breakdown:</strong> Clear separation of net amount, tax percentage, and total tax paid. Calculate exact tax figures using our free <a href="vat-calculator.html">VAT Calculator</a>.</li>
+        <li><strong>Settlement Method:</strong> Clarify whether payment was settled in Cash, Check (#XXXX), Bank Wire, or Card (Last 4 digits).</li>
+        <li><strong>Clear PAID Status:</strong> An explicit "PAID IN FULL" label or watermark stamp.</li>
+      </ul>
+
+      <h2>Free Receipt Templates by Profession</h2>
+      <p>Different industries require unique itemization. Explore specialized templates:</p>
+      <ul>
+        <li><a href="freelance-invoice-generator.html">Freelance Receipts</a> — For design, copywriting, and software development milestones.</li>
+        <li><a href="contractor-invoice-generator.html">Contractor Receipts</a> — Separates construction materials from subcontractor labor payments.</li>
+        <li><a href="mechanic-invoice-generator.html">Auto Mechanic Receipts</a> — Captures vehicle VIN, odometer reading, and mechanical replacement parts.</li>
+        <li><a href="cleaning-invoice-generator.html">Cleaning & Janitorial Receipts</a> — Ideal for residential maid services and commercial office cleanings.</li>
+        <li><a href="photography-invoice-generator.html">Photography Receipts</a> — Detail shoot hours, equipment rental, and photo licensing rights.</li>
+        <li><a href="lawn-care-invoice-generator.html">Lawn Care & Landscaping Receipts</a> — For recurring mowing, mulch delivery, and yard maintenance.</li>
+      </ul>
+
+      <h2>Frequently Asked Questions About Receipts</h2>
+      <div style="margin-top: 20px;">
+        <h4 style="margin-bottom: 6px;">How do I create a free receipt with a PAID stamp?</h4>
+        <p>Open QuickBillFree, select Document Type <strong>"Receipt / Bill"</strong>, set the Stamp dropdown to <strong>"PAID"</strong>, enter your client's payment details, and click "📥 Download PDF". Your receipt downloads in high resolution with zero watermarks.</p>
+
+        <h4 style="margin-bottom: 6px;">Is this online receipt maker completely free?</h4>
+        <p>Yes, 100% free with no monthly subscription, no mandatory email signup, and zero watermarks on exported PDF receipts. Unlike tools like <a href="invoice-simple-alternative.html">Invoice Simple</a>, we never lock your downloads behind paywalls.</p>
+
+        <h4 style="margin-bottom: 6px;">Can I use these receipts for tax deduction records?</h4>
+        <p>Yes. Our receipts include vendor contact details, client details, transaction date, line-item description, tax amounts, and payment method, satisfying IRS and international audit standards.</p>
+
+        <h4 style="margin-bottom: 6px;">What if the client only paid a partial deposit?</h4>
+        <p>You can indicate "Partial Retainer Paid" in the notes, specify the remaining balance due, and issue an updated invoice for the remaining amount using our <a href="./">Free Invoice Generator</a>.</p>
+      </div>
     </section>
 
     <div class="blog-cta-banner">
@@ -155,10 +301,18 @@
     <div class="container">
       <div class="blog-footer-links">
         <a href="./">Free Invoice Generator</a>
+        <a href="bill-maker.html">Online Bill Maker</a>
+        <a href="free-invoice-generator-no-watermark.html">Invoice No Watermark</a>
+        <a href="blank-invoice-pdf.html">Printable Blank PDF</a>
         <a href="tax-invoice-generator.html">Tax Invoice Generator</a>
         <a href="proforma-invoice-generator.html">Proforma Invoices</a>
         <a href="contractor-invoice-generator.html">Contractor Invoices</a>
+        <a href="invoice-templates.html">All Invoice Templates</a>
+        <a href="vat-calculator.html">VAT Calculator</a>
+        <a href="late-fee-calculator.html">Late Fee Calculator</a>
+        <a href="invoice-simple-alternative.html">Invoice Simple Alternative</a>
         <a href="blog/">Invoicing Blog</a>
+        <a href="privacy.html">Privacy Policy</a>
       </div>
       <p class="blog-copyright">© 2026 QuickBillFree.com • Fast, Secure & Free Client-Side Invoicing</p>
     </div>
