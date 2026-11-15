@@ -25,7 +25,7 @@ A limited live-site accessibility check and additional route findings are saved 
 - Blocked, failed and non-HTML responses remain unverified. A missing backlink in fetched HTML is not proof that a rendered page could never contain one.
 - These observations do not establish search indexing, ranking value, independent editorial approval or domain authority.
 
-See [audit.md](audit.md) for each URL and [audit.json](audit.json) for the observed target links, `rel` attributes, response status and robots metadata. Recheck using `python3 scripts/audit-backlinks.py` from the repository root. This command only audits existing listed pages; it does not publish or submit anything.
+Recheck using `python3 scripts/audit-backlinks.py` from the repository root. It generates `backlink-work/audit.md` and `backlink-work/audit.json` with each URL, observed target links, `rel` attributes, response status and robots metadata. These reproducible reports are ignored by Git. This command only audits existing listed pages; it does not publish or submit anything.
 
 ## Other routes checked
 

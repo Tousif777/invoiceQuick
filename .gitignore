@@ -1,0 +1,9 @@
+# Reproducible audit output; keep source scripts and campaign receipts.
+/backlink-work/audit.json
+/backlink-work/audit.md
+/seo-work/validation.json
+
+# Local editor and Python cache files.
+.DS_Store
+__pycache__/
+*.py[cod]

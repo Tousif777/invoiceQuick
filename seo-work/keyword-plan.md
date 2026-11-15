@@ -53,7 +53,7 @@ Guidance used: Google's [title-link recommendations](https://developers.google.c
 
 ## Validation and publication status
 
-`python3 scripts/check-seo.py` passed: all 80 sitemap resources exist, 79 HTML pages have the checked metadata and local targets, the RSS XML parses, and 77 JSON-LD blocks parse. The report is in [validation.json](validation.json). These are structural checks, not a Google Rich Results Test or a visual browser test.
+`python3 scripts/check-seo.py` passed: all 80 sitemap resources exist, 79 HTML pages have the checked metadata and local targets, the RSS XML parses, and 77 JSON-LD blocks parse. The command generates `seo-work/validation.json`, which is ignored by Git. These are structural checks, not a Google Rich Results Test or a visual browser test.
 
 `node --check js/invoice.js` passed. A Node VM check of the actual preset/loading code passed for the blank receipt, freelance and contractor templates, query cleanup, saved drafts and unknown-preset fallback. A browser interaction test was not performed.
 
