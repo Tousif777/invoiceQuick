@@ -23,9 +23,9 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free VAT Calculator (20%, 5%): Add or Reverse Calculate Online</title>
-  <meta name="description" content="Calculate VAT in real time. Add 20% VAT to a net amount or reverse calculate to remove VAT from a gross price. Free, instant breakdown with 1-click invoice export.">
-  <meta name="keywords" content="vat calculator, calculate vat backwards, reverse vat calculator, add vat calculator, remove vat calculator, uk vat calculator 20 percent, free vat tool online">
+  <title>Free VAT Calculator: Add VAT or Reverse Ex-VAT (20%, 5%)</title>
+  <meta name="description" content="Calculate VAT in real time. Add 20% VAT or reverse calculate to remove VAT (ex-VAT) from a gross total. Free, instant breakdown with 1-click invoice export.">
+  <meta name="keywords" content="vat calculator, ex vat calculator, exclude vat calculator, remove vat calculator, reverse vat calculator, calculate price excluding vat, calculate ex vat, 20 vat calculator, uk vat calculator 20 percent">
   <meta name="author" content="QuickBillFree.com">
   <link rel="canonical" href="https://quickbillfree.com/vat-calculator.html">
 
@@ -317,6 +317,14 @@
           },
           {
             "@type": "Question",
+            "name": "How do I calculate a price excluding VAT (ex-VAT)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To calculate a price excluding VAT from a gross amount that already includes 20% VAT, divide the gross total by 1.20. For instance, if an invoice total is £120 gross, dividing by 1.20 equals £100 ex-VAT (net), with £20 being the VAT portion."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "How do you add VAT to a net price?",
             "acceptedAnswer": {
               "@type": "Answer",
@@ -478,13 +486,15 @@
       </div>
       <p><strong>Example:</strong> For a £500 freelance service with 20% VAT: £500 × 0.20 = £100 VAT. Gross Total = £600.</p>
 
-      <h3>2. Removing VAT Formula (Gross to Net / Reverse VAT)</h3>
-      <p>When an item costs £120 including VAT, many people mistakenly calculate 20% of £120 (£24) and subtract it. <strong>That is incorrect!</strong> The 20% was applied to the original net price, not the gross total.</p>
+      <h3 id="ex-vat">2. Ex-VAT Calculator: How to Remove VAT & Calculate Price Excluding VAT</h3>
+      <p>When searching for an <strong>ex-VAT calculator</strong> or looking to <strong>calculate a price excluding VAT</strong> from a gross total, many people mistakenly calculate 20% of the total and subtract it. <strong>That is mathematically incorrect!</strong> The tax percentage was originally added to the net amount, not the gross total.</p>
       <div class="callout callout-warning" style="font-family: monospace; font-size: 1rem;">
-        Net Price = Gross Price ÷ (1 + (VAT Rate ÷ 100))<br>
-        VAT Amount = Gross Price - Net Price
+        Price Excluding VAT (Net) = Gross Total ÷ (1 + (VAT Rate ÷ 100))<br>
+        VAT Amount Removed = Gross Total - Price Excluding VAT
       </div>
-      <p><strong>Correct Example:</strong> To remove 20% VAT from £120: £120 ÷ 1.20 = £100 Net. VAT Amount = £20 (which is 20% of £100).</p>
+      <p><strong>Ex-VAT Example (100 minus VAT / 120 minus VAT):</strong><br>
+      • To remove 20% VAT from £120 gross: £120 ÷ 1.20 = <strong>£100 ex-VAT</strong> (VAT portion = £20).<br>
+      • To remove 20% VAT from £100 gross: £100 ÷ 1.20 = <strong>£83.33 ex-VAT</strong> (VAT portion = £16.67).</p>
 
       <h2>Current European & International VAT / GST Rates (2026)</h2>
       <table style="width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem;">
@@ -713,6 +723,21 @@
     if (new URLSearchParams(window.location.search).get('embed') === 'true') {
       document.body.classList.add('is-embedded-widget');
     }
+
+    // Auto-activate Ex-VAT / Remove mode if specified in URL query or hash
+    try {
+      const urlP = new URLSearchParams(window.location.search);
+      const urlH = window.location.hash.toLowerCase();
+      if (urlP.get('mode') === 'remove' || urlP.get('mode') === 'exvat' || urlH.includes('remove') || urlH.includes('ex-vat') || urlH.includes('exclude')) {
+        setMode('remove');
+      }
+      if (urlP.get('rate')) {
+        setRate(urlP.get('rate'));
+      }
+      if (urlP.get('amount')) {
+        document.getElementById('calcAmount').value = urlP.get('amount');
+      }
+    } catch (_) {}
 
     // Close embed modal on outside click or Escape
     document.addEventListener('click', (e) => {

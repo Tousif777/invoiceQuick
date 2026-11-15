@@ -627,6 +627,21 @@
       terms: 'Payment due within 15 days. We accept Check, ACH Direct Deposit, or Credit Card.',
       taxRate: 8.25,
       docType: 'INVOICE'
+    },
+    bill: {
+      fromName: 'Meridian Supply & Logistics Co.',
+      fromDetails: '410 Commerce Boulevard, Suite 200\nAustin, TX 78701\nbilling@meridiansupply.com\nTel: (512) 555-0198',
+      toName: 'Summit Peak Retail Ventures',
+      toDetails: 'Attn: Accounts Payable\n880 Mountain Crest Parkway\nAustin, TX 78746',
+      items: [
+        { description: 'Commercial Warehouse Storage & Pallet Handling', quantity: 1, rate: 650 },
+        { description: 'Monthly Facility Upkeep & Security Support', quantity: 1, rate: 320 },
+        { description: 'Freight Dispatch & Inventory Restocking Retainer', quantity: 1, rate: 280 }
+      ],
+      notes: 'Thank you for your prompt business. Please reference Bill # on all remittance communications.',
+      terms: 'Payment due upon receipt. We accept ACH Direct Deposit, Company Check, or Card.',
+      taxRate: 0,
+      docType: 'BILL'
     }
   };
 
@@ -635,6 +650,7 @@
   PRESETS['canada'] = PRESETS['canada-gst'];
   PRESETS['lawn-care'] = PRESETS['landscaping'];
   PRESETS['lawncare'] = PRESETS['landscaping'];
+  PRESETS['bill-maker'] = PRESETS['bill'];
 
   let activePresetLoaded = null;
   let isSharedInvoiceMode = false;
