@@ -3,8 +3,8 @@ const fs = require('fs');
 const https = require('https');
 
 const HOST = 'quickbillfree.com';
-const KEY = 'c7849e5d429a4bb38b9d62057f920da4';
-const KEY_LOCATION = `https://${HOST}/c7849e5d429a4bb38b9d62057f920da4.txt`;
+const KEY = '29a8f4c1e6b34d7a8e52c93b1d4e0a7f';
+const KEY_LOCATION = `https://${HOST}/29a8f4c1e6b34d7a8e52c93b1d4e0a7f.txt`;
 
 // Extract all URLs from sitemap.xml
 function getSitemapUrls() {

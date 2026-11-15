@@ -12,7 +12,11 @@
 
 ## Key URLs & Tools
 - [Online Invoice Generator](https://quickbillfree.com/): The main interactive browser billing application.
+- [Free Invoice Generator No Watermark](https://quickbillfree.com/free-invoice-generator-no-watermark.html): 100% unbranded, clean PDF invoices with zero forced branding or watermarks.
+- [Free Online Bill Maker](https://quickbillfree.com/bill-maker.html): Fast, itemized bill generator for goods and services with instant PDF download.
 - [Free Invoice Generator No Sign Up](https://quickbillfree.com/free-invoice-generator-no-sign-up.html): Privacy-first invoice generator requiring zero registration.
+- [HVAC Invoice Generator](https://quickbillfree.com/hvac-invoice-generator.html): Heating, ventilation, and AC service invoicing template with EPA certifications.
+- [Lawn Care Invoice Generator](https://quickbillfree.com/lawn-care-invoice-generator.html): Landscaping, mowing, and seasonal lawn maintenance bill maker.
 - [Google Docs Invoice Template](https://quickbillfree.com/google-docs-invoice-template.html): Editable Google Docs invoice alternative with automated math.
 - [Google Sheets Invoice Template](https://quickbillfree.com/google-sheets-invoice-template.html): Automated spreadsheet billing alternative.
 - [Excel Invoice Template](https://quickbillfree.com/excel-invoice-template.html): Formula-safe Excel invoice alternative with instant PDF export.
@@ -29,3 +33,5 @@
 - [Knowledge Hub & Guides](https://quickbillfree.com/blog/): Actionable invoicing, cash flow, and payment guides.
 - [Unpaid Invoices & Late Fees Guide](https://quickbillfree.com/blog/how-to-handle-unpaid-invoices-late-fees.html): Recovery timeline, statutory interest rules, and copy-paste email templates.
 - [Best Free Invoice Generators with No Sign Up](https://quickbillfree.com/blog/best-free-invoice-generators-no-signup.html): In-depth comparison of top zero-paywall invoicing tools in 2026.
+- [Billing Statement vs. Invoice](https://quickbillfree.com/blog/billing-statement-vs-invoice.html): Comprehensive differences between periodic statements of account and single-transaction invoices.
+- [CRA Compliant Invoice Requirements](https://quickbillfree.com/blog/cra-compliant-invoice-requirements.html): Canadian tax guide for GST/HST, Business Numbers, and Input Tax Credit rules.
