@@ -189,3 +189,4 @@ Complete live catalog available in [`backlinks-report.md`](backlinks-report.md):
 * **AI Engine Discovery:** Optimized for ChatGPT Search, Copilot, and Gemini Search via [`llms.txt`](llms.txt).
 * **AdSense Monetization:** Auto-ads enabled across all 80 pages via publisher ID `ca-pub-7599767103475954`.
 * **Google Consent Mode v2:** Embedded in all pages to preserve 100% ad inventory value across EEA and European visitors.
+

@@ -1,0 +1,48 @@
+[
+  {
+    "directory": "CareerFlora",
+    "endpoint": "https://careerflora.com/open-tools-submit.php",
+    "http_status": 201,
+    "response": "{\"ok\":true,\"message\":\"Thanks! Your tool will appear after admin approval.\"}",
+    "at": "2026-11-15T09:55:40.842180+00:00"
+  },
+  {
+    "directory": "Startup Collections",
+    "endpoint": "https://startupcollections.com/ajax",
+    "error": "HTTP Error 403: Forbidden",
+    "at": "2026-11-15T09:55:45.348995+00:00"
+  },
+  {
+    "directory": "LaunchPedia",
+    "endpoint": "https://launchpedia.co/wp-admin/admin-ajax.php",
+    "http_status": 200,
+    "response": "{\"success\":true,\"data\":{\"message\":\"Your submission was successful.\",\"data\":[]}}",
+    "at": "2026-11-15T09:55:47.669014+00:00"
+  },
+  {
+    "directory": "Lorik Roo",
+    "endpoint": "https://lorikroo.com/api/freebies",
+    "http_status": 200,
+    "response": "{\"ok\":true}",
+    "at": "2026-11-15T09:59:18.811193+00:00",
+    "placement_status": "pending-review; no public backlink confirmed"
+  },
+  {
+    "directory": "Totally Free Tools",
+    "endpoint": "https://totallyfreetools.com/api/v1/public-submissions",
+    "http_status": 201,
+    "response": "{\"id\":603,\"status\":\"pending\"}",
+    "at": "2026-11-15T10:00:05.820213+00:00",
+    "placement_status": "pending-review; no public backlink confirmed"
+  },
+  {
+    "directory": "FreeNoSignup",
+    "endpoint": "https://docs.google.com/forms/d/e/1FAIpQLScZ3rCt9k2vlaHcT7d1ABmgtezWN-fZLcH_YcxJdexm8aOzRg/formResponse?embedded=true",
+    "http_status": 200,
+    "response": "আপনার প্রতিক্রিয়া রেকর্ড করা হয়েছে৷ (Your response has been recorded.)",
+    "accepted": true,
+    "at": "2026-11-15T10:00:34.410137+00:00",
+    "verification_note": "The confirmation page was localized in Bengali. Its visible text confirms receipt; the initial English-only string check was corrected after inspecting the response.",
+    "placement_status": "pending-review; no public backlink confirmed"
+  }
+]

@@ -677,6 +677,15 @@
     }
   };
 
+  // A receipt starts empty; the user records a real payment before marking it paid.
+  PRESETS.receipt = {
+    ...PRESETS.blank,
+    docType: 'RECEIPT / BILL',
+    notes: '',
+    terms: '',
+    showTax: false
+  };
+
   PRESETS['uk'] = PRESETS['uk-vat'];
   PRESETS['australia'] = PRESETS['australia-gst'];
   PRESETS['canada'] = PRESETS['canada-gst'];

@@ -1,0 +1,18 @@
+{
+  "name": "QuickBillFree",
+  "website": "https://quickbillfree.com/",
+  "repository": "https://github.com/Tousif777/invoiceQuick",
+  "public_business_contact": "support@quickbillfree.com",
+  "headline": "Free browser-based invoices, quotes and receipts without signup",
+  "short_description": "Create invoices, quotes and receipts in your browser and export PDFs without signing up. Invoice data is stored locally in the browser.",
+  "description": "QuickBillFree helps freelancers and small businesses create invoices, quotes and payment receipts without creating an account. It offers PDF export, multiple currencies, reusable client details and billing calculators. Invoice data is stored locally in the browser. The website uses advertising and analytics; this listing does not claim that the entire website is tracking-free.",
+  "category": "Productivity / Invoicing",
+  "pricing": "Free",
+  "license_note": "The repository README declares MIT, but no root LICENSE file was present during this review. Do not certify OSI licensing until the license is provided by the owner.",
+  "submission_rules": [
+    "Submit only to relevant categories; this product is not an AI tool.",
+    "Disclose affiliation and describe the product factually.",
+    "Do not claim indexing, ranking improvements, domain authority, editorial acceptance or legal compliance without evidence.",
+    "Do not resubmit a pending application or bypass authentication, CAPTCHA, fees or required agreements."
+  ]
+}

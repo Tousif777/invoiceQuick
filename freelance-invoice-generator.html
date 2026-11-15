@@ -23,8 +23,8 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Freelance Invoice Generator — Instant PDF Maker</title>
-  <meta name="description" content="Generate clean, professional freelance invoices in seconds. Zero signup, zero watermarks, and 100% private client-side PDF download.">
+  <title>Free Freelance Invoice Generator — Hourly &amp; Project PDF</title>
+  <meta name="description" content="Create freelance invoices for hourly work, fixed-price projects and milestones. Add your logo and payment terms, then download a PDF. No signup required.">
   <meta name="keywords" content="freelance invoice generator, freelancer invoice template, invoice maker for freelancers, free freelance bill, independent worker invoice pdf">
   <meta name="author" content="QuickBillFree.com">
   <link rel="canonical" href="https://quickbillfree.com/freelance-invoice-generator.html">
@@ -37,14 +37,14 @@
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quickbillfree.com/freelance-invoice-generator.html">
-  <meta property="og:title" content="Free Freelance Invoice Generator — QuickBillFree">
-  <meta property="og:description" content="Instant invoice generator for freelancers, developers, writers, and creative professionals. 100% free with client-side privacy.">
+  <meta property="og:title" content="Free Freelance Invoice Generator — Hourly &amp; Project PDF">
+  <meta property="og:description" content="Create freelance invoices for hourly work, fixed-price projects and milestones. Add your logo and payment terms, then download a PDF. No signup required.">
   <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
 
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Free Freelance Invoice Generator">
-  <meta name="twitter:description" content="Instant freelance invoicing with hourly and project-based line items.">
+  <meta name="twitter:title" content="Free Freelance Invoice Generator — Hourly &amp; Project PDF">
+  <meta name="twitter:description" content="Create freelance invoices for hourly work, fixed-price projects and milestones. Add your logo and payment terms, then download a PDF. No signup required.">
 
   <!-- Google Font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,7 +83,7 @@
         <span>QuickBill<span class="logo-accent">Free</span></span>
       </a>
       <div class="blog-nav-actions">
-        <a href="./" class="btn-primary-sm">🚀 Open Invoice App</a>
+        <a href="./?preset=freelance" class="btn-primary-sm">🚀 Open Invoice App</a>
       </div>
     </div>
   </header>
@@ -108,7 +108,7 @@
         Create, customize, and print client-ready freelance invoices in seconds. No account required, no watermark fees, and zero server storage of your private billing data.
       </p>
       <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-        <a href="./" class="btn-cta-white" style="font-size: 1rem; padding: 14px 28px;">⚡ Generate Freelance Invoice Now</a>
+        <a href="./?preset=freelance" class="btn-cta-white" style="font-size: 1rem; padding: 14px 28px;">⚡ Generate Freelance Invoice Now</a>
         <a href="#guide" class="btn-ghost" style="color: #ffffff; border-color: rgba(255,255,255,0.4);">📖 Read Freelance Billing Guide</a>
       </div>
     </div>
@@ -130,7 +130,7 @@
       <div style="background: #ffffff; border: 1px solid var(--blog-border); border-radius: var(--radius-md); padding: 24px;">
         <div style="font-size: 1.8rem; margin-bottom: 10px;">🌍</div>
         <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 8px;">Global Multi-Currency Support</h3>
-        <p style="font-size: 0.88rem; color: var(--blog-meta); line-height: 1.5;">Bill international clients easily in USD, EUR, GBP, CAD, AUD, INR, JPY, and 50+ world currencies with customized tax rates and discounts.</p>
+        <p style="font-size: 0.88rem; color: var(--blog-meta); line-height: 1.5;">Bill international clients easily in the currencies available in the editor, including USD, EUR, GBP, CAD, AUD, INR and JPY with customized tax rates and discounts.</p>
       </div>
     </div>
 
@@ -164,15 +164,26 @@
         <li>Enter your freelance business name, contact info, and upload your logo.</li>
         <li>Enter your client’s name and billing address.</li>
         <li>Add your hourly or project line items with tax/discounts.</li>
-        <li>Click <strong>"📥 Download PDF"</strong> to print or email your invoice directly to your client.</li>
+        <li>Click <strong>"📥 Download PDF"</strong> to save your invoice, then attach the PDF to your own email to the client.</li>
       </ol>
+    </section>
+
+    <section class="prose" aria-labelledby="freelance-example" style="margin-bottom: 40px;">
+      <h2 id="freelance-example">Freelance invoice example: hourly and fixed-price work</h2>
+      <p>Use quantity for hours when billing by time. For a project fee, set quantity to 1 and enter the agreed price as the rate. You can mix both on one invoice.</p>
+      <div class="table-wrapper"><table class="prose-table">
+        <thead><tr><th scope="col">Work</th><th scope="col">Quantity</th><th scope="col">Rate</th><th scope="col">Amount</th></tr></thead>
+        <tbody><tr><td>Design revisions</td><td>7.5 hours</td><td>$60</td><td>$450</td></tr><tr><td>Landing-page copy, fixed fee</td><td>1</td><td>$300</td><td>$300</td></tr></tbody>
+      </table></div>
+      <p><strong>Example subtotal: $750 before any applicable tax.</strong> These are illustrative prices, not recommended market rates. Add the service period, agreed due date and payment instructions before sending.</p>
+      <p>Not sure what to charge? Use the <a href="hourly-rate-calculator.html">freelance hourly rate calculator</a>. For your first client, follow the <a href="blog/how-to-create-freelance-invoice.html">freelance invoicing checklist</a>.</p>
     </section>
 
     <!-- Mid-Page Call to Action -->
     <div class="blog-cta-banner">
       <h2 class="blog-cta-title">Ready to Send Your Next Freelance Invoice?</h2>
       <p class="blog-cta-desc">Generate crisp, professional freelance PDFs with custom branding, payment QR codes, and zero watermark fees.</p>
-      <a href="./" class="btn-cta-white">⚡ Launch Free Freelance Invoice Maker</a>
+      <a href="./?preset=freelance" class="btn-cta-white">⚡ Launch Free Freelance Invoice Maker</a>
     </div>
 
   </main>

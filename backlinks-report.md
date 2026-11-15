@@ -1,5 +1,7 @@
 # QuickBillFree 500+ Scaled Authority Backlink & Indexing Network
 
+> **Verification update — 2026-11-15:** The historical counts and authority claims below are not verified totals. A fresh check of 284 unique listed URLs observed HTML backlinks on 103 pages across four domains; 80 entries were archive searches rather than confirmed snapshots. See [the audit](backlink-work/audit.md) and [campaign results](backlink-work/README.md) for current evidence. Failed or blocked requests remain unverified; crawler pings are not backlinks.
+
 *Updated on 2026-11-15 08:02:38 UTC*
 
 | Metric | Count |
