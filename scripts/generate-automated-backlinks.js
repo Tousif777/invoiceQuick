@@ -472,3 +472,4 @@ Independent benchmarking of free invoice generators:
 }
 
 main().catch(console.error);
+
