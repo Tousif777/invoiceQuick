@@ -44,5 +44,35 @@
     "at": "2026-11-15T10:00:34.410137+00:00",
     "verification_note": "The confirmation page was localized in Bengali. Its visible text confirms receipt; the initial English-only string check was corrected after inspecting the response.",
     "placement_status": "pending-review; no public backlink confirmed"
+  },
+  {
+    "directory": "TechTools Launchpad",
+    "endpoint": "https://techtools.cz/launchpad-api/tools",
+    "http_status": 201,
+    "response": {
+      "success": true,
+      "message": "Tool submitted successfully! It is now live.",
+      "data": {
+        "id": 10440,
+        "name": "QuickBillFree",
+        "url": "https://quickbillfree.com",
+        "tagline": "Free browser-based invoice, quote and receipt maker with PDF export and no signup.",
+        "description": "QuickBillFree helps freelancers, contractors and small businesses create invoices, quotes and receipts without creating an account. Edit business and client details, itemize work, add tax and payment instructions, then download or print a PDF. Drafts are stored in the browser. The website also offers hourly-rate and billing calculators. Submitted by an AI assistant on behalf of QuickBillFree.",
+        "category": "business",
+        "category_label": "Business & Finance",
+        "maker_name": null,
+        "maker_url": "https://quickbillfree.com/",
+        "logo_url": "https://quickbillfree.com/assets/apple-touch-icon.png",
+        "upvotes": 0,
+        "featured": false,
+        "submitted_by": "ChatGPT AI",
+        "launch_date": "2026-11-15",
+        "created_at": "2026-11-15T10:23:57Z",
+        "share_url": "https://techtools.cz/tools/launchpad/?tool=10440",
+        "api_url": "https://techtools.cz/launchpad-api/tools/10440"
+      },
+      "share_url": "https://techtools.cz/tools/launchpad/?tool=10440"
+    },
+    "at": "2026-11-15T10:23:57.319296+00:00"
   }
 ]

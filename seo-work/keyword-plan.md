@@ -57,10 +57,30 @@ Guidance used: Google's [title-link recommendations](https://developers.google.c
 
 `node --check js/invoice.js` passed. A Node VM check of the actual preset/loading code passed for the blank receipt, freelance and contractor templates, query cleanup, saved drafts and unknown-preset fallback. A browser interaction test was not performed.
 
-**These changes are local and have not been published.** The earlier GitHub dry-run push failed because authentication was unavailable. Existing unrelated changes in `SITE_DOCUMENTATION.md` were preserved. No claim is made that Google has crawled these edits.
+**Publication update:** the earlier homepage, freelance, contractor and receipt-preset changes were subsequently confirmed on the live website. The latest downloadable-template and analytics changes described below remain local. GitHub dry-run publishing still fails because authentication is unavailable, and GitHub Desktop could not be accessed. No claim is made that Google has crawled either batch.
 
 ## Measure after deployment
 
 Use [Search Console Performance and URL Inspection](https://developers.google.com/search/docs/monitor-debug/search-console-start) to confirm indexing and compare queries, landing pages, impressions, clicks and click-through rate over comparable periods. Check whether the right page is appearing for each task. Use the app's existing PDF-download events to distinguish visitors from people who complete a useful document. No traffic baseline, ranking gain or conversion improvement was available to report in this task.
 
 Broader competitor-comparison pages and jurisdiction-specific tax/legal guides were not independently audited in this batch. They should be fact-checked before treating their claims as a source of authority.
+
+## Downloadable templates and conversion improvements
+
+The Excel, Google Sheets and Google Docs landing pages previously promised templates while routing their main buttons to the browser editor. They now link to two real downloads: an XLSX invoice workbook and an editable DOCX invoice. Both files contain no macros and no client data. They have no forced QuickBillFree branding in the printed invoice.
+
+The workbook supports ten item rows, one subtotal-level tax rate, amount paid and balance due. Sample calculations and incomplete-input behavior were tested, then the inputs were restored to a blank template. The workbook was visually checked with Artifact Tool and printed through bundled LibreOffice to confirm one A4 page. The DOCX was rendered and visually checked on one page. Both download buttons were tested successfully in the local in-app browser. The document landing page was also checked at a 390-pixel viewport, with no horizontal overflow. Native Excel and native Google import were not tested. The pages explain the import steps and manual-total limitation of the DOCX rather than claiming native Google template links.
+
+The template directory and homepage link to these resources. A new `invoice_template_download_click` event records the format of a clicked download link; it does not claim that the browser finished saving the file. PDF failures emit `invoice_pdf_fallback` instead of a successful lead. Print-dialog openings no longer generate a lead event. Successful PDF-generation events no longer send the invoice amount or a filename containing the client name. The missing-library fallback also restores the download button and temporary styles before opening Print.
+
+## Prepared promotion copy
+
+The following copy is prepared for use after the new template downloads are publicly available. It has not been posted or sent from a social or email account.
+
+**Freelance demonstration:** “Billing hours and fixed-price work together? In QuickBillFree, 7.5 hours at 60 plus a project fee of 300 gives a subtotal of 750. Add your own details, check the tax and save a PDF without creating an account. Try the freelance template: https://quickbillfree.com/freelance-invoice-generator.html”
+
+**Contractor demonstration:** “Keep labor, materials and deposits clear: 520 labor + 180 materials − 200 already paid leaves 500 due before tax. QuickBillFree has a contractor starter template you can edit and export as a PDF: https://quickbillfree.com/contractor-invoice-generator.html”
+
+**Template resource pitch:** “QuickBillFree offers a free XLSX invoice workbook with editable line items, tax and deposit calculations, plus a DOCX invoice for Word or Google Docs import. Downloads do not require registration. The pages explain what calculates automatically and how to import the files. If these fit your freelance or small-business resources, the download hub is https://quickbillfree.com/invoice-templates.html.”
+
+A new TechTools Launchpad listing was published and independently retrieved through its public API. Its receipt is kept with the existing campaign records. No additional traffic, search indexing or ranking gains have been measured.

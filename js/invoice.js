@@ -2409,21 +2409,15 @@ ${sender}`;
             }, 2000);
           }
 
-          // GA4 Key Event & Lead Generation Tracking
-          const { grandTotal } = calculateTotals();
-          const invoiceVal = Number(grandTotal) || 0;
+          // Record successful PDF generation without invoice amounts or client filenames.
           trackEvent('generate_lead', {
-            value: invoiceVal,
-            currency: state.currency || 'USD',
             lead_type: 'pdf_download',
             doc_type: state.docType || 'Invoice',
             item_count: (state.items || []).length
           });
           trackEvent('download_invoice_pdf', {
-            value: invoiceVal,
-            currency: state.currency || 'USD',
             doc_type: state.docType || 'Invoice',
-            filename: filename
+            item_count: (state.items || []).length
           });
         }).catch(err => {
           console.error('PDF error:', err);
@@ -2433,21 +2427,16 @@ ${sender}`;
             btn.disabled = false;
           }
 
-          const { grandTotal } = calculateTotals();
-          trackEvent('generate_lead', {
-            value: Number(grandTotal) || 0,
-            currency: state.currency || 'USD',
-            lead_type: 'print_fallback'
-          });
+          trackEvent('invoice_pdf_fallback', { reason: 'generation_failed' });
           window.print();
         });
       } else {
-        const { grandTotal } = calculateTotals();
-        trackEvent('generate_lead', {
-          value: Number(grandTotal) || 0,
-          currency: state.currency || 'USD',
-          lead_type: 'print_fallback'
-        });
+        restorePdfStyles();
+        if (btn) {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+        trackEvent('invoice_pdf_fallback', { reason: 'library_unavailable' });
         window.print();
       }
     }
@@ -2460,16 +2449,7 @@ ${sender}`;
     const btnPrint = document.getElementById('btnPrintInvoice');
     if (btnPrint) {
       btnPrint.addEventListener('click', () => {
-        const { grandTotal } = calculateTotals();
-        trackEvent('generate_lead', {
-          value: Number(grandTotal) || 0,
-          currency: state.currency || 'USD',
-          lead_type: 'print_invoice',
-          doc_type: state.docType || 'Invoice'
-        });
         trackEvent('print_invoice', {
-          value: Number(grandTotal) || 0,
-          currency: state.currency || 'USD',
           doc_type: state.docType || 'Invoice'
         });
         window.print();

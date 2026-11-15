@@ -9,9 +9,10 @@
 | Lorik Roo | https://lorikroo.com/ | HTTP 200, `ok: true` | Pending editorial approval |
 | Totally Free Tools | https://totallyfreetools.com/submit | HTTP 201, submission **603**, `status: pending` | Pending editorial approval |
 | FreeNoSignup | https://freenosignup.com/submit/ | Google Forms confirmation: “আপনার প্রতিক্রিয়া রেকর্ড করা হয়েছে৷” (Your response has been recorded.) | Submitted; public placement unverified |
+| TechTools Launchpad | https://techtools.cz/tools/launchpad/?tool=10440 | HTTP 201; public listing **10440** retrieved successfully afterward through its public API | Published directory listing; search indexing unverified |
 | Startup Collections | https://startupcollections.com/submit-product/ | HTTP 403 | Failed; no accepted submission |
 
-Raw receipts are saved in [submissions.json](submissions.json). The five accepted submissions are not counted as published backlinks. No payment was made and no account was created. The public business contact already present in the repository was used for submissions requiring contact details. The later batch added Lorik Roo, Totally Free Tools and FreeNoSignup without repeating earlier applications.
+Raw receipts are saved in [submissions.json](submissions.json). Six submissions were accepted: five await public placement verification, and TechTools Launchpad has a publicly retrievable listing. A published listing does not establish Google indexing, ranking value or referral traffic. No payment was made and no account was created. The public business contact already present in the repository was used for submissions requiring contact details. Earlier accepted applications were not resubmitted.
 
 A limited live-site accessibility check and additional route findings are saved in [traffic-check.md](traffic-check.md). Search Console and Analytics metrics were unavailable, so no cause of low traffic or traffic improvement is asserted.
 
@@ -55,4 +56,6 @@ Prefer relevant reviewed listings and useful contributions. Google identifies li
 
 ## Follow-through
 
-The next useful check is whether the five accepted submissions receive public listings. Their receipts are retained to avoid duplicate applications. Editorial decisions and search indexing are controlled by the directories and search engines. This campaign has created **zero newly verified live backlinks so far**, with **five accepted submissions pending placement verification**.
+TechTools Launchpad listing 10440 was verified using `GET https://techtools.cz/launchpad-api/tools/10440` after publication. The public API returns QuickBillFree's website and description. A crawlable HTML backlink and Google indexing have not been verified. The other five accepted submissions remain pending public placement verification. Their receipts are retained to avoid duplicate applications.
+
+QuestStack's availability check returned HTTP 403 during the latest batch; no listing or paid extra was submitted there. No votes, reviews or usage figures were fabricated.
