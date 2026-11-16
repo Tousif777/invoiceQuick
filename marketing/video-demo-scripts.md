@@ -5,6 +5,14 @@ These scripts are optimized for vertical short-form video (**YouTube Shorts, Tik
 
 ---
 
+## Link placement before publishing
+
+For YouTube Shorts, description and comment URLs are non-clickable. Use a clickable channel profile link to the tracked freelance page and say “Free invoice tool: link on my channel.” A pinned comment should repeat that instruction rather than promise a clickable link. Use `utm_source=youtube_shorts&utm_medium=video&utm_campaign=first_invoice&utm_content=channel_profile` for that profile link. Check each other platform's actual account features before reusing the CTA.
+
+Source: https://support.google.com/youtube/answer/13748639?hl=en
+
+Descriptions below are drafts, not evidence of publication. Use a clean demo containing fictional names and payment details. Remove extra preset items before showing example totals, and verify the final exported PDF. The 30-second title describes the edited demonstration, not a measured completion time for every user.
+
 ## 🎬 Video 1: "First Freelance Invoice in 30 Seconds"
 *Target Audience: First-time freelancers, side hustlers billing their very first client.*  
 *Duration: 25 seconds (~65 words)*  
@@ -17,7 +25,7 @@ These scripts are optimized for vertical short-form video (**YouTube Shorts, Tik
 | **0:00 – 0:04** | Fast hook: Screen record opening `quickbillfree.com/?preset=freelance`. The cursor clicks right into "Alex Rivero Design" and changes it to their name. | "Billing your 1st freelance client?" ⚡ | *"Just finished your first freelance client project and need to send an invoice today?"* |
 | **0:04 – 0:11** | Quick cut: Type in "Client Name", enter 20 hours at $50/hr. The total `$1,000.00` updates in real time. | Type hours & rate ⏱️ (Auto-calculates) | *"Don't pay \$20/month for software or struggle with clunky Word docs. Just enter your hours and rate..."* |
 | **0:11 – 0:18** | Quick cut: Cursor clicks "Due Date" -> clicks "Net 14" preset pill. Drops payment info (e.g., Venmo / Direct Deposit / Stripe). | One-click payment terms (Net 14) 💳 | *"Pick your payment terms with one click, add your payout details..."* |
-| **0:18 – 0:25** | Cursor hits the big green **"Download PDF"** button. The clean, professional PDF preview pops open instantly in the browser. | 100% Free • No Signup • Clean PDF 📄 | *"...and hit Download PDF. 100% free, no signup, zero watermark. Link in bio or quickbillfree.com."* |
+| **0:18 – 0:25** | Cursor hits the big green **"Download PDF"** button. The clean, professional PDF preview pops open instantly in the browser. | 100% Free • No Signup • Clean PDF 📄 | *"...and hit Download PDF. 100% free, no signup, zero watermark. Free invoice tool: link on my channel, or visit quickbillfree.com."* |
 
 ### Video Metadata & Distribution Copy
 - **Platforms:** YouTube Shorts, TikTok, Instagram Reels, LinkedIn Video
@@ -31,14 +39,14 @@ These scripts are optimized for vertical short-form video (**YouTube Shorts, Tik
 
   #freelancing #freelancehacks #sidehustle #invoice #freelancetips #solopreneur
   ```
-- **Pinned First Comment:**
+- **Pinned comment draft (Shorts: plain text, not a clickable link):**
   ```text
   Instant free invoice generator (no login required) 👉 https://quickbillfree.com/?preset=freelance&utm_source=youtube_shorts&utm_medium=video_comment&utm_campaign=first_invoice&utm_content=v1_first_invoice
   ```
 
 ---
 
-## 🎬 Video 2: "Never Start Work Without a 50% Deposit"
+## 🎬 Video 2: "How to Invoice an Agreed Project Deposit"
 *Target Audience: Freelancers who got ghosted or struggle with unpaid work.*  
 *Duration: 28 seconds (~70 words)*  
 *Core Hook: How to protect yourself with upfront milestone billing.*
@@ -47,24 +55,24 @@ These scripts are optimized for vertical short-form video (**YouTube Shorts, Tik
 
 | Time | Visual / Screen Action | On-Screen Text (Captions) | Voiceover Script (Audio) |
 |---|---|---|---|
-| **0:00 – 0:05** | Split screen / Talking head or bold text overlay over browser: "Freelancers: Never start a project without this." | ⚠️ The #1 Freelancer Rule: 50% Deposit | *"The number one mistake new freelancers make? Starting project work before getting a deposit."* |
-| **0:05 – 0:13** | Screen switches to QuickBillFree. Shows typing item: *"50% Upfront Deposit — Brand Identity & Website"* -> Quantity: 1 -> Rate: $1,250. | "50% Upfront Milestone" ✍️ | *"Before you open Figma or write one line of code, send a 50% deposit invoice."* |
+| **0:00 – 0:05** | Split screen / Talking head or bold text overlay over browser: "Freelancers: Never start a project without this." | Example: an agreed 50% deposit | *"Agreed a project deposit with your client? Here is how to describe it on an invoice."* |
+| **0:05 – 0:13** | Screen switches to QuickBillFree. Shows typing item: *"50% Upfront Deposit — Brand Identity & Website"* -> Quantity: 1 -> Rate: $1,250. | "50% Upfront Milestone" ✍️ | *"For this example, we agreed a 50% deposit. Enter the deposit amount and describe the project."* |
 | **0:13 – 0:20** | Cursor clicks the Notes box: Types *"Remaining 50% balance due upon final project delivery before source file handoff."* | Clear handoff protection 🔒 | *"Add a single note: 'Remaining balance due prior to final file handoff.' It sets expectations immediately."* |
 | **0:20 – 0:28** | Hits **Download PDF**. Shows a sleek, authoritative invoice ready to email. | Free Deposit Invoice Generator ⚡ | *"Generate and download your deposit invoice in 30 seconds for free at QuickBillFree.com. No signup needed."* |
 
 ### Video Metadata & Distribution Copy
 - **Platforms:** YouTube Shorts, TikTok, Instagram Reels, LinkedIn Video
-- **Video Title:** Why you must charge a 50% freelance deposit (and how to invoice it)
+- **Video Title:** How to invoice an agreed freelance project deposit
 - **Caption / Description:**
   ```text
-  Never start a freelance project without a deposit. Here's how to bill a 50% upfront milestone so you never get ghosted on payment.
+  Here is how to invoice a 50% deposit when that is what you and your client agreed. The percentage is illustrative and does not guarantee payment.
 
   Generate your deposit invoice for free (no login):
   👉 https://quickbillfree.com/freelance-invoice-generator.html?utm_source=youtube_shorts&utm_medium=video&utm_campaign=first_invoice&utm_content=v2_deposit
 
   #freelanceadvice #freelancetips #clientwork #contracts #invoicegenerator #graphicdesign
   ```
-- **Pinned First Comment:**
+- **Pinned comment draft (Shorts: plain text, not a clickable link):**
   ```text
   Grab the free freelance invoice tool here (zero paywall) 👉 https://quickbillfree.com/?preset=freelance&utm_source=youtube_shorts&utm_medium=video_comment&utm_campaign=first_invoice&utm_content=v2_deposit
   ```
@@ -97,7 +105,7 @@ These scripts are optimized for vertical short-form video (**YouTube Shorts, Tik
 
   #freelancebilling #hourlyrate #consulting #freelancedeveloper #freelancewriter #productivitytools
   ```
-- **Pinned First Comment:**
+- **Pinned comment draft (Shorts: plain text, not a clickable link):**
   ```text
   Test the hourly invoice generator free 👉 https://quickbillfree.com/?preset=freelance&utm_source=youtube_shorts&utm_medium=video_comment&utm_campaign=first_invoice&utm_content=v3_hourly
   ```

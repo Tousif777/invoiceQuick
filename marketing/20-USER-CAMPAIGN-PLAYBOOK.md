@@ -38,7 +38,7 @@ flowchart LR
   - Send email outreach to Resource Partners 4–6.
   - Check Reddit thread replies and respond to every commenter helpfully.
 - **Day 6 (Deposit Protection):**
-  - Publish Video 2 ("Never Start Work Without a 50% Deposit") to YouTube Shorts & TikTok.
+  - Publish Video 2 ("How to Invoice an Agreed Project Deposit") to YouTube Shorts & TikTok.
   - Post Community Article 2 in Indie Hackers / Freelance forums.
   - Send email outreach to Resource Partners 7–10.
 - **Day 7–8 (Follow-Up & Forum Promo Threads):**
@@ -53,7 +53,7 @@ flowchart LR
 ### Phase 3: Days 11–14 — Measure, Repeat & Close the 20-Invoice Goal
 - **Day 11 (Traffic & Download Audit):**
   - Open GA4 -> Reports -> Acquisition -> Traffic Acquisition -> Filter by `first_invoice`.
-  - Count exact `invoice_download_success` events by source:
+  - Count exact `download_invoice_pdf` events by source:
     - YouTube Shorts / TikTok?
     - Reddit?
     - Indie Hackers?
@@ -72,7 +72,7 @@ flowchart LR
 
 Keep this scorecard updated daily in GA4:
 
-| Date | Total Unique Visitors | Completed Invoices (`invoice_download_success`) | Template Downloads (`.xlsx` / `.docx`) | Top Acquiring Source | Status / Notes |
+| Date | GA4 Total Users | PDF Save-Flow Events (`download_invoice_pdf`) | Template Downloads (`.xlsx` / `.docx`) | Top Acquiring Source | Status / Notes |
 |---|---|---|---|---|---|
 | Day 1 | - | - | - | - | Asset prep & test |
 | Day 2 | - | - | - | - | Video recording |
@@ -96,3 +96,5 @@ Keep this scorecard updated daily in GA4:
 When posting in any public forum, always include this standard founder disclosure:
 
 > *"Transparency note: I built QuickBillFree as a free, privacy-first alternative to monthly SaaS tools. All processing happens in your browser and there is no signup or subscription required."*
+
+Measurement clarification: the 20-user target counts GA4 users triggering the PDF event within campaign sessions; event counts alone are not unique users. Shorts description/comment URLs are non-clickable: use a channel profile link. See the corrected tracking guide. Draft preparation does not mean content was published.

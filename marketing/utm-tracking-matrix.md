@@ -1,7 +1,7 @@
 # Campaign UTM Tracking Matrix & Measurement Guide
 ### Goal: Measure 20 Completed Invoices Across All Acquisition Channels
 
-This matrix maps every promotional link to its tracked UTM parameters. By using these exact query strings, every visitor, session, and invoice download will be correctly attributed in Google Analytics 4 (`G-WH81YDKPS6`).
+This matrix maps every promotional link to its tracked UTM parameters. UTMs label visits that reach Google Analytics 4 (`G-WH81YDKPS6`). They do not guarantee attribution: consent choices, blockers, redirects, sharing and repeat visits can affect measurement. Prepared links do not establish publication or traffic.
 
 ---
 
@@ -9,8 +9,8 @@ This matrix maps every promotional link to its tracked UTM parameters. By using 
 
 | Channel | Platform / Target | Destination Page | Full Tracked URL |
 |---|---|---|---|
-| **Short Video** | YouTube Shorts (Bio / Desc) | Freelance Landing | `https://quickbillfree.com/freelance-invoice-generator.html?utm_source=youtube_shorts&utm_medium=video&utm_campaign=first_invoice&utm_content=v1_first_invoice` |
-| **Short Video** | YouTube Shorts (Pinned Comment) | App with Preset | `https://quickbillfree.com/?preset=freelance&utm_source=youtube_shorts&utm_medium=video_comment&utm_campaign=first_invoice&utm_content=v1_first_invoice` |
+| **Short Video** | YouTube channel profile (promoted by Short) | Freelance Landing | `https://quickbillfree.com/freelance-invoice-generator.html?utm_source=youtube_shorts&utm_medium=video&utm_campaign=first_invoice&utm_content=channel_profile` |
+| **Short Video** | Shorts comment reference (plain text, non-clickable) | App with Preset | `https://quickbillfree.com/?preset=freelance&utm_source=youtube_shorts&utm_medium=video_comment&utm_campaign=first_invoice&utm_content=v1_first_invoice` |
 | **Short Video** | TikTok Bio / Desc | Freelance Landing | `https://quickbillfree.com/freelance-invoice-generator.html?utm_source=tiktok&utm_medium=video&utm_campaign=first_invoice&utm_content=v1_quick_invoice` |
 | **Short Video** | Instagram Reels (Bio / Story) | Freelance Landing | `https://quickbillfree.com/freelance-invoice-generator.html?utm_source=instagram&utm_medium=reels&utm_campaign=first_invoice&utm_content=v1_quick_invoice` |
 | **Short Video** | LinkedIn Video Post | Freelance Landing | `https://quickbillfree.com/freelance-invoice-generator.html?utm_source=linkedin&utm_medium=video&utm_campaign=first_invoice&utm_content=v1_quick_invoice` |
@@ -25,43 +25,32 @@ This matrix maps every promotional link to its tracked UTM parameters. By using 
 
 ---
 
-## 🎯 GA4 Key Event Definitions & Measurement
+## Measurement using the implemented events
 
-QuickBillFree has built-in Google Analytics 4 event listeners in `js/invoice.js` and `js/template-downloads.js`.
+### Primary signal: `download_invoice_pdf`
 
-### 1. Primary Success Metric: `invoice_download_success`
-- **When it fires:** Triggered immediately when a visitor clicks "Download PDF" and the PDF file is successfully compiled and downloaded by the user's browser.
-- **Payload parameters:**
-  - `doc_type`: "INVOICE"
-  - `currency`: USD / EUR / GBP / etc.
-  - `item_count`: number of line items
-  - `total_amount`: total invoiced sum
-- **Target:** **20 unique events** from campaign sources over 14 days.
+The event fires after the PDF library's save promise resolves. It records `doc_type` and `item_count`; it does not send invoice amounts, client names or filenames. This is a successful generation/save-flow signal, not proof the user retained, opened or sent the file. It does not validate the invoice contents.
 
-### 2. Secondary Metric: `invoice_template_download_click`
-- **When it fires:** Triggered when a visitor clicks to download `quickbillfree-invoice-template.xlsx` or `quickbillfree-invoice-template.docx`.
-- **Payload parameters:**
-  - `file_type`: "xlsx" or "docx"
-  - `file_name`: filename downloaded
-- **Signal:** Shows strong bottom-of-funnel intent for offline users.
+Use **total users who triggered this event within campaign sessions** as the initial 20-user experiment target, and report event count separately. Twenty events may come from fewer than twenty people. Separate known test activity where possible. GA4 users are measurement identifiers, not verified unique people.
 
----
+Do not use `generate_lead` alone as PDF success: the app also emits it for an email-draft action. PDF fallback/print activity is separate (`invoice_pdf_fallback`). An event being recorded does not automatically make it a configured GA4 key event.
 
-## 🔍 How to Monitor Realtime & Campaign Performance in GA4
+### Secondary signal: `invoice_template_download_click`
 
-### Step 1: Realtime Validation (Before Launch)
-1. Open any of the tracked URLs above in your browser (e.g. on mobile or incognito).
-2. Open **Google Analytics 4** -> **Realtime**.
-3. Verify that `page_view` shows `source = youtube_shorts` or `reddit` and `campaign = first_invoice`.
-4. Click **Download PDF** on the app.
-5. In the Realtime **Event count by Event name** card, confirm that `invoice_download_success` increments by 1.
+Fires when a marked template link is clicked. The parameter is `template_format`, with `pdf`, `xlsx` or `docx`. It does not confirm the file finished downloading. This is separate from generating a personalized invoice in the editor.
 
-### Step 2: Campaign Traffic Report (Days 4–14)
-1. Go to GA4 -> **Reports** -> **Acquisition** -> **Traffic acquisition**.
-2. Change the primary dimension dropdown to **Session source / medium** or **Session campaign**.
-3. In the search box, filter by `first_invoice`.
-4. Check columns:
-   - **Users** (Total reached)
-   - **Sessions** (Visits)
-   - **Engaged sessions** (Spent >10 seconds or clicked buttons)
-   - **Event count** (Filter by `invoice_download_success`)
+### Validate and report
+
+1. Open a single tracked link and complete a harmless sample invoice. Record when you ran the test.
+2. Check whether `download_invoice_pdf` appears in GA4 Realtime. Consent or blockers may prevent collection; do not interpret absence as zero usage without checking.
+3. In processed reports, use **Session campaign** = `first_invoice`, broken down by **Session source / medium**. A first-user acquisition dimension answers a different question.
+4. Use a GA4 exploration with campaign-session filtering and event name `download_invoice_pdf` to examine event count and total users. Keep sessions and user counts distinct; do not sum overlapping user counts across sources.
+5. Report the exact date range, sessions, successful PDF-flow events, users triggering them, and template-link clicks separately. Allow processing time before judging a new placement.
+
+### YouTube Shorts link placement
+
+Ordinary URLs in Shorts descriptions and comments are **not clickable**. Put the tracked destination in a clickable channel profile link, and use the spoken/on-screen CTA “Free invoice tool: link on my channel.” A pinned comment can repeat that instruction, but is not a clickable external-link funnel. Do not attribute a profile click to a particular Short without evidence; use `utm_content=channel_profile` for a shared profile link.
+
+Source: https://support.google.com/youtube/answer/13748639?hl=en
+
+For TikTok, Instagram and other platforms, check the actual account's link placement and eligibility before publishing. A prepared description URL is not proof of a clickable destination. Community placements are candidates until their current rules and account eligibility have been checked.
