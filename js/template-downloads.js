@@ -4,7 +4,7 @@ document.addEventListener('click', function (event) {
   const link = event.target.closest('a[data-template-download]');
   if (!link || typeof window.gtag !== 'function') return;
   const format = link.dataset.templateDownload;
-  if (format !== 'xlsx' && format !== 'docx') return;
+  if (format !== 'xlsx' && format !== 'docx' && format !== 'pdf') return;
   try {
     window.gtag('event', 'invoice_template_download_click', {
       template_format: format,

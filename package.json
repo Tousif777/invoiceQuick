@@ -1,7 +1,7 @@
 {
   "name": "quickbillfree",
   "version": "1.0.0",
-  "description": "Free, 100% private client-side online invoice generator and instant bill maker. Zero signup, zero tracking, instant PDF export.",
+  "description": "Free browser-based invoice generator and bill maker with no signup, local drafts and PDF export.",
   "homepage": "https://quickbillfree.com",
   "repository": {
     "type": "git",

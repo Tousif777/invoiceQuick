@@ -57,7 +57,7 @@ Guidance used: Google's [title-link recommendations](https://developers.google.c
 
 `node --check js/invoice.js` passed. A Node VM check of the actual preset/loading code passed for the blank receipt, freelance and contractor templates, query cleanup, saved drafts and unknown-preset fallback. A browser interaction test was not performed.
 
-**Publication update:** the earlier homepage, freelance, contractor and receipt-preset changes were subsequently confirmed on the live website. The latest downloadable-template and analytics changes described below remain local. GitHub dry-run publishing still fails because authentication is unavailable, and GitHub Desktop could not be accessed. No claim is made that Google has crawled either batch.
+**Publication update:** the earlier homepage, freelance, contractor and receipt-preset changes were subsequently confirmed on the live website. The downloadable-template and analytics changes described below were subsequently confirmed on the live website on November 17. The November 17 search-informed batch below remains local: GitHub dry-run publishing fails because CLI authentication is unavailable. No claim is made that Google has crawled either batch.
 
 ## Measure after deployment
 
@@ -84,3 +84,18 @@ The following copy is prepared for use after the new template downloads are publ
 **Template resource pitch:** “QuickBillFree offers a free XLSX invoice workbook with editable line items, tax and deposit calculations, plus a DOCX invoice for Word or Google Docs import. Downloads do not require registration. The pages explain what calculates automatically and how to import the files. If these fit your freelance or small-business resources, the download hub is https://quickbillfree.com/invoice-templates.html.”
 
 A new TechTools Launchpad listing was published and independently retrieved through its public API. Its receipt is kept with the existing campaign records. No additional traffic, search indexing or ranking gains have been measured.
+
+## November 17: improvements selected from connected search reports
+
+Both the QuickBillFree GA4 property and Search Console URL-prefix property are now connected through Windsor.ai. The whole-property search report showed opportunities on existing pages beyond the homepage. These analytics were used to prioritize the work; private analytics exports are not stored in the public site.
+
+- Replaced the blank-PDF page's editor-mediated primary actions with direct, one-page A4 and US Letter PDF downloads. Both files are unbranded printable forms with six item rows, payment instructions, amount paid and balance due. They are not interactive fillable PDFs. Added an actual rendered preview, a worked deposit example, matching visible FAQ/schema and links to the existing Excel, DOCX and browser-editor alternatives.
+- Replaced unsupported claims of testing and ranking ten competitors with a disclosed, sourced three-option comparison. Checked the other providers' public product pages on November 17; did not claim their full export workflows were tested. Synchronized the homepage, blog index and RSS references.
+- Rewrote the invoice/bill/receipt guide to explain seller and buyer perspectives, seller-issued bills, deposit requests, partial-payment receipts and a complete worked example. Removed blanket claims about legal validity and tax deductions; connected readers directly to appropriate tools and files.
+- Updated titles, descriptions, social metadata and structured data on the revised pages. Updated sitemap last-modified dates only for changed resources. Added PDF format support to the existing download-click event; clicks do not prove a completed save. Corrected the obsolete zero-tracking claim in package metadata.
+
+Validation: all 80 sitemap resources resolve locally; metadata, canonical, local-link, RSS XML and 77 JSON-LD checks pass. Both PDFs were rendered and visually reviewed, then checked for one page and correct paper dimensions. Both primary PDF buttons completed browser downloads. All three revised pages fit a 390-pixel viewport without document-level horizontal overflow. Node VM checks confirmed PDF/XLSX/DOCX click tracking and that unavailable/throwing analytics cannot block downloads. The preview is a rendering of the actual A4 download.
+
+Publication: this batch is local and has not been deployed by the assistant. `git push --dry-run` cannot authenticate to GitHub. Google indexing and ranking changes remain unmeasured. GA4 currently reports zero key events; changing its key-event configuration is separate from these source changes and was not performed.
+
+Primary sources: [Invoice-Generator.com](https://invoice-generator.com/), [Zoho free generator](https://www.zoho.com/us/invoice/free-invoice-generator.html), [Zoho document comparison](https://www.zoho.com/billing/academy/invoicing-operations/difference-invoice-bill-receipt.html), [Zoho partial-payment receipt guidance](https://www.zoho.com/inventory/help/sales-orders/invoices.html), [Google people-first content guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content).
