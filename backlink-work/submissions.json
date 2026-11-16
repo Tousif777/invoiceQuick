@@ -4,7 +4,11 @@
     "endpoint": "https://careerflora.com/open-tools-submit.php",
     "http_status": 201,
     "response": "{\"ok\":true,\"message\":\"Thanks! Your tool will appear after admin approval.\"}",
-    "at": "2026-11-15T09:55:40.842180+00:00"
+    "at": "2026-11-15T09:55:40.842180+00:00",
+    "placement_status": "published listing observed in public page HTML; Google indexing and referral traffic unverified",
+    "verified_url": "https://careerflora.com/open-source-tools",
+    "verification_note": "Public HTML contains a QuickBillFree tool card and structured data. Browser visit encountered a browser-check interstitial.",
+    "verified_at": "2026-11-16T19:56:22.542048+00:00"
   },
   {
     "directory": "Startup Collections",
@@ -74,5 +78,17 @@
       "share_url": "https://techtools.cz/tools/launchpad/?tool=10440"
     },
     "at": "2026-11-15T10:23:57.319296+00:00"
+  },
+  {
+    "directory": "PostLaunchKit",
+    "submission_page": "https://postlaunchkit.com/directory/submit/",
+    "reference": "bb301087-47df-463d-8678-cade91313c7b",
+    "status_url": "https://postlaunchkit.com/directory/status/bb301087-47df-463d-8678-cade91313c7b/",
+    "accepted": true,
+    "placement_status": "pending-review; status page explicitly states not public and nothing published",
+    "response": "Submitted for review",
+    "submitted_as": "Authorized agent",
+    "at": "2026-11-16T19:56:22.542253+00:00",
+    "verification_note": "Submitted through browser form; status page independently opened afterward. No payment, reciprocal badge or followed-link upgrade requested. Site displays submission date 16 Nov 2026; local task date is 17 Nov 2026."
   }
 ]

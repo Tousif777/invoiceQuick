@@ -4,7 +4,7 @@
 
 | Directory | Submission page | Server result | Placement status |
 | --- | --- | --- | --- |
-| CareerFlora | https://careerflora.com/open-source-tools | HTTP 201, `ok: true`; “Your tool will appear after admin approval.” | Pending editorial approval |
+| CareerFlora | https://careerflora.com/open-source-tools | HTTP 201 accepted earlier; November 17 public HTML includes the QuickBillFree tool card and structured data | Published in fetched HTML; browser visit encountered a browser-check page |
 | LaunchPedia | https://launchpedia.co/submit/ | HTTP 200, `success: true`; “Your submission was successful.” | Submitted; public placement unverified |
 | Lorik Roo | https://lorikroo.com/ | HTTP 200, `ok: true` | Pending editorial approval |
 | Totally Free Tools | https://totallyfreetools.com/submit | HTTP 201, submission **603**, `status: pending` | Pending editorial approval |
@@ -59,3 +59,12 @@ Prefer relevant reviewed listings and useful contributions. Google identifies li
 TechTools Launchpad listing 10440 was verified using `GET https://techtools.cz/launchpad-api/tools/10440` after publication. The public API returns QuickBillFree's website and description. A crawlable HTML backlink and Google indexing have not been verified. The other five accepted submissions remain pending public placement verification. Their receipts are retained to avoid duplicate applications.
 
 QuestStack's availability check returned HTTP 403 during the latest batch; no listing or paid extra was submitted there. No votes, reviews or usage figures were fabricated.
+
+## November 17 follow-through
+
+- CareerFlora's public HTML now contains QuickBillFree's product card, official website URL and description. This upgrades its earlier pending status; a browser visit encountered a browser-check interstitial. No Google indexing or referral traffic is established.
+- Submitted QuickBillFree to PostLaunchKit as an authorized agent in Finance and money / Web / Free, describing the live PDF, XLSX and DOCX resources and disclosing ads and analytics. The directory's duplicate-search response had no match before submission. The form returned “Submitted for review.” Independently opened status page: https://postlaunchkit.com/directory/status/bb301087-47df-463d-8678-cade91313c7b/ — pending review, not public. The site's displayed date is November 16; the local task date is November 17. No payment or reciprocal badge was added.
+- No QuickBillFree text was observed in the fetched homepages of Lorik Roo, FreeNoSignup or Totally Free Tools. That limited check does not prove rejection or absence elsewhere. Existing applications were not duplicated.
+- Verified the new A4 PDF download is live (HTTP 200 and valid PDF header).
+
+The campaign now has seven accepted submissions overall: CareerFlora has a public HTML entry, TechTools has a publicly retrievable API listing, and five submissions await public placement verification. These are distribution placements/applications, not measured new users or guaranteed ranking gains.
