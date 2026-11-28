@@ -2353,7 +2353,7 @@ ${sender}`;
       if (unitLabel) copy.querySelector('#btnToggleUnit')?.replaceWith(unitLabel);
       if (!state.signatureData && (!state.signerName || state.signerName === DEFAULT_STATE.signerName)) copy.querySelector('#signatureSection')?.remove();
       if (!state.qrLink?.trim()) copy.querySelector('#qrSection')?.remove();
-      copy.querySelectorAll('.print-hide, .logo-prompt, .logo-upload-box:not(.has-logo), .col-action, button, select, input, canvas').forEach((node) => node.remove());
+      copy.querySelectorAll('.print-hide, .logo-prompt, .logo-empty-state, .logo-upload-box:not(.has-logo), .col-action, button, select, input, canvas').forEach((node) => node.remove());
       copy.querySelectorAll('[id]').forEach((node) => node.removeAttribute('id'));
       copy.removeAttribute('id');
       copy.classList.toggle('export-with-logo', Boolean(copy.querySelector('.has-logo')));
@@ -2414,10 +2414,12 @@ ${sender}`;
       }
       .invoice-export .invoice-sheet-footer { margin-top: 14px; }
       .invoice-export .export-canvas { max-width: 100%; height: auto; }
+      .invoice-print-surface { display: none; }
       @media print {
         @page { margin: 8mm 10mm; }
-        body:has(.invoice-export) { display: block !important; padding: 0 !important; }
-        body:has(.invoice-export) > :not(.invoice-sheet-wrapper) { display: none !important; }
+        body:has(> .invoice-print-surface) { display: block !important; padding: 0 !important; }
+        body:has(> .invoice-print-surface) > :not(.invoice-print-surface) { display: none !important; }
+        .invoice-print-surface { display: block !important; animation: none; transform: none; perspective: none; }
         .invoice-export.invoice-sheet, .invoice-export .sheet-bottom-grid { break-inside: auto !important; }
         .invoice-export .items-table tr, .invoice-export .totals-box { break-inside: avoid; }
         .invoice-export.invoice-sheet.layout-creative .sheet-top-row { padding: 14px 16px !important; }
@@ -2430,25 +2432,26 @@ ${sender}`;
     document.head.appendChild(exportStyles);
 
     let originalPageTitle = document.title;
-    let printCopy;
+    let printSurface;
     window.addEventListener('beforeprint', () => {
-      if (printCopy) return;
+      if (printSurface) return;
       const sheet = document.getElementById('invoiceSheet');
       if (!sheet) return;
       originalPageTitle = document.title;
       const invNum = state.invoiceNumber || 'INV-1001';
       const client = (state.toName || '').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
       document.title = client ? `${invNum}_${client}` : invNum;
-      printCopy = createInvoiceExport(sheet);
-      sheet.after(printCopy);
-      sheet.hidden = true;
+      const copy = createInvoiceExport(sheet);
+      printSurface = document.createElement('main');
+      printSurface.className = 'invoice-sheet-wrapper invoice-print-surface';
+      printSurface.appendChild(copy);
+      document.body.appendChild(printSurface);
     });
 
     window.addEventListener('afterprint', () => {
-      if (!printCopy) return;
-      printCopy.remove();
-      printCopy = null;
-      document.getElementById('invoiceSheet').hidden = false;
+      if (!printSurface) return;
+      printSurface.remove();
+      printSurface = null;
       document.title = originalPageTitle;
     });
 
