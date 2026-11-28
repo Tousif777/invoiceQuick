@@ -2321,138 +2321,212 @@ ${sender}`;
       }
     });
 
-    // Print & Document Title Handlers
+    // Render a static copy so browser controls and the editor viewport cannot affect output.
+    function createInvoiceExport(sheet) {
+      const copy = sheet.cloneNode(true);
+      copy.classList.add('invoice-export');
+
+      const outputCanvases = copy.querySelectorAll('canvas');
+      sheet.querySelectorAll('canvas').forEach((canvas, index) => {
+        const target = outputCanvases[index];
+        if (!target || canvas.closest('[style*="display: none"]')) return;
+        const image = document.createElement('img');
+        image.className = canvas.className + ' export-canvas';
+        image.src = canvas.toDataURL();
+        image.alt = '';
+        target.replaceWith(image);
+      });
+
+      const staticFields = copy.querySelectorAll('input:not([type="file"]), textarea');
+      const liveFields = sheet.querySelectorAll('input:not([type="file"]), textarea');
+      staticFields.forEach((field, index) => {
+        const value = liveFields[index].value;
+        const output = document.createElement(field.matches('textarea, .field-name-input, .table-input') ? 'div' : 'span');
+        output.className = field.className + ' export-value';
+        output.textContent = field.closest('.col-rate') && value !== '' ? formatMoney(Number(value)) : value;
+        if (field.matches('#taxRate, #discountRate, #shippingAmount, #amountPaid')) {
+          const label = field.closest('.total-line-input-wrap');
+          if (label) {
+            const title = label.querySelector('span')?.textContent || '';
+            const rate = field.id === 'taxRate' || (field.id === 'discountRate' && state.discountType !== 'fixed');
+            label.textContent = title + (rate && value !== '' ? ' (' + value + '%)' : '');
+            return;
+          }
+        }
+        if (!value && field.matches('.meta-input')) field.closest('.meta-field-row')?.remove();
+        else field.replaceWith(output);
+      });
+
+      const unitLabel = copy.querySelector('#colUnitLabel');
+      if (unitLabel) copy.querySelector('#btnToggleUnit')?.replaceWith(unitLabel);
+      if (!state.signatureData && (!state.signerName || state.signerName === DEFAULT_STATE.signerName)) copy.querySelector('#signatureSection')?.remove();
+      if (!state.qrLink?.trim()) copy.querySelector('#qrSection')?.remove();
+      copy.querySelectorAll('.print-hide, .logo-prompt, .logo-upload-box:not(.has-logo), .col-action, button, select, input, canvas').forEach((node) => node.remove());
+      copy.querySelectorAll('[id]').forEach((node) => node.removeAttribute('id'));
+      copy.removeAttribute('id');
+      copy.classList.toggle('export-with-logo', Boolean(copy.querySelector('.has-logo')));
+      return copy;
+    }
+
+    const exportStyles = document.createElement('style');
+    exportStyles.textContent = `
+      .invoice-export.invoice-sheet {
+        width: 100%; max-width: none; min-width: 0; padding: 0; margin: 0;
+        border: 0; border-radius: 0; box-shadow: none; transform: none;
+        background: #fff; color: #0f172a; line-height: 1.4;
+      }
+      .invoice-export .sheet-top-row {
+        display: flex; flex-direction: row; justify-content: space-between;
+        align-items: start; gap: 16px; margin: 0 0 16px; padding: 0;
+      }
+      .invoice-export:not(.export-with-logo) .sheet-top-row { justify-content: end; }
+      .invoice-export.invoice-sheet.layout-creative .sheet-top-row { padding: 14px 16px; margin-bottom: 16px; }
+      .invoice-export .logo-upload-box.has-logo { min-height: 0; max-width: 38%; }
+      .invoice-export .logo-img { max-width: 100%; max-height: 65px; object-fit: contain; }
+      .invoice-export .invoice-meta-block { min-width: 0; max-width: 100%; text-align: right; }
+      .invoice-export .invoice-main-title { font-size: 2rem; overflow-wrap: anywhere; }
+      .invoice-export .meta-field-row { justify-content: flex-end; gap: 9px; }
+      .invoice-export .meta-input { width: auto; }
+      .invoice-export .address-grid {
+        display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px; padding-bottom: 12px; margin-bottom: 14px;
+      }
+      .invoice-export .address-grid.has-ship-to { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .invoice-export .export-value {
+        height: auto; min-height: 0; max-height: none; margin: 0; padding: 0;
+        border: 0; box-shadow: none; background: transparent;
+        white-space: pre-wrap; overflow: visible; overflow-wrap: anywhere;
+      }
+      .invoice-export .field-textarea, .invoice-export .table-input { line-height: 1.35; }
+      .invoice-export .items-table-wrapper { overflow: visible; margin-bottom: 12px; }
+      .invoice-export .items-table { width: 100%; min-width: 0; table-layout: fixed; }
+      .invoice-export .items-table th, .invoice-export .items-table td { padding: 7px 8px; font-size: .82rem; }
+      .invoice-export .items-table th { overflow-wrap: anywhere; }
+      .invoice-export .col-desc { width: 46%; }
+      .invoice-export .col-total { width: 22%; overflow-wrap: anywhere; }
+      .invoice-export .sheet-bottom-grid {
+        display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr);
+        align-items: start; gap: 16px; margin: 10px 0 0;
+      }
+      .invoice-export .notes-block { gap: 10px; }
+      .invoice-export .section-removable-box { gap: 4px; }
+      .invoice-export .totals-box { min-width: 0; padding: 10px 12px; }
+      .invoice-export .total-line { align-items: baseline; gap: 6px; margin-bottom: 5px; }
+      .invoice-export .total-line-value, .invoice-export .grand-total-amount,
+      .invoice-export .balance-due-amount { overflow-wrap: anywhere; }
+      .invoice-export .grand-total-line, .invoice-export .balance-due-line { gap: 8px; font-size: 1rem; }
+      .invoice-export .grand-total-amount, .invoice-export .balance-due-amount {
+        font-size: 1.15rem; color: #0f172a; background: none; -webkit-text-fill-color: currentColor;
+      }
+      .invoice-export .invoice-sheet-footer { margin-top: 14px; }
+      .invoice-export .export-canvas { max-width: 100%; height: auto; }
+      @media print {
+        @page { margin: 8mm 10mm; }
+        body:has(.invoice-export) { display: block !important; padding: 0 !important; }
+        body:has(.invoice-export) > :not(.invoice-sheet-wrapper) { display: none !important; }
+        .invoice-export.invoice-sheet, .invoice-export .sheet-bottom-grid { break-inside: auto !important; }
+        .invoice-export .items-table tr, .invoice-export .totals-box { break-inside: avoid; }
+        .invoice-export.invoice-sheet.layout-creative .sheet-top-row { padding: 14px 16px !important; }
+        .invoice-export.invoice-sheet.layout-creative .invoice-main-title,
+        .invoice-export.invoice-sheet.layout-creative .meta-input { color: #fff !important; }
+        .invoice-export.invoice-sheet .items-table th,
+        .invoice-export.invoice-sheet .items-table td { padding: 7px 8px !important; }
+      }
+    `;
+    document.head.appendChild(exportStyles);
+
     let originalPageTitle = document.title;
+    let printCopy;
     window.addEventListener('beforeprint', () => {
+      if (printCopy) return;
+      const sheet = document.getElementById('invoiceSheet');
+      if (!sheet) return;
       originalPageTitle = document.title;
       const invNum = state.invoiceNumber || 'INV-1001';
       const client = (state.toName || '').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
       document.title = client ? `${invNum}_${client}` : invNum;
+      printCopy = createInvoiceExport(sheet);
+      sheet.after(printCopy);
+      sheet.hidden = true;
     });
 
     window.addEventListener('afterprint', () => {
+      if (!printCopy) return;
+      printCopy.remove();
+      printCopy = null;
+      document.getElementById('invoiceSheet').hidden = false;
       document.title = originalPageTitle;
     });
 
-    function downloadDirectPdf() {
+    async function downloadDirectPdf() {
       const sheet = document.getElementById('invoiceSheet');
-      if (!sheet) return;
+      const btn = document.getElementById('btnDownloadPdf');
+      if (!sheet || btn?.disabled) return;
+      if (!window.html2pdf) {
+        trackEvent('invoice_pdf_fallback', { reason: 'library_unavailable' });
+        window.print();
+        return;
+      }
 
       const invNum = state.invoiceNumber || 'INV-1001';
       const client = (state.toName || 'Client').trim().replace(/[^a-zA-Z0-9_-]/g, '_');
-      const filename = `${invNum}_${client}.pdf`;
-
-      const btn = document.getElementById('btnDownloadPdf');
-      let originalText = '';
+      const originalText = btn?.innerHTML;
       if (btn) {
-        originalText = btn.innerHTML;
-        btn.innerHTML = '⏳ Generating...';
+        btn.textContent = 'Generating…';
         btn.disabled = true;
       }
 
-      // Temporarily hide elements that shouldn't appear in PDF
-      const printHideElements = sheet.querySelectorAll('.print-hide');
-      printHideElements.forEach(el => el.style.setProperty('display', 'none', 'important'));
+      let downloaded = false;
+      try {
+        await document.fonts?.ready;
+        const copy = createInvoiceExport(sheet);
+        await window.html2pdf().set({
+          margin: [8, 10, 8, 10],
+          filename: `${invNum}_${client}.pdf`,
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, scrollY: 0, windowWidth: 1024, backgroundColor: '#ffffff' },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+          pagebreak: { mode: ['css'], avoid: ['.items-table tr', '.totals-box'] }
+        }).from(copy).save();
+        downloaded = true;
 
-      // Temporarily expand all textareas so html2canvas captures full multiline content without clipping
-      const allTextareas = sheet.querySelectorAll('textarea');
-      const savedStyles = [];
-      allTextareas.forEach((ta, idx) => {
-        savedStyles[idx] = {
-          height: ta.style.height,
-          overflow: ta.style.overflow,
-          minHeight: ta.style.minHeight
-        };
-        ta.style.height = 'auto';
-        ta.style.height = (ta.scrollHeight + 6) + 'px';
-        ta.style.overflow = 'hidden';
-      });
-
-      const restorePdfStyles = () => {
-        printHideElements.forEach(el => el.style.removeProperty('display'));
-        allTextareas.forEach((ta, idx) => {
-          if (savedStyles[idx]) {
-            ta.style.height = savedStyles[idx].height;
-            ta.style.overflow = savedStyles[idx].overflow;
-            ta.style.minHeight = savedStyles[idx].minHeight;
-          }
+        trackEvent('generate_lead', {
+          lead_type: 'pdf_download',
+          doc_type: state.docType || 'Invoice',
+          item_count: (state.items || []).length
         });
-      };
+        trackEvent('download_invoice_pdf', {
+          doc_type: state.docType || 'Invoice',
+          item_count: (state.items || []).length
+        });
 
-      const opt = {
-        margin: [8, 10, 8, 10],
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-          scale: 2,
-          useCORS: true,
-          letterRendering: true,
-          scrollY: 0,
-          backgroundColor: '#ffffff'
-        },
-        jsPDF: {
-          unit: 'mm',
-          format: 'a4',
-          orientation: 'portrait'
-        },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-
-      if (window.html2pdf) {
-        window.html2pdf().set(opt).from(sheet).save().then(() => {
-          restorePdfStyles();
-          if (btn) {
-            btn.innerHTML = '✓ Downloaded!';
-            setTimeout(() => {
-              btn.innerHTML = originalText;
-              btn.disabled = false;
-            }, 2000);
+        const promoCard = document.getElementById('postPdfBusinessPromo');
+        if (promoCard && !sessionStorage.getItem('qbf_promo_dismissed')) {
+          promoCard.style.display = 'block';
+          const closeBtn = document.getElementById('btnClosePostPdfPromo');
+          if (closeBtn && !closeBtn._bound) {
+            closeBtn._bound = true;
+            closeBtn.addEventListener('click', () => {
+              promoCard.style.display = 'none';
+              sessionStorage.setItem('qbf_promo_dismissed', '1');
+            });
           }
-
-          // Record successful PDF generation without invoice amounts or client filenames.
-          trackEvent('generate_lead', {
-            lead_type: 'pdf_download',
-            doc_type: state.docType || 'Invoice',
-            item_count: (state.items || []).length
-          });
-          trackEvent('download_invoice_pdf', {
-            doc_type: state.docType || 'Invoice',
-            item_count: (state.items || []).length
-          });
-
-          const promoCard = document.getElementById('postPdfBusinessPromo');
-          if (promoCard && !sessionStorage.getItem('qbf_promo_dismissed')) {
-            promoCard.style.display = 'block';
-            const closeBtn = document.getElementById('btnClosePostPdfPromo');
-            if (closeBtn && !closeBtn._bound) {
-              closeBtn._bound = true;
-              closeBtn.addEventListener('click', () => {
-                promoCard.style.display = 'none';
-                sessionStorage.setItem('qbf_promo_dismissed', '1');
-              });
-            }
-          }
-        }).catch(err => {
-          console.error('PDF error:', err);
-          restorePdfStyles();
-          if (btn) {
+        }
+      } catch (error) {
+        console.error('PDF error:', error);
+        trackEvent('invoice_pdf_fallback', { reason: 'generation_failed' });
+        window.print();
+      } finally {
+        if (btn) {
+          if (downloaded) btn.textContent = '✓ Downloaded!';
+          setTimeout(() => {
             btn.innerHTML = originalText;
             btn.disabled = false;
-          }
-
-          trackEvent('invoice_pdf_fallback', { reason: 'generation_failed' });
-          window.print();
-        });
-      } else {
-        restorePdfStyles();
-        if (btn) {
-          btn.innerHTML = originalText;
-          btn.disabled = false;
+          }, downloaded ? 2000 : 0);
         }
-        trackEvent('invoice_pdf_fallback', { reason: 'library_unavailable' });
-        window.print();
       }
     }
+
 
     const btnDownload = document.getElementById('btnDownloadPdf');
     if (btnDownload) {
