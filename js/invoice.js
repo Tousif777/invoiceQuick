@@ -1805,24 +1805,16 @@ ${sender}`;
     const titleEl = document.getElementById('invoiceMainTitle');
     const docSelect = document.getElementById('docTypeSelector');
     const type = state.docType || 'INVOICE';
-    if (titleEl) titleEl.textContent = type;
+    const upper = type.trim().toUpperCase();
+    if (titleEl) titleEl.textContent = upper === 'INVOICE' ? (I18N[state.lang]?.docTitle || type) : type;
     if (docSelect) {
-      let matched = false;
-      const upper = type.trim().toUpperCase();
-      for (let i = 0; i < docSelect.options.length; i++) {
-        const optVal = docSelect.options[i].value.toUpperCase();
-        const optText = docSelect.options[i].textContent.toUpperCase();
-        if (optVal === upper || optText === upper || optVal.includes(upper) || upper.includes(optVal)) {
-          docSelect.selectedIndex = i;
-          matched = true;
-          break;
-        }
-      }
-      if (!matched) {
-        docSelect.value = type;
-      }
+      const options = Array.from(docSelect.options);
+      const match = options.find((option) => option.value.toUpperCase() === upper || option.textContent.toUpperCase() === upper)
+        || options.find((option) => option.value.toUpperCase().includes(upper));
+      docSelect.value = match?.value || type;
     }
   }
+
 
   function renderAccentColor() {
     const color = state.accentColor || '#4f46e5';
@@ -2371,10 +2363,11 @@ ${sender}`;
     const exportStyles = document.createElement('style');
     exportStyles.textContent = `
       .invoice-export.invoice-sheet {
-        width: 100%; max-width: none; min-width: 0; padding: 0; margin: 0;
+        width: 100%; max-width: none; min-width: 0; padding: 10px; margin: 0; box-sizing: border-box;
         border: 0; border-radius: 0; box-shadow: none; transform: none;
         background: #fff; color: #0f172a; line-height: 1.4;
       }
+      .invoice-export, .invoice-export * { animation: none !important; transition: none !important; }
       .invoice-export .sheet-top-row {
         display: flex; flex-direction: row; justify-content: space-between;
         align-items: start; gap: 16px; margin: 0 0 16px; padding: 0;
@@ -3046,14 +3039,7 @@ ${sender}`;
     state.lang = lang;
     const t = I18N[lang];
 
-    // Document title
-    const mainTitle = document.getElementById('invoiceMainTitle');
-    if (mainTitle) {
-      const titles = ['INVOICE', 'FACTURA', 'FACTURE', 'RECHNUNG', 'FATURA', 'FATTURA'];
-      if (!state.customTitle || titles.includes(mainTitle.textContent.trim())) {
-        mainTitle.textContent = t.docTitle;
-      }
-    }
+    renderDocType();
 
     // Meta labels
     const lblInv = document.querySelector('label[for="invoiceNumber"]');
