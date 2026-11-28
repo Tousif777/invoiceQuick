@@ -134,14 +134,9 @@
 .homepage-business-offer a:hover { background: #286047; }
 .homepage-business-offer a:focus-visible { outline-color: #183c2e; }
 
-@media screen {
-  #invoice-editor { scroll-margin-top: 84px; }
-  #btnDownloadPdf { background: #4730a5; }
-  #btnDownloadPdf:hover { background: #36237f; }
-}
 @media (max-width: 768px) {
   .home-intro { margin-top: 12px; }
-  #invoice-editor { scroll-margin-top: 160px; }
+
 }
 @media (max-width: 640px) {
   .home-hero { grid-template-columns: minmax(0, 1fr); border-radius: 17px; }
@@ -151,4 +146,228 @@
 }
 @media print {
   .home-intro { display: none !important; }
+}
+
+/* Homepage workspace and editorial layout */
+.invoice-home {
+  background: #f5f6fa;
+}
+
+@media screen {
+  .invoice-home .app-header {
+    background: #fff;
+    border-color: #e0e2ec;
+    box-shadow: 0 2px 10px #15132b0a;
+    backdrop-filter: none;
+  }
+
+  .invoice-home .app-header .container {
+    max-width: 1180px !important;
+    padding-inline: 16px !important;
+  }
+
+  .invoice-home .header-flex {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 14px;
+    padding-block: 8px;
+  }
+
+  .invoice-home .header-nav-actions {
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .invoice-home .header-nav-actions button {
+    min-height: 36px;
+    border-radius: 7px;
+  }
+
+  .invoice-home .header-nav-tools {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    width: 100%;
+    background: #f6f6fb;
+    box-shadow: none;
+    border-color: #e5e5ef;
+  }
+
+  .invoice-home .header-nav-tools select {
+    min-height: 32px;
+    font-size: .8125rem;
+  }
+
+  .invoice-home #btnDownloadPdf {
+    background: #4c33b0;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .invoice-home #btnDownloadPdf:hover { background: #392484; }
+  .invoice-home #btnDownloadPdf::after { content: none; }
+
+  .invoice-home #invoice-editor,
+  .invoice-home #how-to-invoice,
+  .invoice-home #faq { scroll-margin-top: 134px; }
+
+  .invoice-home .invoice-sheet-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    margin: 25px auto 38px;
+    animation: none;
+  }
+
+  .home-editor-heading { width: min(100%, 860px); }
+  .home-editor-heading h2 { font-size: 1.3rem; letter-spacing: -.035em; }
+  .home-editor-heading p { color: #555b70; font-size: .9375rem; }
+}
+
+.invoice-home .home-hero {
+  padding: clamp(22px, 4vw, 40px);
+  border: 1px solid #ded6f6;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 100% 25%, #e5d9ff, transparent 64%), #f0ebfc;
+  color: #22153e;
+  box-shadow: none;
+}
+.invoice-home .home-hero::before { background-image: radial-gradient(#6d51b044 1px, transparent 1px); }
+.invoice-home .home-hero h1 { font-size: clamp(2.35rem, 5.3vw, 4.15rem); }
+.invoice-home .home-hero h1 em { display: block; color: #5337a0; }
+.invoice-home .home-hero-copy > p,
+.invoice-home .home-benefits { color: #524568; }
+.invoice-home .home-benefits li::before { color: #5740a2; }
+.invoice-home .home-start { background: #4c33b0; color: #fff; }
+.invoice-home .home-start:hover { background: #392484; }
+.invoice-home .home-start:focus-visible { outline-color: #4c33b0; }
+.invoice-home .home-preview-paper {
+  transform: rotate(-3deg);
+  border: 1px solid #ddd2f1;
+  box-shadow: 9px 9px 0 #cfb9fa, 0 18px 35px #30175825;
+}
+.invoice-home .homepage-business-offer { margin-top: 12px; }
+
+.invoice-home .seo-section {
+  width: 100%;
+  margin: 16px auto 0;
+  padding-top: 34px;
+  color: #454b61;
+}
+.invoice-home .seo-title,
+.invoice-home .faq-title,
+.home-share h2 {
+  text-align: left;
+  color: #211b35;
+  font-size: clamp(1.5rem, 3vw, 2.05rem);
+  font-weight: 800;
+  letter-spacing: -.045em;
+}
+.invoice-home .guide-header-wrap {
+  max-width: none;
+  margin: 0 0 18px;
+  align-items: start;
+  text-align: left;
+}
+.invoice-home .seo-subtitle { text-align: left; margin: 0; }
+.home-steps {
+  list-style: none;
+  counter-reset: invoice-step;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.home-steps li {
+  counter-increment: invoice-step;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #e1e2ed;
+  border-radius: 12px;
+}
+.home-steps li::before {
+  content: counter(invoice-step);
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  margin-bottom: 8px;
+  border-radius: 7px;
+  color: #493399;
+  background: #ede7fb;
+  font-weight: 800;
+}
+.home-steps strong { display: block; margin-bottom: 3px; color: #211b35; }
+.home-how-to > p { margin: 9px 0; }
+.invoice-home .seo-cards-grid { gap: 12px; }
+.invoice-home .seo-card,
+.invoice-home .faq-item { border: 1px solid #e1e2ed; border-radius: 12px; box-shadow: none; }
+.invoice-home .seo-card:hover { transform: none; box-shadow: 0 4px 15px #211b3510; }
+.invoice-home .faq-title { margin-bottom: 12px; }
+
+.home-share {
+  width: calc(100% - 32px);
+  max-width: 1108px;
+  margin: 28px auto 0;
+  padding: clamp(16px, 3vw, 26px);
+  background: #fff;
+  border: 1px solid #e1e2ed;
+  border-radius: 12px;
+}
+.home-share h2, .home-share p { text-align: center; }
+.home-share p { margin: 3px 0 14px; color: #555b70; }
+
+.invoice-home .site-footer {
+  margin-top: 36px;
+  background: #211b35;
+  color: #d4cbeb;
+  text-align: left;
+}
+.invoice-home .site-footer h2 { color: #fff; font-size: 1.25rem; letter-spacing: -.025em; }
+.home-footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 18px;
+}
+.home-footer-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  gap: 5px;
+  margin: 0;
+}
+.home-footer-group h3 { color: #fff; font-size: .9375rem; margin-bottom: 3px; }
+.invoice-home .site-footer .footer-links a { color: #ded7ee; }
+.invoice-home .site-footer .footer-links a:hover { color: #fff; text-decoration: underline; }
+.home-footer-meta {
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 22px 0 10px;
+  padding-top: 14px;
+  border-top: 1px solid #504663;
+}
+
+@media screen and (max-width: 900px) {
+  .invoice-home .header-flex { grid-template-columns: minmax(0, 1fr); }
+  .invoice-home .header-nav-actions { justify-content: flex-start; }
+  .invoice-home .header-nav-tools .select-clean { flex: 1 1 27%; max-width: none; }
+  .invoice-home .header-nav-tools .color-picker-wrap { flex: 1 1 27%; width: auto; }
+  .invoice-home #invoice-editor,
+  .invoice-home #how-to-invoice,
+  .invoice-home #faq { scroll-margin-top: 190px; }
+  .home-steps, .home-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media screen and (max-width: 480px) {
+  .invoice-home .header-nav-actions #btnDownloadPdf { width: auto; margin-top: 0; }
+  .invoice-home #invoice-editor, .invoice-home #how-to-invoice, .invoice-home #faq { scroll-margin-top: 220px; }
+  .home-steps { grid-template-columns: minmax(0, 1fr); }
+  .home-footer-grid { gap: 16px 12px; }
+}
+@media print {
+  .home-editor-heading, .home-share { display: none !important; }
 }

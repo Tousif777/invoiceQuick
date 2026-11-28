@@ -191,7 +191,7 @@
 
   </style>
 </head>
-<body>
+<body class="invoice-home">
 
   <!-- Top Shared Invoice Recipient Banner (Viral Growth Hack) -->
   <div id="sharedInvoiceBanner" class="shared-invoice-banner print-hide" style="display: none;">
@@ -224,8 +224,43 @@
         <span id="saveIndicator" class="save-indicator">✓ Saved</span>
       </div>
 
+      <!-- Right Actions Group -->
+      <div class="header-nav-actions" role="group" aria-label="Invoice actions">
+        <button type="button" id="btnInstallApp" class="btn-ghost btn-install-app" style="display: none;" title="Install QuickBillFree as Desktop/Mobile App">
+          📲 App
+        </button>
+
+        <button type="button" id="btnHistoryToggle" class="btn-ghost btn-with-badge" title="Saved Invoices History">
+          📂 Invoices <span id="historyBadgeCount" class="badge-count">1</span>
+        </button>
+
+        <button id="btnSampleInvoice" class="btn-ghost" title="Load sample invoice">
+          Sample
+        </button>
+
+        <button id="btnClearInvoice" class="btn-ghost" title="Clear invoice">
+          Clear
+        </button>
+
+        <button id="btnShareInvoice" class="btn-secondary" title="Share invoice as web link to client">
+          🔗 Share
+        </button>
+
+        <button id="btnEmailInvoice" class="btn-secondary" title="Compose email with invoice details to client">
+          ✉️ Email
+        </button>
+
+        <button id="btnPrintInvoice" class="btn-secondary" title="Print using browser print dialog">
+          🖨️ Print
+        </button>
+
+        <button id="btnDownloadPdf" class="btn-primary" title="Download pixel-perfect PDF directly">
+          📥 Download PDF
+        </button>
+      </div>
+
       <!-- Center Document Formatting Tools Pill -->
-      <div class="header-nav-tools">
+      <div class="header-nav-tools" role="group" aria-label="Invoice formatting">
         <select id="docTypeSelector" class="select-currency select-clean" aria-label="Document Type" title="Document Type">
           <option value="INVOICE">Invoice</option>
           <option value="TAX INVOICE">Tax Invoice</option>
@@ -286,7 +321,7 @@
           </optgroup>
         </select>
 
-        <select id="stampSelector" class="select-currency select-clean" title="Invoice Watermark Stamp">
+        <select id="stampSelector" aria-label="Invoice stamp" class="select-currency select-clean" title="Invoice Watermark Stamp">
           <option value="none">No Stamp</option>
           <option value="PAID">PAID</option>
           <option value="DRAFT">DRAFT</option>
@@ -294,7 +329,7 @@
           <option value="VOID">VOID</option>
         </select>
 
-        <select id="langSelector" class="select-currency select-clean" title="Language / Idioma">
+        <select id="langSelector" aria-label="Invoice language" class="select-currency select-clean" title="Language / Idioma">
           <option value="en">🇺🇸 EN</option>
           <option value="es">🇪🇸 ES</option>
           <option value="fr">🇫🇷 FR</option>
@@ -306,49 +341,14 @@
         <div class="header-tools-divider"></div>
 
         <div class="color-picker-wrap" title="Accent Color">
-          <button type="button" class="color-swatch-btn active" data-color="#4f46e5" style="background: #4f46e5;" title="Indigo Tech"></button>
-          <button type="button" class="color-swatch-btn" data-color="#0f172a" style="background: #0f172a;" title="Slate Navy"></button>
-          <button type="button" class="color-swatch-btn" data-color="#059669" style="background: #059669;" title="Emerald Green"></button>
+          <button type="button" class="color-swatch-btn active" data-color="#4f46e5" style="background: #4f46e5;" title="Indigo Tech" aria-label="Indigo accent"></button>
+          <button type="button" class="color-swatch-btn" data-color="#0f172a" style="background: #0f172a;" title="Slate Navy" aria-label="Slate accent"></button>
+          <button type="button" class="color-swatch-btn" data-color="#059669" style="background: #059669;" title="Emerald Green" aria-label="Emerald accent"></button>
           <label class="color-custom-label" title="Custom Color">
-            <input type="color" id="customColorInput" value="#4f46e5" style="opacity: 0; width: 0; height: 0; position: absolute;">
+            <input type="color" id="customColorInput" aria-label="Custom invoice accent" value="#4f46e5" style="opacity: 0; width: 0; height: 0; position: absolute;">
             <span class="custom-color-icon">🎨</span>
           </label>
         </div>
-      </div>
-
-      <!-- Right Actions Group -->
-      <div class="header-nav-actions">
-        <button type="button" id="btnInstallApp" class="btn-ghost btn-install-app" style="display: none;" title="Install QuickBillFree as Desktop/Mobile App">
-          📲 App
-        </button>
-
-        <button type="button" id="btnHistoryToggle" class="btn-ghost btn-with-badge" title="Saved Invoices History">
-          📂 Invoices <span id="historyBadgeCount" class="badge-count">1</span>
-        </button>
-
-        <button id="btnSampleInvoice" class="btn-ghost" title="Load sample invoice">
-          Sample
-        </button>
-
-        <button id="btnClearInvoice" class="btn-ghost" title="Clear invoice">
-          Clear
-        </button>
-
-        <button id="btnShareInvoice" class="btn-secondary" title="Share invoice as web link to client">
-          🔗 Share
-        </button>
-
-        <button id="btnEmailInvoice" class="btn-secondary" title="Compose email with invoice details to client">
-          ✉️ Email
-        </button>
-
-        <button id="btnPrintInvoice" class="btn-secondary" title="Print using browser print dialog">
-          🖨️ Print
-        </button>
-
-        <button id="btnDownloadPdf" class="btn-primary" title="Download pixel-perfect PDF directly">
-          📥 Download PDF
-        </button>
       </div>
 
     </div>
@@ -362,14 +362,10 @@
     </div>
   </div>
 
-  <!-- Ambient Animated Glow Lights (Zero Interaction Overhead, Print Hidden) -->
-  <div class="ambient-glow ambient-glow-left print-hide" aria-hidden="true"></div>
-  <div class="ambient-glow ambient-glow-right print-hide" aria-hidden="true"></div>
-
   <section class="container home-intro print-hide" aria-labelledby="home-heading">
     <div class="home-hero">
       <div class="home-hero-copy">
-        <h1 id="home-heading">Free online<br> <em>invoice generator.</em></h1>
+        <h1 id="home-heading">Free online <em>invoice generator.</em></h1>
         <p>Add your logo, line items and tax. Download a professional PDF in minutes, without an account.</p>
         <a class="home-start" href="#invoice-editor">Create free invoice</a>
         <ul class="home-benefits" aria-label="Invoice generator features">
@@ -400,7 +396,11 @@
   </section>
 
   <!-- Main Invoice Paper Canvas -->
-  <main class="container invoice-sheet-wrapper" id="invoice-editor" aria-label="Invoice editor" tabindex="-1">
+  <main class="container invoice-sheet-wrapper" id="invoice-editor" aria-labelledby="editor-heading" tabindex="-1">
+    <div class="home-editor-heading print-hide">
+      <h2 id="editor-heading">Invoice editor</h2>
+      <p>Edit the sample details, then download your PDF.</p>
+    </div>
     
     <div class="invoice-sheet" id="invoiceSheet">
       
@@ -737,9 +737,9 @@ Routing: 987654321</textarea>
     </div>
   </div>
 
-  <section class="container seo-section print-hide" aria-labelledby="make-invoice-heading">
+  <section class="container seo-section home-how-to print-hide" id="how-to-invoice" aria-labelledby="make-invoice-heading">
     <h2 id="make-invoice-heading" class="seo-title">How to make an invoice online</h2>
-    <ol>
+    <ol class="home-steps">
       <li><strong>Add your business and client.</strong> Replace the sample details, set an invoice number, and choose the issue date, due date and currency.</li>
       <li><strong>List the work or products.</strong> Enter quantities and rates, then add any tax, discount or deposit. Check the total and your payment instructions.</li>
       <li><strong>Download or print.</strong> Use Download PDF or Print. To export without QuickBillFree branding, select Remove watermark on the invoice before downloading.</li>
@@ -770,35 +770,8 @@ Routing: 987654321</textarea>
   <!-- Invoicing guide and frequently asked questions (Print-Hidden) -->
   <section class="container seo-section print-hide">
     <div class="guide-header-wrap">
-      <div class="guide-badge">
-        <span class="guide-badge-icon">📖</span>
-        <span class="guide-badge-text">Invoicing Masterclass & Legal Essentials</span>
-      </div>
-      <h2 class="seo-title">The Complete Guide to <span class="guide-title-gradient">Professional Invoices</span></h2>
-      <p class="seo-subtitle">Everything you need to know about invoice essentials, legal requirements, payment terms, and getting paid faster.</p>
-
-      <!-- Key Highlights Strip -->
-      <div class="guide-stats-strip">
-        <div class="guide-stat-item">
-          <span class="guide-stat-num">5 min</span>
-          <span class="guide-stat-lbl">Quick Read</span>
-        </div>
-        <div class="guide-stat-sep"></div>
-        <div class="guide-stat-item">
-          <span class="guide-stat-num">100% Free</span>
-          <span class="guide-stat-lbl">No Signup</span>
-        </div>
-        <div class="guide-stat-sep"></div>
-        <div class="guide-stat-item">
-          <span class="guide-stat-num">Net 15 / 30</span>
-          <span class="guide-stat-lbl">Standard Terms</span>
-        </div>
-        <div class="guide-stat-sep"></div>
-        <div class="guide-stat-item">
-          <span class="guide-stat-num">🔒 In-Browser</span>
-          <span class="guide-stat-lbl">100% Private</span>
-        </div>
-      </div>
+      <h2 class="seo-title">A guide to professional invoices</h2>
+      <p class="seo-subtitle">Invoice essentials, payment terms, and ways to get paid faster.</p>
     </div>
 
     <div class="seo-cards-grid">
@@ -994,7 +967,7 @@ Routing: 987654321</textarea>
     </div>
 
     <!-- FAQ Accordion -->
-    <div class="faq-wrap">
+    <div class="faq-wrap" id="faq">
       <h3 class="faq-title">Frequently Asked Questions</h3>
 
       <details class="faq-item">
@@ -1051,23 +1024,23 @@ Routing: 987654321</textarea>
   </section>
 
   <!-- Share the Tool: Viral Referral Loop -->
-  <section class="prose" style="background: #ffffff; padding: 36px; border-radius: var(--radius-lg); border: 1px solid var(--blog-border); margin-bottom: 48px; max-width: 820px; margin-left: auto; margin-right: auto;">
-    <h2 style="font-size: 1.35rem; margin-bottom: 10px; text-align: center;">Help Other Freelancers Invoice for Free</h2>
-    <p style="text-align: center; color: #64748b; margin-bottom: 22px;">Know a freelancer, contractor, or small business tired of monthly invoicing fees? Share QuickBillFree with them.</p>
+  <section class="container home-share print-hide" aria-labelledby="home-share-heading">
+    <h2 id="home-share-heading">Share QuickBillFree</h2>
+    <p>Send the free invoice generator to a freelancer or small business.</p>
     <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
       <a href="https://twitter.com/intent/tweet?text=I%20just%20made%20a%20professional%20invoice%20in%20seconds%20with%20zero%20signup%20and%20no%20monthly%20fees.%20Free%20for%20freelancers.%0A%0A👉%20https%3A%2F%2Fquickbillfree.com%2F&via=QuickBillFree" target="_blank" rel="noopener" class="btn-social" style="background:#1da1f2;color:#ffffff;">𝕏 Twitter</a>
       <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fquickbillfree.com%2F" target="_blank" rel="noopener" class="btn-social" style="background:#0077b5;color:#ffffff;">LinkedIn</a>
       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fquickbillfree.com%2F" target="_blank" rel="noopener" class="btn-social" style="background:#1877f2;color:#ffffff;">Facebook</a>
       <button type="button" id="btnCopyToolLink" class="btn-social" style="background:#475569;color:#ffffff;">📋 Copy Link</button>
     </div>
-    <p style="text-align: center; color: #94a3b8; font-size: 0.8rem; margin-top: 12px;">Sharing opens a new window/tab to the social platform. QuickBillFree never sees your social accounts.</p>
   </section>
 
   <!-- Footer (Print-Hidden) -->
   <footer class="site-footer print-hide">
     <div class="container">
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Document Types:</span>
+      <h2>QuickBillFree resources</h2>
+      <div class="home-footer-grid">
+      <div class="footer-links home-footer-group"><h3>Document Types</h3>
         <a href="free-invoice-generator-no-watermark.html">Invoice No Watermark</a>
         <a href="free-invoice-generator-no-sign-up.html">Invoice No Sign Up</a>
         <a href="bill-maker.html">Online Bill Maker</a>
@@ -1082,16 +1055,14 @@ Routing: 987654321</textarea>
         <a href="receipt-maker.html">Online Receipt Maker</a>
         <a href="quote-maker.html">Online Quote Maker</a>
       </div>
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Templates by Profession:</span>
+      <div class="footer-links home-footer-group"><h3>Templates by Profession</h3>
         <a href="freelance-invoice-generator.html">Freelance Invoices</a>
         <a href="contractor-invoice-generator.html">Contractor Invoices</a>
         <a href="graphic-designer-invoice-generator.html">Graphic Designer Invoices</a>
         <a href="consulting-invoice-generator.html">Consultant Invoices</a>
         <a href="photography-invoice-generator.html">Photography Invoices</a>
       </div>
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Trades & Field Services:</span>
+      <div class="footer-links home-footer-group"><h3>Trades & Field Services</h3>
         <a href="mechanic-invoice-generator.html">Auto Repair & Mechanic</a>
         <a href="handyman-invoice-generator.html">Handyman Invoices</a>
         <a href="plumber-invoice-generator.html">Plumbing Invoices</a>
@@ -1102,15 +1073,13 @@ Routing: 987654321</textarea>
         <a href="trucking-invoice-generator.html">Trucking & Freight</a>
         <a href="landscaping-invoice-generator.html">Landscaping</a>
       </div>
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Regional & Tax Systems:</span>
+      <div class="footer-links home-footer-group"><h3>Regional & Tax Systems</h3>
         <a href="uk-vat-invoice-generator.html">UK VAT Invoices (£)</a>
         <a href="australia-gst-invoice-generator.html">Australia GST (A$)</a>
         <a href="canada-invoice-generator.html">Canada HST / GST (CA$)</a>
         <a href="tax-invoice-generator.html">Tax Invoices</a>
       </div>
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Free Business Calculators:</span>
+      <div class="footer-links home-footer-group"><h3>Free Business Calculators</h3>
         <a href="hourly-rate-calculator.html">Freelance Hourly Rate Calculator</a>
         <a href="vat-calculator.html">VAT Calculator (Add/Remove)</a>
         <a href="late-fee-calculator.html">Late Fee & Interest Calculator</a>
@@ -1119,8 +1088,7 @@ Routing: 987654321</textarea>
         <a href="business.html">Branded Business Software (£350)</a>
         <a href="business-demo.html">Business Portal Demo</a>
       </div>
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Free Online Tools:</span>
+      <div class="footer-links home-footer-group"><h3>Free Online Tools</h3>
         <a href="bill-maker.html">Online Bill Maker Free</a>
         <a href="receipt-maker.html">Free Receipt Maker</a>
         <a href="quote-maker.html">Free Quote Maker</a>
@@ -1130,8 +1098,7 @@ Routing: 987654321</textarea>
         <a href="blank-invoice-pdf.html">Blank Invoice PDF</a>
         <a href="blog/invoice-vs-bill-vs-receipt.html">Invoice vs Bill vs Receipt</a>
       </div>
-      <div class="footer-links" style="margin-bottom: 8px;">
-        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 600;">Free Software Alternatives:</span>
+      <div class="footer-links home-footer-group"><h3>Free Software Alternatives</h3>
         <a href="freebillgenie-alternative.html">FreeBillGenie Alternative</a>
         <a href="invoice-simple-alternative.html">Invoice Simple Alternative</a>
         <a href="quickbooks-alternative.html">QuickBooks Free Alternative</a>
@@ -1140,7 +1107,8 @@ Routing: 987654321</textarea>
         <a href="zoho-invoice-alternative.html">Zoho Invoice Alternative</a>
         <a href="embed.html">Embeddable Widgets</a>
       </div>
-      <div class="footer-links">
+      </div>
+      <div class="footer-links home-footer-meta">
         <a href="about.html">About Us</a>
         <a href="contact.html">Contact Us</a>
         <a href="blog/">Blog & Guides</a>
