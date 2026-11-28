@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Google Consent Mode v2 (EEA & GDPR Compliant)
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7599767103475954" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Overdue Invoice Reminder &amp; Follow-Up Email Generator</title>
+  <meta name="description" content="Generate polite, firm, or final overdue invoice payment reminder emails in seconds. Pre-fill invoice number, due date, and amount due — free with no signup.">
+  <meta name="keywords" content="overdue invoice email template, payment reminder email generator, polite late payment reminder, follow up email unpaid invoice, final notice invoice email">
+  <meta name="author" content="QuickBillFree.com">
+  <link rel="canonical" href="https://quickbillfree.com/payment-reminder-generator.html">
+
+  <!-- Brand Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta name="theme-color" content="#4f46e5">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/payment-reminder-generator.html">
+  <meta property="og:title" content="Free Overdue Invoice Reminder &amp; Follow-Up Email Generator">
+  <meta property="og:description" content="Create polite, firm, or final overdue invoice payment reminder emails in seconds — 100% free with no signup.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Overdue Invoice Reminder &amp; Follow-Up Email Generator">
+  <meta name="twitter:description" content="Generate ready-to-send payment reminder emails for upcoming or overdue invoices.">
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog.css">
+
+  <style>
+    .calc-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      margin-bottom: 40px;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 32px;
+    }
+    @media (max-width: 820px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .calc-card { padding: 20px; }
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #0f172a;
+      background: #ffffff;
+      box-sizing: border-box;
+    }
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+    }
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .tone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tone-btn {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.84rem;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tone-btn small {
+      display: block;
+      font-weight: 500;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .tone-btn:hover { border-color: #4f46e5; }
+    .tone-btn.active {
+      background: #eef2ff;
+      border-color: #4f46e5;
+      color: #3730a3;
+    }
+    .preview-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-sizing: border-box;
+    }
+    .preview-subject-wrap {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+    .preview-subject-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 3px;
+    }
+    .preview-textarea {
+      width: 100%;
+      flex: 1;
+      min-height: 280px;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #1e293b;
+      font-family: inherit;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .preview-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn-action-primary {
+      flex: 1;
+      min-width: 180px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: none;
+      background: #4f46e5;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-action-primary:hover { background: #4338ca; }
+    .btn-action-secondary {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn-action-secondary:hover { background: #f1f5f9; }
+    .overdue-pill {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+  </style>
+
+  <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "QuickBillFree Overdue Invoice Payment Reminder Generator",
+        "url": "https://quickbillfree.com/payment-reminder-generator.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free online generator for polite, firm, and final overdue invoice payment reminder emails."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "When should I send the first overdue invoice reminder?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Send a polite first follow-up 1 to 3 days after the due date passes. Many late payments happen simply because the invoice was missed in an inbox or queued for the next weekly payment run."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I write a polite payment reminder without sounding rude?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Keep the message short and factual: include the invoice number, amount due, original due date, and a clear payment link or bank details, and ask if they need another copy of the PDF."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I charge a late fee on an overdue invoice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If your contract or invoice terms specify a late payment fee (or statutory commercial interest applies in your region), you can include a notice in your 14-day or 30-day follow-up and calculate the amount with a late fee calculator."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="blog-page">
+
+  <!-- Navigation -->
+  <nav class="blog-nav">
+    <div class="container blog-nav-container">
+      <a href="./" class="blog-brand">
+        <img src="assets/favicon.svg" alt="QuickBillFree" width="30" height="30">
+        <span>Quick<span style="color: var(--blog-primary);">Bill</span><span style="color: #10b981; font-weight: 800; font-size: 0.95em;">Free</span></span>
+        <span class="blog-badge-tag">Reminders</span>
+      </a>
+
+      <div class="blog-nav-links">
+        <a href="invoice-tracker.html" class="btn-nav-ghost">📊 Invoice Tracker</a>
+        <a href="late-fee-calculator.html" class="btn-nav-ghost">⏳ Late Fee Calc</a>
+        <a href="./" class="btn-nav-primary">⚡ Generate Invoice</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="blog-hero">
+    <div class="container">
+      <span class="hero-badge" style="background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 14px; border-radius: 99px; font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 14px;">
+        ✉️ Free Follow-Up Tool • Ready-to-Send Copy
+      </span>
+      <h1 class="blog-hero-title">Overdue Invoice Reminder Email Generator</h1>
+      <p class="blog-hero-subtitle">
+        Pick your follow-up stage, enter your invoice details, and copy a clear, professional payment reminder email in seconds — no signup required.
+      </p>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 1000px; margin: 0 auto 60px; padding: 0 20px;">
+
+    <section class="calc-card">
+      <div class="calc-grid">
+        <!-- Left: Inputs -->
+        <div>
+          <label class="form-label">1. Select Reminder Tone / Stage</label>
+          <div class="tone-grid" id="toneGrid">
+            <button type="button" class="tone-btn" data-tone="upcoming">
+              Friendly Heads-Up
+              <small>Due today or soon</small>
+            </button>
+            <button type="button" class="tone-btn active" data-tone="polite">
+              Polite First Follow-Up
+              <small>1–7 days overdue</small>
+            </button>
+            <button type="button" class="tone-btn" data-tone="firm">
+              Firm Second Notice
+              <small>14–30 days overdue</small>
+            </button>
+            <button type="button" class="tone-btn" data-tone="final">
+              Final Notice
+              <small>30+ days overdue</small>
+            </button>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="remInvNum" class="form-label">Invoice Number</label>
+              <input type="text" id="remInvNum" class="form-input" value="INV-1043">
+            </div>
+            <div class="form-group">
+              <label for="remClient" class="form-label">Client / Contact Name</label>
+              <input type="text" id="remClient" class="form-input" value="Alex">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="remCurrency" class="form-label">Currency</label>
+              <select id="remCurrency" class="form-select">
+                <option value="$">USD ($)</option>
+                <option value="£">GBP (£)</option>
+                <option value="€">EUR (€)</option>
+                <option value="CA$">CAD (CA$)</option>
+                <option value="A$">AUD (A$)</option>
+                <option value="₹">INR (₹)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="remAmount" class="form-label">Amount Due</label>
+              <input type="number" id="remAmount" class="form-input" value="820.00" min="0" step="0.01">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="remDueDate" class="form-label">Original Due Date</label>
+              <input type="date" id="remDueDate" class="form-input">
+              <span id="overdueBadge" class="overdue-pill" style="display: none;"></span>
+            </div>
+            <div class="form-group">
+              <label for="remSender" class="form-label">Your Name / Business</label>
+              <input type="text" id="remSender" class="form-input" value="Your Name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="remPayNote" class="form-label">Payment Instructions / Link (Optional)</label>
+            <input type="text" id="remPayNote" class="form-input" placeholder="e.g. Pay via bank transfer or Stripe link...">
+          </div>
+
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.86rem; font-weight: 600; color: #334155; cursor: pointer;">
+            <input type="checkbox" id="remIncludeLateFee">
+            Mention potential late payment fee if unpaid
+          </label>
+        </div>
+
+        <!-- Right: Preview -->
+        <div class="preview-box">
+          <div class="preview-subject-wrap">
+            <div class="preview-subject-label">Email Subject</div>
+            <div id="emailSubjectPreview" style="font-weight: 700; color: #0f172a;"></div>
+          </div>
+
+          <label for="emailBodyPreview" class="preview-subject-label" style="margin-bottom: 6px;">Email Body (Editable)</label>
+          <textarea id="emailBodyPreview" class="preview-textarea"></textarea>
+
+          <div class="preview-actions">
+            <button type="button" id="btnCopyEmail" class="btn-action-primary">📋 Copy Subject &amp; Email</button>
+            <a id="btnMailto" href="#" class="btn-action-secondary">✉️ Open Email App</a>
+            <a href="late-fee-calculator.html" class="btn-action-secondary">⏳ Late Fee Calc</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO & Best Practices -->
+    <article class="prose" style="max-width: 820px; margin: 0 auto 48px;">
+      <h2>Best Practices for Collecting Overdue Invoices</h2>
+      <p>
+        Most unpaid invoices aren't intentional refusals — they get buried in an inbox or wait for an accounts-payable cycle. Sending a clear, structured follow-up with the exact invoice number, amount due, and payment instructions makes it easy for your client to pay immediately.
+      </p>
+      <ul>
+        <li><strong>Always put the invoice number in the subject line:</strong> Accounting teams search by <code>INV-####</code>, which speeds up approval.</li>
+        <li><strong>Escalate tone gradually:</strong> Start polite at 1–7 days overdue, confirm receipt at 14 days, and only reference late fees or pausing work after 30 days.</li>
+        <li><strong>Attach or link the PDF again:</strong> Never make the client hunt for the original email. Need a fresh PDF? Re-open or export it from the <a href="invoice-tracker.html">QuickBillFree Invoice Tracker</a>.</li>
+      </ul>
+
+      <h2>Need to Add Late Payment Interest?</h2>
+      <p>
+        If your contract includes a late-fee clause or statutory commercial interest, calculate the exact amount with our <a href="late-fee-calculator.html">Free Late Fee Calculator</a> and export an updated invoice in one click.
+      </p>
+    </article>
+
+    <div class="blog-cta-banner">
+      <div>
+        <h3>Track all your unpaid &amp; paid invoices</h3>
+        <p>Manage statuses, duplicate repeat bills, and launch reminders directly from your browser.</p>
+      </div>
+      <a href="invoice-tracker.html" class="btn-cta-white">Open Invoice Tracker →</a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links" style="margin-bottom: 10px;">
+        <a href="./">Invoice Generator</a>
+        <a href="invoice-tracker.html">Invoice Tracker</a>
+        <a href="payment-reminder-generator.html">Payment Reminder Generator</a>
+        <a href="late-fee-calculator.html">Late Fee Calculator</a>
+        <a href="vat-calculator.html">VAT Calculator</a>
+        <a href="receipt-maker.html">Receipt Maker</a>
+        <a href="quote-maker.html">Quote Maker</a>
+      </div>
+      <p>&copy; 2026 QuickBillFree.com — 100% Free Client-Side Invoicing Tools. <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="appToast" class="toast-notification" style="display: none;">
+    <span id="toastIcon" class="toast-icon">✓</span>
+    <span id="toastMessage" class="toast-text">Copied</span>
+  </div>
+
+  <script>
+    (function () {
+      const CURRENCY_MAP = {
+        USD: '$', GBP: '£', EUR: '€', CAD: 'CA$', AUD: 'A$', INR: '₹'
+      };
+
+      let selectedTone = 'polite';
+
+      function showToast(msg, icon = '✓') {
+        const toast = document.getElementById('appToast');
+        const toastMsg = document.getElementById('toastMessage');
+        const toastIcon = document.getElementById('toastIcon');
+        if (toast && toastMsg) {
+          toastMsg.textContent = msg;
+          if (toastIcon) toastIcon.textContent = icon;
+          toast.style.display = 'flex';
+          toast.classList.add('visible');
+          clearTimeout(toast._timer);
+          toast._timer = setTimeout(() => {
+            toast.classList.remove('visible');
+            setTimeout(() => { toast.style.display = 'none'; }, 300);
+          }, 2200);
+        }
+      }
+
+      function getDaysOverdue(dueStr) {
+        if (!dueStr) return 0;
+        const due = new Date(dueStr + 'T00:00:00');
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        return Math.round((today - due) / 86400000);
+      }
+
+      function generateEmail() {
+        const inv = document.getElementById('remInvNum').value.trim() || 'INV-1001';
+        const client = document.getElementById('remClient').value.trim() || 'there';
+        const sym = document.getElementById('remCurrency').value || '$';
+        const amtNum = parseFloat(document.getElementById('remAmount').value) || 0;
+        const amt = sym + amtNum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const due = document.getElementById('remDueDate').value;
+        const sender = document.getElementById('remSender').value.trim() || 'Your Name';
+        const payNote = document.getElementById('remPayNote').value.trim();
+        const includeLateFee = document.getElementById('remIncludeLateFee').checked;
+
+        const days = getDaysOverdue(due);
+        const badge = document.getElementById('overdueBadge');
+        if (due && days > 0) {
+          badge.textContent = `${days} day${days === 1 ? '' : 's'} overdue`;
+          badge.style.display = 'inline-block';
+        } else {
+          badge.style.display = 'none';
+        }
+
+        const dueLabel = due || 'the scheduled due date';
+        const payLine = payNote ? `\nPayment details: ${payNote}\n` : '';
+        const feeLine = includeLateFee
+          ? `\nPlease note that under our payment terms, overdue balances may incur a late payment fee if not settled promptly.\n`
+          : '';
+
+        let subject = '';
+        let body = '';
+
+        if (selectedTone === 'upcoming') {
+          subject = `Friendly reminder: Invoice ${inv} (${amt}) due ${dueLabel}`;
+          body = `Hi ${client},\n\nI hope you're doing well. This is a quick heads-up that invoice ${inv} for ${amt} is due on ${dueLabel}.${payLine}\nPlease let me know if you need another copy of the PDF or any additional details for your records.\n\nBest regards,\n${sender}`;
+        } else if (selectedTone === 'polite') {
+          const overdueText = days > 0 ? ` (${days} day${days === 1 ? '' : 's'} past due)` : '';
+          subject = `Payment reminder: Invoice ${inv} (${amt})`;
+          body = `Hi ${client},\n\nI hope your week is going well. I'm following up on invoice ${inv} for ${amt}, which was due on ${dueLabel}${overdueText}.${payLine}${feeLine}\nCould you let me know when payment is scheduled? If it has already been sent, please disregard this note.\n\nThank you,\n${sender}`;
+        } else if (selectedTone === 'firm') {
+          const overdueText = days > 0 ? ` — now ${days} days overdue` : '';
+          subject = `Second notice: Overdue invoice ${inv} (${amt})`;
+          body = `Hi ${client},\n\nI'm following up again regarding invoice ${inv} for ${amt}, due on ${dueLabel}${overdueText}. We haven't received payment or an update yet.${payLine}${feeLine}\nPlease arrange payment this week or reply with a confirmed payment date so we can keep your account up to date.\n\nBest regards,\n${sender}`;
+        } else {
+          const overdueText = days > 0 ? ` (${days} days overdue)` : '';
+          subject = `FINAL NOTICE: Invoice ${inv} (${amt}) requires immediate attention`;
+          body = `Hi ${client},\n\nThis is a final reminder regarding unpaid invoice ${inv} for ${amt}, which was due on ${dueLabel}${overdueText}.${payLine}${feeLine}\nPlease settle the balance within 5 business days or contact me immediately to confirm payment. Further delays may result in paused services or late-fee enforcement.\n\nRegards,\n${sender}`;
+        }
+
+        document.getElementById('emailSubjectPreview').textContent = subject;
+        document.getElementById('emailBodyPreview').value = body;
+        document.getElementById('btnMailto').href =
+          `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      }
+
+      document.getElementById('toneGrid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.tone-btn');
+        if (!btn) return;
+        document.querySelectorAll('.tone-btn').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        selectedTone = btn.dataset.tone || 'polite';
+        generateEmail();
+      });
+
+      ['remInvNum', 'remClient', 'remCurrency', 'remAmount', 'remDueDate', 'remSender', 'remPayNote', 'remIncludeLateFee']
+        .forEach((id) => {
+          const el = document.getElementById(id);
+          el.addEventListener('input', generateEmail);
+          el.addEventListener('change', generateEmail);
+        });
+
+      document.getElementById('btnCopyEmail').addEventListener('click', async () => {
+        const subject = document.getElementById('emailSubjectPreview').textContent;
+        const body = document.getElementById('emailBodyPreview').value;
+        const full = `Subject: ${subject}\n\n${body}`;
+        try {
+          await navigator.clipboard.writeText(full);
+          showToast('Subject & email copied to clipboard', '📋');
+        } catch (_) {
+          const ta = document.getElementById('emailBodyPreview');
+          ta.select();
+          document.execCommand('copy');
+          showToast('Email text copied', '📋');
+        }
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('inv')) document.getElementById('remInvNum').value = params.get('inv');
+        if (params.get('client')) document.getElementById('remClient').value = params.get('client');
+        if (params.get('amount')) document.getElementById('remAmount').value = params.get('amount');
+        if (params.get('currency')) {
+          const sym = CURRENCY_MAP[params.get('currency').toUpperCase()];
+          if (sym) document.getElementById('remCurrency').value = sym;
+        }
+        if (params.get('due')) {
+          document.getElementById('remDueDate').value = params.get('due');
+        } else {
+          const d = new Date(Date.now() - 5 * 86400000);
+          document.getElementById('remDueDate').value = d.toISOString().split('T')[0];
+        }
+        generateEmail();
+      });
+    })();
+  </script>
+</body>
+</html>

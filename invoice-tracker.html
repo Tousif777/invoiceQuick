@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // Google Consent Mode v2 (EEA & GDPR Compliant)
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7599767103475954" crossorigin="anonymous"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Invoice Tracker &amp; Client Billing Dashboard (No Signup)</title>
+  <meta name="description" content="Track paid, unpaid, draft, and overdue invoices directly in your browser. Duplicate invoices, convert to receipts, send payment reminders, and export JSON backups free.">
+  <meta name="keywords" content="free invoice tracker, track unpaid invoices, client billing dashboard no signup, freelance invoice organizer, invoice status tracker">
+  <meta name="author" content="QuickBillFree.com">
+  <link rel="canonical" href="https://quickbillfree.com/invoice-tracker.html">
+
+  <!-- Brand Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta name="theme-color" content="#4f46e5">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quickbillfree.com/invoice-tracker.html">
+  <meta property="og:title" content="Free Invoice Tracker &amp; Client Billing Dashboard (No Signup)">
+  <meta property="og:description" content="Track paid, unpaid, draft, and overdue invoices privately in your browser. Duplicate past invoices, convert to receipts, and back up as JSON.">
+  <meta property="og:image" content="https://quickbillfree.com/assets/og-image.png">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Invoice Tracker &amp; Client Billing Dashboard (No Signup)">
+  <meta name="twitter:description" content="Track paid, unpaid, draft, and overdue invoices privately in your browser without creating an account.">
+
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog.css">
+
+  <style>
+    .tracker-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+      margin-bottom: 40px;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-box {
+      border-radius: 12px;
+      padding: 16px 18px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+    .kpi-box.kpi-paid { background: #ecfdf5; border-color: #a7f3d0; }
+    .kpi-box.kpi-sent { background: #eff6ff; border-color: #bfdbfe; }
+    .kpi-box.kpi-overdue { background: #fef2f2; border-color: #fecaca; }
+    .kpi-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+    .kpi-sub {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .tracker-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-pill {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #475569;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-pill:hover { border-color: #4f46e5; color: #4f46e5; }
+    .filter-pill.active {
+      background: #4f46e5;
+      border-color: #4f46e5;
+      color: #ffffff;
+    }
+    .tracker-actions-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .tracker-search {
+      padding: 8px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      min-width: 210px;
+      color: #0f172a;
+    }
+    .tracker-search:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+    .btn-tool {
+      padding: 8px 13px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .btn-tool:hover { background: #f8fafc; border-color: #94a3b8; }
+    .btn-tool-primary {
+      background: #4f46e5;
+      border-color: #4f46e5;
+      color: #ffffff;
+    }
+    .btn-tool-primary:hover { background: #4338ca; border-color: #4338ca; }
+    .tracker-table-wrap { overflow-x: auto; }
+    .tracker-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .tracker-table th {
+      text-align: left;
+      padding: 11px 12px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    .tracker-table td {
+      padding: 13px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+      color: #1e293b;
+    }
+    .tracker-table tr:hover td { background: #f8fafc; }
+    .status-select {
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .status-Draft { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+    .status-Sent { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+    .status-Paid { background: #d1fae5; color: #047857; border-color: #6ee7b7; }
+    .status-Overdue { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .btn-row {
+      padding: 5px 9px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-row:hover { border-color: #4f46e5; color: #4f46e5; }
+    .btn-row-warn:hover { border-color: #dc2626; color: #dc2626; }
+    .empty-state {
+      text-align: center;
+      padding: 44px 20px;
+      color: #64748b;
+    }
+    .empty-state h3 {
+      color: #0f172a;
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+    }
+    @media (max-width: 900px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .tracker-card { padding: 18px; }
+      .tracker-search { width: 100%; }
+    }
+  </style>
+
+  <!-- Schema.org JSON-LD (WebApplication + FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "QuickBillFree Invoice Tracker & Billing Dashboard",
+        "url": "https://quickbillfree.com/invoice-tracker.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free client-side invoice tracker to organize paid, unpaid, draft, and overdue invoices directly in your browser without signup."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where are my tracked invoices stored?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All invoices created in QuickBillFree are saved locally in your browser's localStorage under your device. Nothing is uploaded to an external server, and you can export or restore a JSON backup anytime."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I convert a saved quote or invoice into a payment receipt?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Click the Receipt action on any saved invoice in the tracker to clone its line items and client details into a Paid Receipt layout ready for PDF download."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I follow up on an overdue invoice?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Click the Remind button on any Sent or Overdue invoice to open the Payment Reminder Email Generator pre-filled with that invoice number, client, amount, and due date."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="blog-page">
+
+  <!-- Navigation -->
+  <nav class="blog-nav">
+    <div class="container blog-nav-container">
+      <a href="./" class="blog-brand">
+        <img src="assets/favicon.svg" alt="QuickBillFree" width="30" height="30">
+        <span>Quick<span style="color: var(--blog-primary);">Bill</span><span style="color: #10b981; font-weight: 800; font-size: 0.95em;">Free</span></span>
+        <span class="blog-badge-tag">Tracker</span>
+      </a>
+
+      <div class="blog-nav-links">
+        <a href="payment-reminder-generator.html" class="btn-nav-ghost">✉️ Reminder Generator</a>
+        <a href="late-fee-calculator.html" class="btn-nav-ghost">⏳ Late Fee Calc</a>
+        <a href="./" class="btn-nav-primary">⚡ New Invoice</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="blog-hero">
+    <div class="container">
+      <span class="hero-badge" style="background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 14px; border-radius: 99px; font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 14px;">
+        📊 Local Browser Dashboard • 100% Private
+      </span>
+      <h1 class="blog-hero-title">Free Online Invoice Tracker</h1>
+      <p class="blog-hero-subtitle">
+        Track Paid, Sent, Draft, and Overdue invoices saved in this browser. Duplicate repeat bills, convert invoices to receipts, or send overdue reminders in one click.
+      </p>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 1060px; margin: 0 auto 60px; padding: 0 20px;">
+
+    <section class="tracker-card">
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-box kpi-paid">
+          <div class="kpi-label">Paid</div>
+          <div class="kpi-value" id="kpiPaid">$0.00</div>
+          <div class="kpi-sub" id="kpiPaidCount">0 invoices</div>
+        </div>
+        <div class="kpi-box kpi-sent">
+          <div class="kpi-label">Sent / Pending</div>
+          <div class="kpi-value" id="kpiSent">$0.00</div>
+          <div class="kpi-sub" id="kpiSentCount">0 invoices</div>
+        </div>
+        <div class="kpi-box kpi-overdue">
+          <div class="kpi-label">Overdue</div>
+          <div class="kpi-value" id="kpiOverdue">$0.00</div>
+          <div class="kpi-sub" id="kpiOverdueCount">0 invoices</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">Drafts &amp; Total</div>
+          <div class="kpi-value" id="kpiTotalCount">0</div>
+          <div class="kpi-sub" id="kpiDraftCount">0 drafts saved</div>
+        </div>
+      </div>
+
+      <!-- Toolbar -->
+      <div class="tracker-toolbar">
+        <div class="filter-pills" id="filterPills">
+          <button type="button" class="filter-pill active" data-filter="all">All</button>
+          <button type="button" class="filter-pill" data-filter="Paid">Paid</button>
+          <button type="button" class="filter-pill" data-filter="Sent">Sent</button>
+          <button type="button" class="filter-pill" data-filter="Overdue">Overdue</button>
+          <button type="button" class="filter-pill" data-filter="Draft">Draft</button>
+        </div>
+
+        <div class="tracker-actions-right">
+          <input type="search" id="trackerSearch" class="tracker-search" placeholder="Search invoice # or client...">
+          <button type="button" id="btnExportBackup" class="btn-tool" title="Download JSON backup of all saved invoices">⬇️ Backup JSON</button>
+          <label class="btn-tool" style="cursor: pointer;" title="Restore invoices from JSON backup">
+            ⬆️ Restore
+            <input type="file" id="importBackupInput" accept="application/json,.json" style="display: none;">
+          </label>
+          <a href="./?preset=blank" class="btn-tool btn-tool-primary">＋ New Invoice</a>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="tracker-table-wrap">
+        <table class="tracker-table" id="trackerTable">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Client</th>
+              <th>Issue Date</th>
+              <th>Due Date</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="trackerTableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="trackerEmptyState" class="empty-state" style="display: none;">
+        <h3>No matching invoices found in this browser</h3>
+        <p style="margin-bottom: 16px;">Create an invoice in the editor and it will automatically appear here — or load sample records to preview the tracker.</p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+          <a href="./?preset=blank" class="btn-tool btn-tool-primary">⚡ Create First Invoice</a>
+          <button type="button" id="btnLoadSamples" class="btn-tool">🧪 Load Sample Invoices</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO & Workflow Explanation -->
+    <article class="prose" style="max-width: 820px; margin: 0 auto 48px;">
+      <h2>How the Client-Side Invoice Tracker Works</h2>
+      <p>
+        Every invoice you edit or export in the <a href="./">QuickBillFree Invoice Generator</a> is automatically synced to your browser's local storage. This dashboard reads that same saved history so you can manage your billing pipeline without creating an account or uploading client data to a third-party cloud.
+      </p>
+      <ul>
+        <li><strong>Track payment status:</strong> Switch any invoice between <em>Draft</em>, <em>Sent</em>, <em>Paid</em>, and <em>Overdue</em>. Marking an invoice Paid also updates its stamp in the editor.</li>
+        <li><strong>1-click repeat billing:</strong> Click <strong>Duplicate</strong> on last month's invoice to clone the client and line items with an auto-incremented invoice number and today's date.</li>
+        <li><strong>Quote → Invoice → Receipt workflow:</strong> Click <strong>→ Receipt</strong> to turn a paid invoice into a payment receipt PDF, or click <strong>Remind</strong> on an unpaid bill to open the <a href="payment-reminder-generator.html">Overdue Payment Reminder Generator</a> pre-filled with that invoice's details.</li>
+        <li><strong>Back up anytime:</strong> Because browser storage lives on your device, use <strong>Backup JSON</strong> regularly to save a portable copy of your invoice history.</li>
+      </ul>
+
+      <h2>Related Free Tools</h2>
+      <p>
+        Need to follow up on a late payment? Use our <a href="payment-reminder-generator.html">Overdue Invoice Reminder Email Generator</a> or calculate statutory interest with the <a href="late-fee-calculator.html">Late Fee Calculator</a>.
+      </p>
+    </article>
+
+    <!-- Bottom CTA Banner -->
+    <div class="blog-cta-banner">
+      <div>
+        <h3>Ready to bill your next client?</h3>
+        <p>Create, customize, and download a PDF invoice in seconds — zero signup required.</p>
+      </div>
+      <a href="./?preset=blank" class="btn-cta-white">Create Free Invoice →</a>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-links" style="margin-bottom: 10px;">
+        <a href="./">Invoice Generator</a>
+        <a href="invoice-tracker.html">Invoice Tracker</a>
+        <a href="payment-reminder-generator.html">Payment Reminder Generator</a>
+        <a href="late-fee-calculator.html">Late Fee Calculator</a>
+        <a href="vat-calculator.html">VAT Calculator</a>
+        <a href="receipt-maker.html">Receipt Maker</a>
+        <a href="quote-maker.html">Quote Maker</a>
+      </div>
+      <p>&copy; 2026 QuickBillFree.com — 100% Free Client-Side Invoicing Tools. <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="appToast" class="toast-notification" style="display: none;">
+    <span id="toastIcon" class="toast-icon">✓</span>
+    <span id="toastMessage" class="toast-text">Action completed</span>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'simple_invoice_data_v1';
+      const HISTORY_KEY = 'iq_saved_invoices_v1';
+
+      const CURRENCY_SYMBOLS = {
+        USD: '$', EUR: '€', GBP: '£', CAD: 'CA$', AUD: 'A$', INR: '₹',
+        JPY: '¥', SGD: 'S$', NZD: 'NZ$', BDT: '৳', CHF: 'CHF ', AED: 'AED '
+      };
+
+      let activeFilter = 'all';
+      let searchQuery = '';
+
+      function getSavedInvoices() {
+        try {
+          const raw = localStorage.getItem(HISTORY_KEY);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function saveInvoices(list) {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+      }
+
+      function formatMoney(amount, currency) {
+        const num = Number(amount) || 0;
+        const sym = CURRENCY_SYMBOLS[currency] || (currency ? currency + ' ' : '$');
+        return sym + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function escapeHtml(str) {
+        return String(str || '').replace(/[&<>"']/g, (ch) => ({
+          '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[ch]));
+      }
+
+      function showToast(msg, icon = '✓') {
+        const toast = document.getElementById('appToast');
+        const toastMsg = document.getElementById('toastMessage');
+        const toastIcon = document.getElementById('toastIcon');
+        if (toast && toastMsg) {
+          toastMsg.textContent = msg;
+          if (toastIcon) toastIcon.textContent = icon;
+          toast.style.display = 'flex';
+          toast.classList.add('visible');
+          clearTimeout(toast._timer);
+          toast._timer = setTimeout(() => {
+            toast.classList.remove('visible');
+            setTimeout(() => { toast.style.display = 'none'; }, 300);
+          }, 2200);
+        }
+      }
+
+      function isPastDue(inv) {
+        const due = inv.data && inv.data.dueDate;
+        if (!due || inv.status === 'Paid') return false;
+        const today = new Date().toISOString().split('T')[0];
+        return due < today;
+      }
+
+      function updateKpis(invoices) {
+        const totals = { Paid: 0, Sent: 0, Overdue: 0, Draft: 0 };
+        const counts = { Paid: 0, Sent: 0, Overdue: 0, Draft: 0 };
+        const primaryCurrency = (invoices[0] && invoices[0].currency) || 'USD';
+
+        invoices.forEach((inv) => {
+          const st = ['Paid', 'Sent', 'Overdue', 'Draft'].includes(inv.status) ? inv.status : 'Draft';
+          totals[st] += Number(inv.totalAmount) || 0;
+          counts[st] += 1;
+        });
+
+        document.getElementById('kpiPaid').textContent = formatMoney(totals.Paid, primaryCurrency);
+        document.getElementById('kpiPaidCount').textContent = `${counts.Paid} invoice${counts.Paid === 1 ? '' : 's'}`;
+        document.getElementById('kpiSent').textContent = formatMoney(totals.Sent, primaryCurrency);
+        document.getElementById('kpiSentCount').textContent = `${counts.Sent} invoice${counts.Sent === 1 ? '' : 's'}`;
+        document.getElementById('kpiOverdue').textContent = formatMoney(totals.Overdue, primaryCurrency);
+        document.getElementById('kpiOverdueCount').textContent = `${counts.Overdue} invoice${counts.Overdue === 1 ? '' : 's'}`;
+        document.getElementById('kpiTotalCount').textContent = String(invoices.length);
+        document.getElementById('kpiDraftCount').textContent = `${counts.Draft} draft${counts.Draft === 1 ? '' : 's'} saved`;
+      }
+
+      function render() {
+        const all = getSavedInvoices();
+        updateKpis(all);
+
+        const q = searchQuery.trim().toLowerCase();
+        const filtered = all.filter((inv) => {
+          const st = inv.status || 'Draft';
+          if (activeFilter !== 'all' && st !== activeFilter) return false;
+          if (!q) return true;
+          return (inv.invoiceNumber || '').toLowerCase().includes(q) ||
+                 (inv.clientName || '').toLowerCase().includes(q);
+        });
+
+        const tbody = document.getElementById('trackerTableBody');
+        const table = document.getElementById('trackerTable');
+        const empty = document.getElementById('trackerEmptyState');
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = '';
+          table.style.display = 'none';
+          empty.style.display = 'block';
+          return;
+        }
+
+        table.style.display = 'table';
+        empty.style.display = 'none';
+
+        tbody.innerHTML = filtered.map((inv) => {
+          const st = ['Paid', 'Sent', 'Overdue', 'Draft'].includes(inv.status) ? inv.status : 'Draft';
+          const due = (inv.data && inv.data.dueDate) || '—';
+          const pastDueHint = isPastDue(inv) && st !== 'Overdue'
+            ? ' <span style="color:#dc2626;font-size:0.75rem;font-weight:700;">(Past due)</span>'
+            : '';
+
+          const remindParams = new URLSearchParams({
+            inv: inv.invoiceNumber || 'INV-1001',
+            client: inv.clientName || '',
+            amount: String(Number(inv.totalAmount || 0).toFixed(2)),
+            currency: inv.currency || 'USD',
+            due: due !== '—' ? due : ''
+          }).toString();
+
+          return `
+            <tr data-id="${escapeHtml(inv.id)}">
+              <td><strong>${escapeHtml(inv.invoiceNumber || 'INV-1001')}</strong></td>
+              <td>${escapeHtml(inv.clientName || 'Unnamed Client')}</td>
+              <td>${escapeHtml(inv.issueDate || '—')}</td>
+              <td>${escapeHtml(due)}${pastDueHint}</td>
+              <td><strong>${escapeHtml(formatMoney(inv.totalAmount, inv.currency))}</strong></td>
+              <td>
+                <select class="status-select status-${st}" data-action="status" data-id="${escapeHtml(inv.id)}" aria-label="Invoice status">
+                  <option value="Draft"${st === 'Draft' ? ' selected' : ''}>Draft</option>
+                  <option value="Sent"${st === 'Sent' ? ' selected' : ''}>Sent</option>
+                  <option value="Paid"${st === 'Paid' ? ' selected' : ''}>Paid</option>
+                  <option value="Overdue"${st === 'Overdue' ? ' selected' : ''}>Overdue</option>
+                </select>
+              </td>
+              <td>
+                <div class="row-actions">
+                  <button type="button" class="btn-row" data-action="open" data-id="${escapeHtml(inv.id)}" title="Open in editor">Open</button>
+                  <button type="button" class="btn-row" data-action="duplicate" data-id="${escapeHtml(inv.id)}" title="Duplicate as new draft">Duplicate</button>
+                  <button type="button" class="btn-row" data-action="receipt" data-id="${escapeHtml(inv.id)}" title="Convert to Paid Receipt">→ Receipt</button>
+                  <a class="btn-row" href="payment-reminder-generator.html?${remindParams}" title="Generate payment reminder email">Remind</a>
+                  <button type="button" class="btn-row btn-row-warn" data-action="delete" data-id="${escapeHtml(inv.id)}" title="Delete invoice">✕</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      function openInEditor(dataObj) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(dataObj));
+        window.location.href = './';
+      }
+
+      document.getElementById('filterPills').addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-pill');
+        if (!btn) return;
+        document.querySelectorAll('.filter-pill').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.filter || 'all';
+        render();
+      });
+
+      document.getElementById('trackerSearch').addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        render();
+      });
+
+      document.getElementById('trackerTableBody').addEventListener('change', (e) => {
+        const sel = e.target.closest('select[data-action="status"]');
+        if (!sel) return;
+        const id = sel.dataset.id;
+        const newStatus = sel.value;
+        const list = getSavedInvoices();
+        const target = list.find((i) => i.id === id);
+        if (!target) return;
+        target.status = newStatus;
+        target.updatedAt = Date.now();
+        if (target.data) {
+          target.data.status = newStatus;
+          if (newStatus === 'Paid') target.data.stamp = 'PAID';
+          else if (newStatus === 'Overdue') target.data.stamp = 'OVERDUE';
+          else if (target.data.stamp === 'PAID' || target.data.stamp === 'OVERDUE') target.data.stamp = 'none';
+        }
+        saveInvoices(list);
+
+        try {
+          const active = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+          if (active && active.invoiceId === id) {
+            active.status = newStatus;
+            if (target.data) active.stamp = target.data.stamp;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(active));
+          }
+        } catch (_) {}
+
+        showToast(`Status updated to ${newStatus}`, '✓');
+        render();
+      });
+
+      document.getElementById('trackerTableBody').addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]');
+        if (!btn) return;
+        const action = btn.dataset.action;
+        const id = btn.dataset.id;
+        const list = getSavedInvoices();
+        const target = list.find((i) => i.id === id);
+        if (!target) return;
+
+        if (action === 'open' && target.data) {
+          openInEditor(target.data);
+        } else if (action === 'duplicate' && target.data) {
+          const cloned = JSON.parse(JSON.stringify(target.data));
+          cloned.invoiceId = 'inv_' + Date.now();
+          const numMatch = (cloned.invoiceNumber || '').match(/(\d+)$/);
+          if (numMatch) {
+            const nextNum = parseInt(numMatch[1], 10) + 1;
+            cloned.invoiceNumber = cloned.invoiceNumber.substring(0, numMatch.index) + nextNum;
+          } else {
+            cloned.invoiceNumber = (cloned.invoiceNumber || 'INV') + '-COPY';
+          }
+          cloned.issueDate = new Date().toISOString().split('T')[0];
+          cloned.status = 'Draft';
+          cloned.stamp = 'none';
+          openInEditor(cloned);
+        } else if (action === 'receipt' && target.data) {
+          const rcpt = JSON.parse(JSON.stringify(target.data));
+          rcpt.invoiceId = 'inv_' + Date.now();
+          rcpt.docTitle = 'PAYMENT RECEIPT';
+          rcpt.invoiceNumber = (rcpt.invoiceNumber || 'INV-1001').replace(/^INV/i, 'RCPT');
+          rcpt.status = 'Paid';
+          rcpt.stamp = 'PAID';
+          rcpt.issueDate = new Date().toISOString().split('T')[0];
+          openInEditor(rcpt);
+        } else if (action === 'delete') {
+          if (!confirm(`Delete ${target.invoiceNumber || 'this invoice'} from browser history?`)) return;
+          saveInvoices(list.filter((i) => i.id !== id));
+          showToast('Invoice deleted', '🗑️');
+          render();
+        }
+      });
+
+      document.getElementById('btnExportBackup').addEventListener('click', () => {
+        const list = getSavedInvoices();
+        const blob = new Blob([JSON.stringify(list, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `quickbillfree-invoices-${new Date().toISOString().split('T')[0]}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast(`Exported ${list.length} invoice(s)`, '⬇️');
+      });
+
+      document.getElementById('importBackupInput').addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            const imported = JSON.parse(String(reader.result || '[]'));
+            if (!Array.isArray(imported)) throw new Error('Invalid format');
+            const existing = getSavedInvoices();
+            const map = new Map(existing.map((item) => [item.id, item]));
+            imported.forEach((item) => {
+              if (item && item.id) map.set(item.id, item);
+            });
+            const merged = Array.from(map.values()).slice(0, 50);
+            saveInvoices(merged);
+            showToast(`Restored ${imported.length} invoice(s)`, '⬆️');
+            render();
+          } catch (_) {
+            showToast('Invalid JSON backup file', '⚠️');
+          }
+          e.target.value = '';
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('btnLoadSamples').addEventListener('click', () => {
+        const today = new Date();
+        const fmt = (offsetDays) => {
+          const d = new Date(today.getTime() + offsetDays * 86400000);
+          return d.toISOString().split('T')[0];
+        };
+        const samples = [
+          {
+            id: 'inv_sample_1', invoiceNumber: 'INV-1042', clientName: 'Northstar Studio',
+            issueDate: fmt(-21), totalAmount: 1450, currency: 'USD', status: 'Paid', updatedAt: Date.now(),
+            data: { invoiceId: 'inv_sample_1', docTitle: 'INVOICE', invoiceNumber: 'INV-1042', toName: 'Northstar Studio', issueDate: fmt(-21), dueDate: fmt(-7), currency: 'USD', status: 'Paid', stamp: 'PAID', items: [{ desc: 'UI/UX Design Sprint', qty: 1, rate: 1450 }] }
+          },
+          {
+            id: 'inv_sample_2', invoiceNumber: 'INV-1043', clientName: 'Apex Logistics',
+            issueDate: fmt(-18), totalAmount: 820, currency: 'USD', status: 'Overdue', updatedAt: Date.now() - 1000,
+            data: { invoiceId: 'inv_sample_2', docTitle: 'INVOICE', invoiceNumber: 'INV-1043', toName: 'Apex Logistics', issueDate: fmt(-18), dueDate: fmt(-4), currency: 'USD', status: 'Overdue', stamp: 'OVERDUE', items: [{ desc: 'Monthly Maintenance Retainer', qty: 1, rate: 820 }] }
+          },
+          {
+            id: 'inv_sample_3', invoiceNumber: 'INV-1044', clientName: 'Bluewave Retail',
+            issueDate: fmt(-3), totalAmount: 640, currency: 'USD', status: 'Sent', updatedAt: Date.now() - 2000,
+            data: { invoiceId: 'inv_sample_3', docTitle: 'INVOICE', invoiceNumber: 'INV-1044', toName: 'Bluewave Retail', issueDate: fmt(-3), dueDate: fmt(11), currency: 'USD', status: 'Sent', stamp: 'none', items: [{ desc: 'Landing Page Optimization', qty: 8, rate: 80 }] }
+          }
+        ];
+        const current = getSavedInvoices();
+        saveInvoices([...samples, ...current].slice(0, 50));
+        showToast('Sample invoices loaded', '🧪');
+        render();
+      });
+
+      window.addEventListener('DOMContentLoaded', render);
+    })();
+  </script>
+</body>
+</html>
