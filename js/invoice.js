@@ -2484,7 +2484,7 @@ ${sender}`;
           margin: [8, 10, 8, 10],
           filename: `${invNum}_${client}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, scrollY: 0, windowWidth: 1024, backgroundColor: '#ffffff' },
+          html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
           pagebreak: { mode: ['css'], avoid: ['.items-table tr', '.totals-box'] }
         }).from(copy).save();
