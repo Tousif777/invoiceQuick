@@ -2419,6 +2419,19 @@ ${sender}`;
             doc_type: state.docType || 'Invoice',
             item_count: (state.items || []).length
           });
+
+          const promoCard = document.getElementById('postPdfBusinessPromo');
+          if (promoCard && !sessionStorage.getItem('qbf_promo_dismissed')) {
+            promoCard.style.display = 'block';
+            const closeBtn = document.getElementById('btnClosePostPdfPromo');
+            if (closeBtn && !closeBtn._bound) {
+              closeBtn._bound = true;
+              closeBtn.addEventListener('click', () => {
+                promoCard.style.display = 'none';
+                sessionStorage.setItem('qbf_promo_dismissed', '1');
+              });
+            }
+          }
         }).catch(err => {
           console.error('PDF error:', err);
           restorePdfStyles();

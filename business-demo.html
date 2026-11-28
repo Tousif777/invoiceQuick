@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WH81YDKPS6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted'
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-WH81YDKPS6');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBillFree Business — Interactive Portal Demo</title>
+  <meta name="description" content="Try the interactive QuickBillFree Business demo: explore the dashboard, add sample customers, create invoices, customize branding, and download a PDF.">
+  <link rel="canonical" href="https://quickbillfree.com/business-demo.html">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta name="theme-color" content="#4f46e5">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="blog.css">
+
+  <style>
+    .demo-banner { background: #eef2ff; border-bottom: 1px solid #c7d2fe; padding: 10px 16px; text-align: center; font-size: 0.85rem; color: #3730a3; font-weight: 600; }
+    .demo-shell { display: grid; grid-template-columns: 220px 1fr; gap: 20px; max-width: 1120px; margin: 24px auto 60px; padding: 0 20px; }
+    @media (max-width: 820px) { .demo-shell { grid-template-columns: 1fr; } }
+    .demo-sidebar { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px; height: fit-content; }
+    .demo-nav-btn { display: block; width: 100%; text-align: left; padding: 10px 12px; border-radius: 8px; border: none; background: transparent; color: #475569; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-bottom: 4px; }
+    .demo-nav-btn.active { background: #f1f5f9; color: #0f172a; border-left: 3px solid var(--demo-accent, #4f46e5); }
+    .demo-main { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px; }
+    .demo-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 22px; }
+    .demo-kpi { border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; background: #f8fafc; }
+    .demo-kpi small { display: block; font-size: 0.72rem; text-transform: uppercase; color: #64748b; font-weight: 700; }
+    .demo-kpi strong { font-size: 1.35rem; color: #0f172a; }
+    .demo-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .demo-table th { text-align: left; padding: 9px; border-bottom: 2px solid #e2e8f0; font-size: 0.75rem; text-transform: uppercase; color: #64748b; }
+    .demo-table td { padding: 10px 9px; border-bottom: 1px solid #f1f5f9; }
+    .demo-input { width: 100%; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; box-sizing: border-box; margin-bottom: 10px; }
+    .demo-btn { padding: 9px 16px; border-radius: 8px; border: none; background: var(--demo-accent, #4f46e5); color: #ffffff; font-weight: 700; font-size: 0.86rem; cursor: pointer; }
+  </style>
+</head>
+<body class="blog-page">
+  <div class="demo-banner">
+    Interactive Sandbox Demo (data saved locally in your browser) —
+    <a href="business-contact.html" style="color: #4338ca; text-decoration: underline;">Request this setup for your business (£350) →</a>
+  </div>
+
+  <nav class="blog-nav">
+    <div class="container blog-nav-container">
+      <a href="business.html" class="blog-brand">
+        <img src="assets/favicon.svg" alt="QuickBillFree" width="30" height="30">
+        <span id="demoBrandTitle">Acme Plumbing &amp; Heating</span>
+        <span class="blog-badge-tag">Demo</span>
+      </a>
+      <div class="blog-nav-links">
+        <a href="business.html" class="btn-nav-ghost">← Overview</a>
+        <a href="business-contact.html" class="btn-nav-primary">Request Setup (£350)</a>
+      </div>
+    </div>
+  </nav>
+
+  <h1 style="position:absolute;left:-9999px;">QuickBillFree Business Interactive Portal Demo</h1>
+
+  <div class="demo-shell" id="demoRoot" style="--demo-accent: #4f46e5;">
+    <aside class="demo-sidebar">
+      <button type="button" class="demo-nav-btn active" data-tab="dashboard">📊 Dashboard</button>
+      <button type="button" class="demo-nav-btn" data-tab="invoices">📄 Invoices</button>
+      <button type="button" class="demo-nav-btn" data-tab="customers">👥 Customers</button>
+      <button type="button" class="demo-nav-btn" data-tab="branding">🎨 Branding</button>
+      <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+      <button type="button" id="btnResetDemo" class="demo-nav-btn" style="color: #dc2626;">↺ Reset Demo Data</button>
+    </aside>
+
+    <section class="demo-main">
+      <!-- Dashboard Tab -->
+      <div id="tab-dashboard" class="demo-tab">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h2 style="margin: 0; font-size: 1.25rem;">Dashboard</h2>
+          <button type="button" class="demo-btn" onclick="switchTab('invoices')">+ New Sample Invoice</button>
+        </div>
+        <div class="demo-kpis">
+          <div class="demo-kpi"><small>Total Invoiced</small><strong id="dInvoiced">£0.00</strong></div>
+          <div class="demo-kpi"><small>Received</small><strong id="dPaid" style="color: #059669;">£0.00</strong></div>
+          <div class="demo-kpi"><small>Outstanding</small><strong id="dOutstanding" style="color: #2563eb;">£0.00</strong></div>
+          <div class="demo-kpi"><small>Customers</small><strong id="dCustCount">0</strong></div>
+        </div>
+        <h3 style="font-size: 1rem; margin-bottom: 10px;">Recent Invoices</h3>
+        <div id="dashRecentTable"></div>
+      </div>
+
+      <!-- Invoices Tab -->
+      <div id="tab-invoices" class="demo-tab" style="display: none;">
+        <h2 style="margin: 0 0 14px; font-size: 1.25rem;">Invoices</h2>
+        <form id="demoInvForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 18px; background: #f8fafc; padding: 14px; border-radius: 10px;">
+          <select id="dInvCustomer" class="demo-input" style="margin:0;"></select>
+          <input id="dInvDesc" class="demo-input" style="margin:0;" placeholder="Service description" required>
+          <input id="dInvAmount" type="number" min="1" step="0.01" class="demo-input" style="margin:0;" placeholder="Amount (£)" required>
+          <button type="submit" class="demo-btn">Create Invoice</button>
+        </form>
+        <div id="invListTable"></div>
+      </div>
+
+      <!-- Customers Tab -->
+      <div id="tab-customers" class="demo-tab" style="display: none;">
+        <h2 style="margin: 0 0 14px; font-size: 1.25rem;">Customers</h2>
+        <form id="demoCustForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 18px; background: #f8fafc; padding: 14px; border-radius: 10px;">
+          <input id="dCustName" class="demo-input" style="margin:0;" placeholder="Business name" required>
+          <input id="dCustEmail" type="email" class="demo-input" style="margin:0;" placeholder="Email address">
+          <button type="submit" class="demo-btn">Add Customer</button>
+        </form>
+        <div id="custListTable"></div>
+      </div>
+
+      <!-- Branding Tab -->
+      <div id="tab-branding" class="demo-tab" style="display: none;">
+        <h2 style="margin: 0 0 14px; font-size: 1.25rem;">White-Label Branding</h2>
+        <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 4px;">Business Name</label>
+        <input id="dBrandName" class="demo-input" style="max-width: 360px;">
+        <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 4px;">Accent Color</label>
+        <input id="dBrandColor" type="color" style="width: 60px; height: 38px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 14px; display: block;">
+        <button type="button" id="btnSaveBrand" class="demo-btn">Apply Branding</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Hidden printable template for html2pdf -->
+  <div id="pdfSampleTemplate" style="display: none; padding: 28px; font-family: Inter, sans-serif; color: #0f172a;"></div>
+
+  <script src="js/html2pdf.bundle.min.js"></script>
+  <script>
+    (function () {
+      const DEMO_KEY = 'qbf_business_demo_v1';
+      const DEFAULT_DEMO = {
+        brandName: 'Acme Plumbing & Heating',
+        accentColor: '#4f46e5',
+        customers: [
+          { id: 'c1', name: 'Northstar Property Management', email: 'accounts@northstar.example' },
+          { id: 'c2', name: 'Oakwood Bakery Ltd', email: 'david@oakwood.example' }
+        ],
+        invoices: [
+          { id: 'i1', number: 'INV-1001', customer: 'Northstar Property Management', desc: 'Boiler inspection & valve replacement', amount: 420, status: 'Paid' },
+          { id: 'i2', number: 'INV-1002', customer: 'Oakwood Bakery Ltd', desc: 'Commercial drainage service', amount: 288, status: 'Overdue' },
+          { id: 'i3', number: 'INV-1003', customer: 'Northstar Property Management', desc: 'Radiator balancing', amount: 216, status: 'Sent' }
+        ]
+      };
+
+      function loadDemo() {
+        try {
+          const raw = localStorage.getItem(DEMO_KEY);
+          return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(DEFAULT_DEMO));
+        } catch (_) {
+          return JSON.parse(JSON.stringify(DEFAULT_DEMO));
+        }
+      }
+
+      function saveDemo(state) {
+        localStorage.setItem(DEMO_KEY, JSON.stringify(state));
+      }
+
+      window.switchTab = function (tab) {
+        document.querySelectorAll('.demo-tab').forEach((el) => (el.style.display = 'none'));
+        document.getElementById('tab-' + tab).style.display = 'block';
+        document.querySelectorAll('.demo-nav-btn[data-tab]').forEach((b) => {
+          b.classList.toggle('active', b.dataset.tab === tab);
+        });
+      };
+
+      document.querySelectorAll('.demo-nav-btn[data-tab]').forEach((btn) => {
+        btn.addEventListener('click', () => window.switchTab(btn.dataset.tab));
+      });
+
+      window.downloadSamplePdf = function (invId) {
+        const state = loadDemo();
+        const inv = state.invoices.find((i) => i.id === invId);
+        if (!inv) return;
+        const el = document.getElementById('pdfSampleTemplate');
+        el.style.display = 'block';
+        el.innerHTML = `
+          <div style="border-bottom: 3px solid ${state.accentColor}; padding-bottom: 12px; margin-bottom: 20px; display:flex; justify-content:space-between;">
+            <div><h2 style="margin:0;">${state.brandName}</h2><p style="margin:4px 0 0; color:#64748b;">Sample White-Label Invoice</p></div>
+            <div style="text-align:right;"><h2 style="margin:0; color:${state.accentColor};">INVOICE</h2><p style="margin:4px 0 0;">#${inv.number}</p></div>
+          </div>
+          <p><strong>Bill To:</strong> ${inv.customer}</p>
+          <p><strong>Description:</strong> ${inv.desc}</p>
+          <p style="font-size:18px; margin-top:20px;"><strong>Total: £${Number(inv.amount).toFixed(2)}</strong> (${inv.status})</p>
+        `;
+        html2pdf().from(el).set({ filename: inv.number + '.pdf', margin: 10 }).save().then(() => {
+          el.style.display = 'none';
+        });
+      };
+
+      window.markDemoPaid = function (invId) {
+        const state = loadDemo();
+        const inv = state.invoices.find((i) => i.id === invId);
+        if (inv) { inv.status = 'Paid'; saveDemo(state); render(); }
+      };
+
+      function render() {
+        const state = loadDemo();
+        document.getElementById('demoBrandTitle').textContent = state.brandName;
+        document.getElementById('demoRoot').style.setProperty('--demo-accent', state.accentColor);
+        document.getElementById('dBrandName').value = state.brandName;
+        document.getElementById('dBrandColor').value = state.accentColor;
+
+        const total = state.invoices.reduce((s, i) => s + Number(i.amount), 0);
+        const paid = state.invoices.filter((i) => i.status === 'Paid').reduce((s, i) => s + Number(i.amount), 0);
+        document.getElementById('dInvoiced').textContent = '£' + total.toFixed(2);
+        document.getElementById('dPaid').textContent = '£' + paid.toFixed(2);
+        document.getElementById('dOutstanding').textContent = '£' + Math.max(0, total - paid).toFixed(2);
+        document.getElementById('dCustCount').textContent = String(state.customers.length);
+
+        const rowsHtml = (list) => `
+          <table class="demo-table">
+            <thead><tr><th>#</th><th>Customer</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              ${list.map((i) => `
+                <tr>
+                  <td><strong>${i.number}</strong></td>
+                  <td>${i.customer}</td>
+                  <td>£${Number(i.amount).toFixed(2)}</td>
+                  <td>${i.status}</td>
+                  <td>
+                    <button type="button" class="demo-btn" style="padding:4px 8px;font-size:0.75rem;" onclick="downloadSamplePdf('${i.id}')">PDF</button>
+                    ${i.status !== 'Paid' ? `<button type="button" class="demo-btn" style="padding:4px 8px;font-size:0.75rem;background:#059669;" onclick="markDemoPaid('${i.id}')">Mark Paid</button>` : ''}
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>`;
+
+        document.getElementById('dashRecentTable').innerHTML = rowsHtml(state.invoices.slice(0, 5));
+        document.getElementById('invListTable').innerHTML = rowsHtml(state.invoices);
+        document.getElementById('dInvCustomer').innerHTML = state.customers.map((c) => `<option value="${c.name}">${c.name}</option>`).join('');
+        document.getElementById('custListTable').innerHTML = `
+          <table class="demo-table">
+            <thead><tr><th>Business</th><th>Email</th></tr></thead>
+            <tbody>${state.customers.map((c) => `<tr><td><strong>${c.name}</strong></td><td>${c.email || '—'}</td></tr>`).join('')}</tbody>
+          </table>`;
+      }
+
+      document.getElementById('demoInvForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const state = loadDemo();
+        const num = 'INV-' + (1001 + state.invoices.length);
+        state.invoices.unshift({
+          id: 'i_' + Date.now(),
+          number: num,
+          customer: document.getElementById('dInvCustomer').value,
+          desc: document.getElementById('dInvDesc').value,
+          amount: parseFloat(document.getElementById('dInvAmount').value) || 0,
+          status: 'Sent'
+        });
+        saveDemo(state);
+        e.target.reset();
+        render();
+      });
+
+      document.getElementById('demoCustForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const state = loadDemo();
+        state.customers.unshift({
+          id: 'c_' + Date.now(),
+          name: document.getElementById('dCustName').value,
+          email: document.getElementById('dCustEmail').value
+        });
+        saveDemo(state);
+        e.target.reset();
+        render();
+      });
+
+      document.getElementById('btnSaveBrand').addEventListener('click', () => {
+        const state = loadDemo();
+        state.brandName = document.getElementById('dBrandName').value || 'My Business';
+        state.accentColor = document.getElementById('dBrandColor').value || '#4f46e5';
+        saveDemo(state);
+        render();
+      });
+
+      document.getElementById('btnResetDemo').addEventListener('click', () => {
+        localStorage.removeItem(DEMO_KEY);
+        render();
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
