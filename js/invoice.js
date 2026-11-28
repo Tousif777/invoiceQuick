@@ -2363,8 +2363,8 @@ ${sender}`;
     const exportStyles = document.createElement('style');
     exportStyles.textContent = `
       .invoice-export.invoice-sheet {
-        display: flow-root; width: 100%; max-width: none; min-width: 0;
-        padding: 10px 10px 34px; margin: 0; box-sizing: border-box;
+        width: 100%; max-width: none; min-width: 0;
+        padding: 10px; margin: 0; box-sizing: border-box;
         border: 0; border-radius: 0; box-shadow: none; transform: none;
         background: #fff; color: #0f172a; line-height: 1.4;
       }
@@ -2414,8 +2414,6 @@ ${sender}`;
       }
       .invoice-export .invoice-sheet-footer { margin-top: 14px; }
       .invoice-export .export-canvas { max-width: 100%; height: auto; }
-      .invoice-export .qr-content-flex { display: block; }
-      .invoice-export .qr-code-canvas-wrap { display: inline-flex; }
       @media print {
         @page { margin: 8mm 10mm; }
         body:has(.invoice-export) { display: block !important; padding: 0 !important; }
@@ -2480,10 +2478,15 @@ ${sender}`;
           margin: [8, 10, 8, 10],
           filename: `${invNum}_${client}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+          html2canvas: { scale: 2, useCORS: true, scrollX: 0, scrollY: 0, windowWidth: 1024, backgroundColor: '#ffffff' },
           jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
           pagebreak: { mode: ['css'], avoid: ['.items-table tr', '.totals-box'] }
-        }).from(copy).save();
+        }).from(copy).toContainer().get('container', (container) => {
+          // Keep the A4 canvas origin fixed when html2canvas clones at desktop width.
+          container.style.left = '0';
+          container.style.right = 'auto';
+          container.style.margin = '0';
+        }).save();
         downloaded = true;
 
         trackEvent('generate_lead', {
