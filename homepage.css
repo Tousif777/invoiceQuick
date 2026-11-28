@@ -1,0 +1,154 @@
+.home-intro {
+  width: 100%;
+  margin: 20px auto 4px;
+}
+
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 44px);
+  overflow: hidden;
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: 24px;
+  color: #f9f7ff;
+  background: radial-gradient(ellipse at 98% 15%, #633ccc, transparent 58%), #211643;
+  box-shadow: 0 18px 45px #30215325;
+}
+.home-hero::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image: radial-gradient(#e5d6ff55 1px, transparent 1px);
+  background-size: 16px 16px;
+  mask-image: linear-gradient(90deg, transparent 42%, #000);
+  content: "";
+}
+.home-hero h1 {
+  max-width: 14ch;
+  font-size: clamp(2.4rem, 5.6vw, 4.55rem);
+  line-height: .99;
+  letter-spacing: -.073em;
+  font-weight: 900;
+}
+.home-hero h1 em { color: #ddd1ff; font-style: normal; }
+.home-hero-copy > p {
+  max-width: 43ch;
+  margin-top: 13px;
+  color: #e0d9ee;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.home-start {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  margin-top: 17px;
+  padding: 9px 16px;
+  border-radius: 9px;
+  background: #e2fa9d;
+  color: #241a36;
+  text-decoration: none;
+  font-weight: 800;
+}
+.home-start:hover { background: #edffc0; }
+.home-start:focus-visible, .homepage-business-offer a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+.home-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 15px;
+  margin-top: 13px;
+  list-style: none;
+  color: #e0d9ee;
+  font-size: .8125rem;
+}
+.home-benefits li::before { content: "✓"; margin-right: 5px; color: #e2fa9d; font-weight: 800; }
+
+.home-preview {
+  width: min(100%, 348px);
+  justify-self: center;
+  padding: 20px 12px;
+}
+.home-preview-paper {
+  isolation: isolate;
+  position: relative;
+  padding: clamp(14px, 2vw, 25px);
+  border-radius: 15px;
+  background: #fff;
+  color: #241a36;
+  transform: rotate(-5deg);
+  box-shadow: 12px 12px 0 #a98af7, 0 24px 45px #13082d70;
+}
+.home-preview-head, .home-preview-items div, .home-preview-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.home-preview-head strong { font-size: 1.125rem; letter-spacing: -.045em; }
+.home-preview-head span { color: #55446c; font-size: .8125rem; }
+.home-preview-items { margin: 16px 0 10px; }
+.home-preview-items div { border-top: 1px solid #e8e0f6; padding: 9px 0; font-size: .875rem; }
+.home-preview-items dd { font-weight: 700; }
+.home-preview-total {
+  border-radius: 8px;
+  background: #eee8fd;
+  padding: 9px 10px;
+  font-size: .875rem;
+}
+.home-preview-total strong { font-size: 1.125rem; letter-spacing: -.04em; }
+.homepage-business-offer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 10px;
+  padding: 10px 13px;
+  border: 1px solid #c2dfce;
+  border-radius: 12px;
+  background: #e9f6ee;
+  color: #123328;
+}
+.homepage-business-offer strong { font-size: .9375rem; }
+.homepage-business-offer p { margin: 1px 0 0; color: #375b4c; font-size: .875rem; }
+.homepage-business-offer a {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  background: #183c2e;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: .875rem;
+  font-weight: 800;
+}
+.homepage-business-offer a:hover { background: #286047; }
+.homepage-business-offer a:focus-visible { outline-color: #183c2e; }
+
+@media screen {
+  #invoice-editor { scroll-margin-top: 84px; }
+  #btnDownloadPdf { background: #4730a5; }
+  #btnDownloadPdf:hover { background: #36237f; }
+}
+@media (max-width: 768px) {
+  .home-intro { margin-top: 12px; }
+  #invoice-editor { scroll-margin-top: 160px; }
+}
+@media (max-width: 640px) {
+  .home-hero { grid-template-columns: minmax(0, 1fr); border-radius: 17px; }
+  .home-preview { display: none; }
+  .homepage-business-offer { flex-wrap: wrap; }
+  .homepage-business-offer a { flex: 0 1 auto; }
+}
+@media print {
+  .home-intro { display: none !important; }
+}

@@ -70,6 +70,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="homepage.css">
 
   <!-- Schema.org JSON-LD Structured Data: WebApplication & FAQPage -->
   <script type="application/ld+json">
@@ -188,56 +189,6 @@
     .btn-social:hover { opacity: 0.92; transform: translateY(-1px); }
     .btn-social:active { transform: translateY(0); }
 
-    .homepage-business-offer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px 20px;
-      width: min(100%, 760px);
-      margin-top: 18px;
-      padding: 12px 14px 12px 18px;
-      border: 1px solid #2b5948;
-      border-radius: 14px;
-      background: linear-gradient(105deg, #102820, #1a4637);
-      color: #fff;
-      text-align: left;
-      box-shadow: 0 8px 20px #10282026;
-    }
-
-    .homepage-business-offer strong {
-      display: block;
-      font-size: 1rem;
-      line-height: 1.35;
-    }
-
-    .homepage-business-offer p {
-      margin: 3px 0 0;
-      color: #d1eddd;
-      font-size: .875rem;
-      line-height: 1.4;
-    }
-
-    .homepage-business-offer a {
-      flex: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 8px 13px;
-      border-radius: 8px;
-      background: #c3f3d9;
-      color: #102820;
-      font-size: .875rem;
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .homepage-business-offer a:hover { background: #e3faed; }
-    .homepage-business-offer a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-
-    @media (max-width: 540px) {
-      .homepage-business-offer { flex-wrap: wrap; padding: 12px 14px; }
-    }
   </style>
 </head>
 <body>
@@ -415,26 +366,30 @@
   <div class="ambient-glow ambient-glow-left print-hide" aria-hidden="true"></div>
   <div class="ambient-glow ambient-glow-right print-hide" aria-hidden="true"></div>
 
-  <!-- Hero Intro (Hidden in Print) -->
-  <div class="container hero-banner print-hide">
-    <div class="hero-badge">
-      <span class="hero-live-indicator">
-        <span class="hero-live-ping"></span>
-        <span class="hero-live-dot"></span>
-        <span class="hero-live-label">LIVE ENGINE</span>
-      </span>
-      <span class="hero-badge-divider"></span>
-      <span class="hero-badge-text">100% Free • No Signup Required • Client-Side & Private</span>
+  <section class="container home-intro print-hide" aria-labelledby="home-heading">
+    <div class="home-hero">
+      <div class="home-hero-copy">
+        <h1 id="home-heading">Free online<br> <em>invoice generator.</em></h1>
+        <p>Add your logo, line items and tax. Download a professional PDF in minutes, without an account.</p>
+        <a class="home-start" href="#invoice-editor">Create free invoice</a>
+        <ul class="home-benefits" aria-label="Invoice generator features">
+          <li>PDF download</li>
+          <li>Drafts saved in your browser</li>
+          <li>Payment QR codes</li>
+        </ul>
+      </div>
+      <figure class="home-preview">
+        <div class="home-preview-paper">
+          <div class="home-preview-head"><strong>Studio North</strong><span>Sample invoice</span></div>
+          <dl class="home-preview-items">
+            <div><dt>Brand design</dt><dd>$750.00</dd></div>
+            <div><dt>Print assets</dt><dd>$500.00</dd></div>
+          </dl>
+          <div class="home-preview-total"><span>Total due</span><strong>$1,250.00</strong></div>
+        </div>
+      </figure>
     </div>
-    <h1 class="hero-title">Free Online <span class="hero-title-highlight">Invoice Generator</span></h1>
-    <p class="hero-subtitle">Make an invoice online for freelance work or your small business. Add your logo, items and tax, then download a PDF without signing up. Drafts save in this browser.</p>
-    <div class="hero-perks">
-      <span class="hero-perk-pill"><span class="perk-icon">⚡</span> Instant PDF</span>
-      <span class="hero-perk-pill"><span class="perk-icon">🔒</span> Zero Sign-up</span>
-      <span class="hero-perk-pill"><span class="perk-icon">💾</span> Live Auto-Save</span>
-      <span class="hero-perk-pill"><span class="perk-icon">🎨</span> 4 Layouts</span>
-      <span class="hero-perk-pill"><span class="perk-icon">📱</span> QR Code Pay</span>
-    </div>
+
     <aside class="homepage-business-offer" aria-label="QuickBillFree Business">
       <div>
         <strong>Get your own branded invoicing software</strong>
@@ -442,10 +397,10 @@
       </div>
       <a href="business.html">Explore business setup · from £350</a>
     </aside>
-  </div>
+  </section>
 
   <!-- Main Invoice Paper Canvas -->
-  <main class="container invoice-sheet-wrapper">
+  <main class="container invoice-sheet-wrapper" id="invoice-editor" aria-label="Invoice editor" tabindex="-1">
     
     <div class="invoice-sheet" id="invoiceSheet">
       
@@ -1339,6 +1294,14 @@ Routing: 987654321</textarea>
   <script src="js/invoice.js"></script>
   <!-- PWA Service Worker Registration -->
   <script>
+    document.querySelector('.home-start').addEventListener('click', (event) => {
+      if (!window.location.hash.startsWith('#inv=')) return;
+      event.preventDefault();
+      const editor = document.getElementById('invoice-editor');
+      editor.focus({ preventScroll: true });
+      editor.scrollIntoView({ block: 'start' });
+    });
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js').catch(function() {});
