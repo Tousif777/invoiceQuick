@@ -295,6 +295,26 @@
     ]
   }
   </script>
+  <!-- Social share button styles -->
+  <style>
+    .btn-social {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn-social:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-social:active { transform: translateY(0); }
+  </style>
 </head>
 <body class="blog-page">
 
@@ -769,6 +789,37 @@
       });
 
       window.addEventListener('DOMContentLoaded', render);
+    })();
+  </script>
+
+  <!-- Share the Tool: Viral Referral Loop -->
+  <section class="prose" style="background: #ffffff; padding: 36px; border-radius: var(--radius-lg); border: 1px solid var(--border-color, #e2e8f0); margin-bottom: 48px; max-width: 820px; margin-left: auto; margin-right: auto;">
+    <h2 style="font-size: 1.35rem; margin-bottom: 10px; text-align: center;">Help Other Freelancers Track Invoices for Free</h2>
+    <p style="text-align: center; color: #64748b; margin-bottom: 22px;">Know a freelancer, contractor, or small business tired of chasing unpaid invoices? Share the QuickBillFree Invoice Tracker.</p>
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <a href="https://twitter.com/intent/tweet?text=I%20just%20found%20a%20free%20invoice%20tracker%20with%20zero%20signup%20and%20no%20monthly%20fees.%20Paid%2C%20Overdue%2C%20Sent%20%26%20Draft%20KPIs%20in%20your%20browser.%0A%0A👉%20https%3A%2F%2Fquickbillfree.com%2Finvoice-tracker.html&via=QuickBillFree" target="_blank" rel="noopener" class="btn-social" style="background:#1da1f2;color:#ffffff;">𝕏 Twitter</a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fquickbillfree.com%2Finvoice-tracker.html" target="_blank" rel="noopener" class="btn-social" style="background:#0077b5;color:#ffffff;">LinkedIn</a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fquickbillfree.com%2Finvoice-tracker.html" target="_blank" rel="noopener" class="btn-social" style="background:#1877f2;color:#ffffff;">Facebook</a>
+      <button type="button" id="btnCopyToolLink" class="btn-social" style="background:#475569;color:#ffffff;">📋 Copy Link</button>
+    </div>
+    <p style="text-align: center; color: #94a3b8; font-size: 0.8rem; margin-top: 12px;">Sharing opens a new window/tab to the social platform. QuickBillFree never sees your social accounts.</p>
+  </section>
+
+  <!-- Copy tool link for social sharing -->
+  <script>
+    (function () {
+      var btn = document.getElementById('btnCopyToolLink');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var url = window.location.origin + '/invoice-tracker.html';
+        try {
+          navigator.clipboard.writeText(url).then(function () {
+            var old = btn.textContent;
+            btn.textContent = 'Copied!';
+            setTimeout(function () { btn.textContent = old; }, 1600);
+          });
+        } catch (_) {}
+      });
     })();
   </script>
 </body>
