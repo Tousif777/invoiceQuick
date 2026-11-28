@@ -187,6 +187,57 @@
     }
     .btn-social:hover { opacity: 0.92; transform: translateY(-1px); }
     .btn-social:active { transform: translateY(0); }
+
+    .homepage-business-offer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 20px;
+      width: min(100%, 760px);
+      margin-top: 18px;
+      padding: 12px 14px 12px 18px;
+      border: 1px solid #2b5948;
+      border-radius: 14px;
+      background: linear-gradient(105deg, #102820, #1a4637);
+      color: #fff;
+      text-align: left;
+      box-shadow: 0 8px 20px #10282026;
+    }
+
+    .homepage-business-offer strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+
+    .homepage-business-offer p {
+      margin: 3px 0 0;
+      color: #d1eddd;
+      font-size: .875rem;
+      line-height: 1.4;
+    }
+
+    .homepage-business-offer a {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 8px 13px;
+      border-radius: 8px;
+      background: #c3f3d9;
+      color: #102820;
+      font-size: .875rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .homepage-business-offer a:hover { background: #e3faed; }
+    .homepage-business-offer a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    @media (max-width: 540px) {
+      .homepage-business-offer { flex-wrap: wrap; padding: 12px 14px; }
+    }
   </style>
 </head>
 <body>
@@ -384,9 +435,13 @@
       <span class="hero-perk-pill"><span class="perk-icon">🎨</span> 4 Layouts</span>
       <span class="hero-perk-pill"><span class="perk-icon">📱</span> QR Code Pay</span>
     </div>
-    <p class="print-hide" style="margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);">
-      🏢 <a href="business.html" style="color: var(--primary-indigo); font-weight: 600; text-decoration: none;">Get your own branded invoicing software — from £350 →</a>
-    </p>
+    <aside class="homepage-business-offer" aria-label="QuickBillFree Business">
+      <div>
+        <strong>Get your own branded invoicing software</strong>
+        <p>Your logo, your domain, and a dashboard for your invoices.</p>
+      </div>
+      <a href="business.html">Explore business setup · from £350</a>
+    </aside>
   </div>
 
   <!-- Main Invoice Paper Canvas -->
