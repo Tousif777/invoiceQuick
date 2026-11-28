@@ -30,6 +30,134 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="blog.css">
+
+  <style>
+    .inq-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.85fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (max-width: 840px) {
+      .inq-layout { grid-template-columns: 1fr; }
+    }
+    .inq-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+    }
+    .inq-field { margin-bottom: 16px; }
+    .inq-label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+    .inq-input, .inq-select, .inq-textarea {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 0.94rem;
+      color: #0f172a;
+      background: #ffffff;
+      box-sizing: border-box;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .inq-input:focus, .inq-select:focus, .inq-textarea:focus {
+      outline: none;
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
+    }
+    .inq-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 560px) {
+      .inq-row-2 { grid-template-columns: 1fr; }
+      .inq-card { padding: 20px; }
+    }
+    .pkg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 560px) { .pkg-grid { grid-template-columns: 1fr; } }
+    .pkg-option {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      background: #ffffff;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .pkg-option.active {
+      border-color: #4f46e5;
+      background: #eef2ff;
+      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
+    }
+    .pkg-option strong { display: block; font-size: 0.9rem; color: #0f172a; }
+    .pkg-option span { display: block; font-size: 0.78rem; color: #64748b; margin-top: 2px; }
+    .summary-card {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: 0 12px 28px -8px rgba(15, 23, 42, 0.25);
+    }
+    .summary-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 20px;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      line-height: 1.75;
+    }
+    .summary-list li::before {
+      content: "✓ ";
+      color: #34d399;
+      font-weight: 800;
+    }
+    .inq-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .btn-inq-primary {
+      flex: 1;
+      min-width: 190px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      background: #4f46e5;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-inq-primary:hover { background: #4338ca; }
+    .btn-inq-secondary {
+      padding: 12px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #334155;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-inq-secondary:hover { background: #f8fafc; }
+  </style>
 </head>
 <body class="blog-page">
   <nav class="blog-nav">
@@ -37,67 +165,129 @@
       <a href="business.html" class="blog-brand">
         <img src="assets/favicon.svg" alt="QuickBillFree" width="30" height="30">
         <span>Quick<span style="color: var(--blog-primary);">Bill</span><span style="color: #10b981; font-weight: 800; font-size: 0.95em;">Free</span></span>
-        <span class="blog-badge-tag">Inquiry</span>
+        <span class="blog-badge-tag">Setup Inquiry</span>
       </a>
       <div class="blog-nav-links">
         <a href="business.html" class="btn-nav-ghost">← Overview</a>
-        <a href="business-demo.html" class="btn-nav-ghost">Live Demo</a>
+        <a href="business-demo.html" class="btn-nav-primary">🚀 Live Demo</a>
       </div>
     </div>
   </nav>
 
   <header class="blog-hero">
     <div class="container">
+      <span class="hero-badge" style="background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 6px 14px; border-radius: 99px; font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 14px;">
+        🏢 Dedicated White-Label Portal • Ready in Days
+      </span>
       <h1 class="blog-hero-title">Request Your Custom Invoicing Setup</h1>
-      <p class="blog-hero-subtitle">Fill out your business details below to open a pre-filled email to support@quickbillfree.com — zero obligation.</p>
+      <p class="blog-hero-subtitle">Tell us about your business to generate a pre-filled inquiry to <strong>support@quickbillfree.com</strong> — no obligation or upfront payment until we confirm scope.</p>
     </div>
   </header>
 
-  <main class="container" style="max-width: 680px; margin: 0 auto 60px; padding: 0 20px;">
-    <section style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 28px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);">
-      <form id="inquiryForm" style="display: grid; gap: 14px;">
-        <div>
-          <label for="inqBiz" style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:5px;">Business Name *</label>
-          <input id="inqBiz" required placeholder="e.g. Apex Plumbing Ltd" style="width:100%; padding:10px; border:1.5px solid #cbd5e1; border-radius:8px; box-sizing:border-box;">
+  <main class="container" style="max-width: 1000px; margin: 0 auto 64px; padding: 0 20px;">
+    <div class="inq-layout">
+      <!-- Left: Form -->
+      <section class="inq-card">
+        <h2 style="margin: 0 0 18px; font-size: 1.2rem; color: #0f172a;">Your Business Details</h2>
+        <form id="inquiryForm">
+          <div class="inq-row-2">
+            <div class="inq-field">
+              <label for="inqBiz" class="inq-label">Business Name *</label>
+              <input id="inqBiz" class="inq-input" required placeholder="e.g. Apex Plumbing Ltd">
+            </div>
+            <div class="inq-field">
+              <label for="inqIndustry" class="inq-label">Industry / Trade</label>
+              <input id="inqIndustry" class="inq-input" placeholder="e.g. Plumbing, Mechanic, Consulting">
+            </div>
+          </div>
+
+          <div class="inq-row-2">
+            <div class="inq-field">
+              <label for="inqName" class="inq-label">Your Name *</label>
+              <input id="inqName" class="inq-input" required placeholder="e.g. Alex Smith">
+            </div>
+            <div class="inq-field">
+              <label for="inqEmail" class="inq-label">Your Email *</label>
+              <input id="inqEmail" type="email" class="inq-input" required placeholder="alex@apexplumbing.co.uk">
+            </div>
+          </div>
+
+          <label class="inq-label">Select Setup Package</label>
+          <div class="pkg-grid" id="pkgGrid">
+            <button type="button" class="pkg-option active" data-pkg="£350 Setup + £29/month Managed Hosting">
+              <strong>£350 + £29/mo Hosting</strong>
+              <span>Managed Docker, DB &amp; daily backups</span>
+            </button>
+            <button type="button" class="pkg-option" data-pkg="£350 Setup Only (Self-Hosted Docker)">
+              <strong>£350 Setup Only</strong>
+              <span>Deploy on your own server via Docker</span>
+            </button>
+          </div>
+
+          <div class="inq-field">
+            <label for="inqNotes" class="inq-label">Custom Domain, Currency &amp; Notes</label>
+            <textarea id="inqNotes" class="inq-textarea" rows="4" placeholder="e.g. billing.apexplumbing.co.uk, GBP (£), 20% UK VAT, Stripe payment link..."></textarea>
+          </div>
+
+          <div class="inq-actions">
+            <button type="submit" class="btn-inq-primary">✉️ Open Pre-Filled Email</button>
+            <button type="button" id="btnCopyInq" class="btn-inq-secondary">📋 Copy Inquiry Text</button>
+          </div>
+          <p id="inqStatus" style="font-size: 0.85rem; color: #059669; font-weight: 600; margin: 12px 0 0;"></p>
+        </form>
+      </section>
+
+      <!-- Right: Summary -->
+      <aside class="summary-card">
+        <span style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 700;">What You Get</span>
+        <h2 style="margin: 4px 0 0; font-size: 1.5rem; color: #ffffff;">£350 <span style="font-size: 0.9rem; font-weight: 500; color: #94a3b8;">one-time setup</span></h2>
+        <ul class="summary-list">
+          <li>Your logo, brand colors &amp; custom domain</li>
+          <li>Private SQLite database (no shared multi-tenant data)</li>
+          <li>Customer ledger &amp; cloud invoice history</li>
+          <li>Instant PDFs, public invoice links &amp; email reminders</li>
+          <li>50% deposit only after scope confirmation</li>
+          <li>30 days of setup &amp; launch support included</li>
+        </ul>
+        <div style="border-top: 1px solid #334155; padding-top: 14px; font-size: 0.84rem; color: #cbd5e1;">
+          Prefer to email directly?<br>
+          <a href="mailto:support@quickbillfree.com" style="color: #93c5fd; font-weight: 700; text-decoration: none;">support@quickbillfree.com</a>
         </div>
-        <div>
-          <label for="inqName" style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:5px;">Your Name &amp; Contact Email *</label>
-          <input id="inqName" required placeholder="e.g. Alex Smith (alex@apexplumbing.co.uk)" style="width:100%; padding:10px; border:1.5px solid #cbd5e1; border-radius:8px; box-sizing:border-box;">
-        </div>
-        <div>
-          <label for="inqPlan" style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:5px;">Package</label>
-          <select id="inqPlan" style="width:100%; padding:10px; border:1.5px solid #cbd5e1; border-radius:8px; box-sizing:border-box;">
-            <option value="£350 Setup + £29/month Managed Hosting">£350 Setup + £29/month Managed Hosting</option>
-            <option value="£350 Setup Only (Self-Hosted Docker)">£350 Setup Only (Self-Hosted Docker)</option>
-          </select>
-        </div>
-        <div>
-          <label for="inqNotes" style="display:block; font-size:0.85rem; font-weight:700; margin-bottom:5px;">Domain / Branding / Requirements</label>
-          <textarea id="inqNotes" rows="4" placeholder="Preferred domain (e.g. billing.apexplumbing.co.uk), currency, VAT requirements..." style="width:100%; padding:10px; border:1.5px solid #cbd5e1; border-radius:8px; box-sizing:border-box;"></textarea>
-        </div>
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <button type="submit" class="btn-nav-primary" style="flex:1; padding: 12px; border:none; cursor:pointer; font-size:0.95rem;">✉️ Open Pre-Filled Email</button>
-          <button type="button" id="btnCopyInq" class="btn-nav-ghost" style="padding: 12px; border: 1px solid #cbd5e1; cursor:pointer;">📋 Copy Inquiry Text</button>
-        </div>
-        <p id="inqStatus" style="font-size: 0.85rem; color: #059669; font-weight: 600; margin: 0;"></p>
-      </form>
-    </section>
+      </aside>
+    </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; 2026 QuickBillFree.com — <a href="business.html">Business Overview</a> • <a href="business-demo.html">Live Demo</a></p>
+      <div class="footer-links" style="margin-bottom: 10px;">
+        <a href="./">Free Invoice Generator</a>
+        <a href="business.html">Business Software</a>
+        <a href="business-demo.html">Live Demo</a>
+        <a href="business-contact.html">Request Setup</a>
+      </div>
+      <p>&copy; 2026 QuickBillFree.com — <a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></p>
     </div>
   </footer>
 
   <script>
     (function () {
+      let selectedPkg = '£350 Setup + £29/month Managed Hosting';
+
+      document.getElementById('pkgGrid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.pkg-option');
+        if (!btn) return;
+        document.querySelectorAll('.pkg-option').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPkg = btn.dataset.pkg;
+      });
+
       function buildBody() {
         const biz = document.getElementById('inqBiz').value.trim();
-        const contact = document.getElementById('inqName').value.trim();
-        const plan = document.getElementById('inqPlan').value;
+        const industry = document.getElementById('inqIndustry').value.trim() || 'Not specified';
+        const name = document.getElementById('inqName').value.trim();
+        const email = document.getElementById('inqEmail').value.trim();
         const notes = document.getElementById('inqNotes').value.trim();
-        return `Business Name: ${biz}\nContact: ${contact}\nPackage: ${plan}\n\nRequirements:\n${notes || 'Standard white-label setup'}`;
+        return `Business Name: ${biz}\nIndustry: ${industry}\nContact Name: ${name}\nContact Email: ${email}\nPackage: ${selectedPkg}\n\nRequirements:\n${notes || 'Standard white-label setup'}`;
       }
 
       document.getElementById('inquiryForm').addEventListener('submit', (e) => {
@@ -111,7 +301,7 @@
 
       document.getElementById('btnCopyInq').addEventListener('click', () => {
         navigator.clipboard?.writeText(buildBody()).then(() => {
-          document.getElementById('inqStatus').textContent = 'Inquiry copied — email it to support@quickbillfree.com!';
+          document.getElementById('inqStatus').textContent = 'Inquiry copied — paste and send to support@quickbillfree.com!';
         });
       });
     })();
