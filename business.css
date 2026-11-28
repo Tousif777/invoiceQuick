@@ -1,0 +1,63 @@
+.business-page { max-width: 1320px; }
+.business-hero {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+  padding-block: clamp(32px, 6vw, 84px);
+}
+.business-pitch h1 { font-size: clamp(2.65rem, 5.4vw, 5.15rem); }
+.business-pitch h1 em { display: block; }
+.business-pitch p, .business-section > p { max-width: 40ch; color: #415c50; line-height: 1.55; margin-top: 15px; }
+.business-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.business-actions a { display: inline-flex; align-items: center; min-height: 44px; }
+.business-secondary { padding: 9px 13px; border: 1px solid #a9c2b3; border-radius: 8px; background: #f7fcf8; font-weight: 700; font-size: .875rem; }
+.business-secondary:hover { background: #e3f4e9; }
+.business-pitch .hero-price { font-size: .875rem; }
+.hero-price strong { color: #173c2d; }
+.product-preview { overflow: hidden; border: 1px solid #b9cfc0; border-radius: 18px; background: #f5f8f6; box-shadow: 0 20px 55px #244c3629; }
+.preview-bar { display: flex; align-items: center; gap: 10px; background: #102820; color: white; padding: 13px 16px; }
+.preview-bar small, .preview-table small { display: block; margin-top: 2px; font-size: .8125rem; color: #536d61; }
+.preview-bar small { color: #b4cdc0; }
+.preview-label { margin-left: auto; color: #c7e8d5; font-size: .8125rem; text-align: right; }
+.preview-content { padding: clamp(12px, 2.2vw, 24px); }
+.preview-content h2 { margin-bottom: 10px; font-size: 1.25rem; letter-spacing: -.04em; }
+.preview-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-bottom: 10px; }
+.preview-metrics > div { padding: clamp(6px, 1.1vw, 12px); border: 1px solid #dbe6df; border-radius: 8px; background: #fff; font-size: .8125rem; }
+.preview-metrics > div:first-child { background: #d7f4e4; border-color: #c0e6d0; }
+.preview-metrics strong { display: block; margin-top: 4px; font: 800 clamp(.98rem, 2.15vw, 1.45rem) Manrope, sans-serif; letter-spacing: -.06em; }
+.preview-table { background: #fff; border: 1px solid #dbe6df; border-radius: 9px; }
+.preview-table h3, .preview-table > div { padding: 8px 10px; }
+.preview-table > div { display: grid; grid-template-columns: minmax(0, 1fr) auto 65px; align-items: center; gap: 7px; border-top: 1px solid #e8f0eb; font-size: .875rem; }
+.preview-table .status { justify-self: end; font-size: .75rem; }
+.business-section { padding-block: clamp(24px, 4vw, 52px); border-top: 1px solid #cbdad1; }
+.business-section h2 { font-size: clamp(1.65rem, 3.3vw, 2.65rem); letter-spacing: -.055em; }
+.business-section > p { margin-top: 6px; max-width: none; }
+.business-features { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 18px 0 0; }
+.business-features > div { padding: 15px; border: 1px solid #cddbd3; border-radius: 12px; background: #f8fcf9; }
+.business-features dt { font-weight: 800; }
+.business-features dd { margin: 6px 0 0; line-height: 1.5; color: #415c50; }
+.business-pricing { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.business-plan { border: 1px solid #cddbd3; border-radius: 15px; padding: clamp(16px, 3vw, 28px); background: #fff; }
+.business-plan-primary { background: #102820; border-color: #102820; color: #effaf3; }
+.business-plan h3 { font-size: 1.125rem; }
+.plan-price { margin-top: 6px; }
+.plan-price strong { font: 800 clamp(2.1rem, 5vw, 3.4rem)/1.2 Manrope, sans-serif; letter-spacing: -.07em; }
+.business-plan ul { padding-left: 20px; line-height: 1.6; }
+.business-plan-primary .demo-btn { display: inline-block; background: #b6edce; color: #102820; }
+.business-plan-primary .demo-btn:hover { background: #d6f8e4; }
+.business-plan > p:last-child { color: #415c50; line-height: 1.55; }
+.business-faq { display: grid; grid-template-columns: 1fr 1.5fr; align-items: start; gap: 14px; }
+.business-faq details { border-bottom: 1px solid #cbdad1; padding: 12px 0; }
+.business-faq details:first-child { padding-top: 4px; }
+.business-faq summary { cursor: pointer; font-weight: 700; }
+.business-faq details p { margin-top: 8px; color: #415c50; line-height: 1.5; }
+.business-footer { display: flex; flex-wrap: wrap; gap: 10px 20px; border-top: 1px solid #cbdad1; padding-top: 14px; font-size: .875rem; color: #415c50; }
+.business-footer a:hover { text-decoration: underline; }
+@media (max-width: 820px) {
+  .business-hero, .business-faq { grid-template-columns: minmax(0, 1fr); }
+  .business-features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .business-features, .business-pricing { grid-template-columns: minmax(0, 1fr); }
+}
