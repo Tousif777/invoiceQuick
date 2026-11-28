@@ -2363,7 +2363,8 @@ ${sender}`;
     const exportStyles = document.createElement('style');
     exportStyles.textContent = `
       .invoice-export.invoice-sheet {
-        width: 100%; max-width: none; min-width: 0; padding: 10px; margin: 0; box-sizing: border-box;
+        display: flow-root; width: 100%; max-width: none; min-width: 0;
+        padding: 10px 10px 34px; margin: 0; box-sizing: border-box;
         border: 0; border-radius: 0; box-shadow: none; transform: none;
         background: #fff; color: #0f172a; line-height: 1.4;
       }
@@ -2413,6 +2414,8 @@ ${sender}`;
       }
       .invoice-export .invoice-sheet-footer { margin-top: 14px; }
       .invoice-export .export-canvas { max-width: 100%; height: auto; }
+      .invoice-export .qr-content-flex { display: block; }
+      .invoice-export .qr-code-canvas-wrap { display: inline-flex; }
       @media print {
         @page { margin: 8mm 10mm; }
         body:has(.invoice-export) { display: block !important; padding: 0 !important; }
