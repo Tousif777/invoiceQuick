@@ -163,7 +163,7 @@
 
   .invoice-home .app-header .container {
     max-width: 1180px !important;
-    padding-inline: 16px !important;
+    padding: 8px 16px !important;
   }
 
   .invoice-home .header-flex {
@@ -171,7 +171,6 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, auto) max-content;
     grid-template-areas: "brand actions pdf" "format format format";
     gap: 8px 12px;
-    padding-block: 9px;
   }
 
   .invoice-home .brand-group { grid-area: brand; }
@@ -402,7 +401,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .invoice-home .app-header .container { padding-inline: 10px !important; }
+  .invoice-home .app-header .container { padding: 8px 10px !important; }
   .invoice-home .header-flex { gap: 6px; }
   .invoice-home .header-nav-actions button { min-height: 32px; }
   .invoice-home .brand-group { gap: 4px; flex-wrap: wrap; }
