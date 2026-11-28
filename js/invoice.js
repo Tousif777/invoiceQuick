@@ -2487,6 +2487,15 @@ ${sender}`;
           container.style.right = 'auto';
           container.style.margin = '0';
           container.parentElement.style.overflow = 'visible';
+          const contentTop = container.getBoundingClientRect().top;
+          const contentBottom = Array.from(container.querySelectorAll('.invoice-export, .invoice-export *'))
+            .reduce((bottom, element) => {
+              if (element.getClientRects().length === 0) return bottom;
+              return Math.max(bottom, element.getBoundingClientRect().bottom - contentTop);
+            }, container.scrollHeight);
+          // Leave clearance for the SVG payment code and the footer after rasterization.
+          const tailSpace = container.querySelector('.qr-code-output svg, .qr-code-output img') ? 72 : 12;
+          container.style.minHeight = Math.ceil(contentBottom + tailSpace) + 'px';
         }).save();
         downloaded = true;
 

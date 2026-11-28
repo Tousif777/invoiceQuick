@@ -1,10 +1,10 @@
-const CACHE_NAME = 'quickbillfree-v35';
+const CACHE_NAME = 'quickbillfree-v36';
 const STATIC_ASSETS = [
   './',
   'index.html',
   'style.css',
   'homepage.css?v=4',
-  'js/invoice.js?v=7',
+  'js/invoice.js?v=8',
   'js/html2pdf.bundle.min.js',
   'embed.html',
   'freshbooks-alternative.html',
