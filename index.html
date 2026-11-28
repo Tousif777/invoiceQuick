@@ -70,7 +70,7 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="homepage.css?v=4">
+  <link rel="stylesheet" href="homepage.css?v=5">
 
   <!-- Schema.org JSON-LD Structured Data: WebApplication & FAQPage -->
   <script type="application/ld+json">
@@ -912,60 +912,55 @@ Routing: 987654321</textarea>
 
     </div>
 
-    <!-- Invoicing Guides & Knowledge Hub Section -->
-    <div style="margin: 48px 0 24px 0;">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
-        <div>
-          <span style="font-size: 0.8125rem; font-weight: 700; color: var(--primary-indigo); text-transform: uppercase; letter-spacing: 0.05em;">📚 Invoicing Knowledge Hub</span>
-          <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-top: 4px;">Featured Freelance Guides & Articles</h3>
-        </div>
-        <a href="blog/" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.9375rem; display: inline-flex; align-items: center; gap: 4px;">Explore All Guides →</a>
+    <section class="home-featured" aria-labelledby="featured-guides-heading">
+      <div class="home-featured-heading">
+        <h3 id="featured-guides-heading">Featured guides and articles</h3>
+        <a class="home-guide-link" href="blog/">Explore all guides</a>
       </div>
+      <div class="seo-cards-grid home-featured-grid">
+        <article class="seo-card home-guide-card">
+          <span class="home-guide-topic">Freelancing</span>
+          <h4><a href="blog/how-to-create-freelance-invoice.html">How to Create a Professional Freelance Invoice in 2026</a></h4>
+          <p class="seo-text">The complete checklist and template for billing freelance clients without payment delays.</p>
+          <a class="home-guide-link" href="blog/how-to-create-freelance-invoice.html">Read guide</a>
+        </article>
 
-      <div class="seo-cards-grid">
-        <div class="seo-card" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #3730a3; background: #e0e7ff; padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;">Freelancing</span>
-          <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;"><a href="blog/how-to-create-freelance-invoice.html" style="color: inherit; text-decoration: none;">How to Create a Professional Freelance Invoice in 2026</a></h4>
-          <p class="seo-text" style="flex-grow: 1; margin-bottom: 16px;">The complete checklist and template for billing freelance clients without payment delays.</p>
-          <a href="blog/how-to-create-freelance-invoice.html" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.875rem;">Read Guide →</a>
-        </div>
+        <article class="seo-card home-guide-card">
+          <span class="home-guide-topic">Accounting</span>
+          <h4><a href="blog/invoice-vs-bill-vs-receipt.html">Invoice vs. Bill vs. Receipt: Timing & Differences</a></h4>
+          <p class="seo-text">Learn the legal, bookkeeping, and tax distinctions between invoices, bills, and receipts.</p>
+          <a class="home-guide-link" href="blog/invoice-vs-bill-vs-receipt.html">Read guide</a>
+        </article>
 
-        <div class="seo-card" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #92400e; background: #fef3c7; padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;">Accounting</span>
-          <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;"><a href="blog/invoice-vs-bill-vs-receipt.html" style="color: inherit; text-decoration: none;">Invoice vs. Bill vs. Receipt: Timing & Differences</a></h4>
-          <p class="seo-text" style="flex-grow: 1; margin-bottom: 16px;">Learn the legal, bookkeeping, and tax distinctions between invoices, bills, and receipts.</p>
-          <a href="blog/invoice-vs-bill-vs-receipt.html" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.875rem;">Read Guide →</a>
-        </div>
+        <article class="seo-card home-guide-card">
+          <span class="home-guide-topic">Cash Flow</span>
+          <h4><a href="blog/payment-terms-guide.html">Invoice Payment Terms: Net 30, Due on Receipt</a></h4>
+          <p class="seo-text">How to state payment deadlines and explain your payment terms clearly.</p>
+          <a class="home-guide-link" href="blog/payment-terms-guide.html">Read guide</a>
+        </article>
 
-        <div class="seo-card" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #065f46; background: #ecfdf5; padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;">Cash Flow</span>
-          <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;"><a href="blog/payment-terms-guide.html" style="color: inherit; text-decoration: none;">Invoice Payment Terms: Net 30, Due on Receipt</a></h4>
-          <p class="seo-text" style="flex-grow: 1; margin-bottom: 16px;">How to state payment deadlines and explain your payment terms clearly.</p>
-          <a href="blog/payment-terms-guide.html" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.875rem;">Read Guide →</a>
-        </div>
+        <article class="seo-card home-guide-card">
+          <span class="home-guide-topic">Security</span>
+          <h4><a href="blog/client-side-invoicing-privacy.html">How Browser-Based Invoice Storage Works</a></h4>
+          <p class="seo-text">Understand local drafts, backups and what happens when you share an invoice link.</p>
+          <a class="home-guide-link" href="blog/client-side-invoicing-privacy.html">Read guide</a>
+        </article>
 
-        <div class="seo-card" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #991b1b; background: #fef2f2; padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;">Security</span>
-          <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;"><a href="blog/client-side-invoicing-privacy.html" style="color: inherit; text-decoration: none;">How Browser-Based Invoice Storage Works</a></h4>
-          <p class="seo-text" style="flex-grow: 1; margin-bottom: 16px;">Understand local drafts, backups and what happens when you share an invoice link.</p>
-          <a href="blog/client-side-invoicing-privacy.html" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.875rem;">Read Guide →</a>
-        </div>
+        <article class="seo-card home-guide-card">
+          <span class="home-guide-topic">Debt Recovery</span>
+          <h4><a href="blog/how-to-handle-unpaid-invoices-late-fees.html">How to Handle Unpaid Invoices & Late Fees</a></h4>
+          <p class="seo-text">Recover overdue payments, calculate statutory interest, and use 4 tested email follow-up templates.</p>
+          <a class="home-guide-link" href="blog/how-to-handle-unpaid-invoices-late-fees.html">Read guide</a>
+        </article>
 
-        <div class="seo-card" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #065f46; background: #ecfdf5; padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;">Debt Recovery</span>
-          <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;"><a href="blog/how-to-handle-unpaid-invoices-late-fees.html" style="color: inherit; text-decoration: none;">How to Handle Unpaid Invoices & Late Fees</a></h4>
-          <p class="seo-text" style="flex-grow: 1; margin-bottom: 16px;">Recover overdue payments, calculate statutory interest, and use 4 tested email follow-up templates.</p>
-          <a href="blog/how-to-handle-unpaid-invoices-late-fees.html" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.875rem;">Read Guide →</a>
-        </div>
-
-        <div class="seo-card" style="display: flex; flex-direction: column;">
-          <span style="font-size: 0.75rem; font-weight: 700; color: #3730a3; background: #e0e7ff; padding: 2px 8px; border-radius: 4px; width: fit-content; margin-bottom: 8px;">Comparisons</span>
-          <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 8px;"><a href="blog/best-free-invoice-generators-no-signup.html" style="color: inherit; text-decoration: none;">Free Invoice Generators Without Sign-Up: 3 Options</a></h4>
-          <p class="seo-text" style="flex-grow: 1; margin-bottom: 16px;">Compare three tools using published features, with printable and editable alternatives.</p>
-          <a href="blog/best-free-invoice-generators-no-signup.html" style="color: var(--primary-indigo); font-weight: 700; text-decoration: none; font-size: 0.875rem;">Read Guide →</a>
-        </div>
+        <article class="seo-card home-guide-card">
+          <span class="home-guide-topic">Comparisons</span>
+          <h4><a href="blog/best-free-invoice-generators-no-signup.html">Free Invoice Generators Without Sign-Up: 3 Options</a></h4>
+          <p class="seo-text">Compare three tools using published features, with printable and editable alternatives.</p>
+          <a class="home-guide-link" href="blog/best-free-invoice-generators-no-signup.html">Read guide</a>
+        </article>
       </div>
-    </div>
+    </section>
 
     <!-- FAQ Accordion -->
     <div class="faq-wrap" id="faq">
@@ -1026,13 +1021,15 @@ Routing: 987654321</textarea>
 
   <!-- Share the Tool: Viral Referral Loop -->
   <section class="container home-share print-hide" aria-labelledby="home-share-heading">
-    <h2 id="home-share-heading">Share QuickBillFree</h2>
-    <p>Send the free invoice generator to a freelancer or small business.</p>
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-      <a href="https://twitter.com/intent/tweet?text=I%20just%20made%20a%20professional%20invoice%20in%20seconds%20with%20zero%20signup%20and%20no%20monthly%20fees.%20Free%20for%20freelancers.%0A%0A👉%20https%3A%2F%2Fquickbillfree.com%2F&via=QuickBillFree" target="_blank" rel="noopener" class="btn-social" style="background:#1da1f2;color:#ffffff;">𝕏 Twitter</a>
-      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fquickbillfree.com%2F" target="_blank" rel="noopener" class="btn-social" style="background:#0077b5;color:#ffffff;">LinkedIn</a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fquickbillfree.com%2F" target="_blank" rel="noopener" class="btn-social" style="background:#1877f2;color:#ffffff;">Facebook</a>
-      <button type="button" id="btnCopyToolLink" class="btn-social" style="background:#475569;color:#ffffff;">📋 Copy Link</button>
+    <div class="home-share-card">
+      <h2 id="home-share-heading">Share QuickBillFree</h2>
+      <p>Send the free invoice generator to a freelancer or small business.</p>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <a href="https://twitter.com/intent/tweet?text=I%20just%20made%20a%20professional%20invoice%20in%20seconds%20with%20zero%20signup%20and%20no%20monthly%20fees.%20Free%20for%20freelancers.%0A%0A👉%20https%3A%2F%2Fquickbillfree.com%2F&via=QuickBillFree" target="_blank" rel="noopener" class="btn-social" style="background:#1da1f2;color:#ffffff;">𝕏 Twitter</a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fquickbillfree.com%2F" target="_blank" rel="noopener" class="btn-social" style="background:#0077b5;color:#ffffff;">LinkedIn</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fquickbillfree.com%2F" target="_blank" rel="noopener" class="btn-social" style="background:#1877f2;color:#ffffff;">Facebook</a>
+        <button type="button" id="btnCopyToolLink" class="btn-social" style="background:#475569;color:#ffffff;">📋 Copy Link</button>
+      </div>
     </div>
   </section>
 

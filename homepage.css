@@ -150,6 +150,8 @@
 
 /* Homepage workspace and editorial layout */
 .invoice-home {
+  --home-container-width: 1180px;
+  --home-gutter: 16px;
   background: #f5f6fa;
 }
 
@@ -161,9 +163,15 @@
     backdrop-filter: none;
   }
 
+  .invoice-home :is(.home-intro, .invoice-sheet-wrapper, .seo-section, .home-share, .site-footer > .container) {
+    width: 100%;
+    max-width: var(--home-container-width);
+    padding-inline: var(--home-gutter);
+  }
+
   .invoice-home .app-header .container {
-    max-width: 1180px !important;
-    padding: 8px 16px !important;
+    max-width: var(--home-container-width) !important;
+    padding: 8px var(--home-gutter) !important;
   }
 
   .invoice-home .header-flex {
@@ -232,7 +240,6 @@
     align-items: stretch;
     gap: 10px;
     width: 100%;
-    max-width: 1180px;
     margin: 25px auto 38px;
     animation: none;
   }
@@ -333,16 +340,51 @@
 }
 .home-steps strong { display: block; margin-bottom: 3px; color: #211b35; }
 .home-how-to > p { margin: 9px 0; }
-.invoice-home .seo-cards-grid { gap: 12px; }
+.invoice-home .seo-cards-grid { gap: 14px; }
 .invoice-home .seo-card,
 .invoice-home .faq-item { border: 1px solid #e1e2ed; border-radius: 12px; box-shadow: none; }
+.invoice-home .seo-card {
+  min-width: 0;
+  padding: clamp(16px, 2.2vw, 25px);
+  background: #fff;
+}
 .invoice-home .seo-card:hover { transform: none; box-shadow: 0 4px 15px #211b3510; }
 .invoice-home .faq-title { margin-bottom: 12px; }
 
-.home-share {
-  width: calc(100% - 32px);
-  max-width: 1108px;
-  margin: 28px auto 0;
+.home-featured { margin-top: 36px; }
+.home-featured-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 16px;
+  margin-bottom: 14px;
+}
+.home-featured-heading h3 {
+  color: #211b35;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  letter-spacing: -.035em;
+}
+.home-guide-card { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+.home-guide-card h4 { color: #211b35; font-size: 1.05rem; line-height: 1.35; }
+.home-guide-card h4 a { color: inherit; text-decoration: none; }
+.home-guide-card .seo-text { flex: 1; margin: 0; color: #4c5065; line-height: 1.55; }
+.home-guide-topic {
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: #eee8fa;
+  color: #48347a;
+  font-size: .8125rem;
+  font-weight: 700;
+}
+.home-guide-link { color: #4c33a0; font-size: .875rem; font-weight: 700; text-decoration: none; }
+.home-guide-link:hover, .home-guide-card h4 a:hover { text-decoration: underline; }
+@media (min-width: 980px) {
+  .invoice-home .home-featured-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.home-share { margin: 28px auto 0; }
+.home-share-card {
   padding: clamp(16px, 3vw, 26px);
   background: #fff;
   border: 1px solid #e1e2ed;
@@ -401,7 +443,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .invoice-home .app-header .container { padding: 8px 10px !important; }
+  .invoice-home { --home-gutter: 12px; }
   .invoice-home .header-flex { gap: 6px; }
   .invoice-home .header-nav-actions button { min-height: 32px; }
   .invoice-home .brand-group { gap: 4px; flex-wrap: wrap; }
